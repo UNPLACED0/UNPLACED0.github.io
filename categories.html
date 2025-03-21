@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>カテゴリー - UP Global Press</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .categories {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .categories h1 {
+      font-size: 2.8rem;
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--accent-color);
+    }
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+    .category-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .category-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px var(--hover-shadow);
+    }
+    .category-card a {
+      display: block;
+      text-decoration: none;
+      color: var(--text-color);
+    }
+    .category-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .category-info {
+      padding: 20px;
+    }
+    .category-info h2 {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+    .category-info p {
+      font-size: 1rem;
+      color: var(--text-color);
+      font-weight: 300;
+    }
+  </style>
+</head>
+<body>
+  <!-- ヘッダー -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="index.html">UP Global Press</a>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html">ホーム</a>
+        <a href="categories.html">カテゴリー</a>
+        <a href="release_list.html">プレスリリース一覧</a>
+        <a href="about.html">企業情報</a>
+        <a href="contact.html">お問い合わせ</a>
+      </nav>
+      <div class="search-bar">
+        <input type="text" placeholder="キーワードで検索" id="searchInput">
+        <button id="searchBtn">検索</button>
+      </div>
+      <input type="checkbox" id="menu-toggle" style="display:none;">
+      <label for="menu-toggle" class="hamburger">&#9776;</label>
+      <div class="mobile-nav">
+        <a href="index.html">ホーム</a>
+        <a href="categories.html">カテゴリー</a>
+        <a href="release_list.html">プレスリリース一覧</a>
+        <a href="about.html">企業情報</a>
+        <a href="contact.html">お問い合わせ</a>
+        <div class="search-bar">
+          <input type="text" placeholder="キーワードで検索" id="searchInputMobile">
+          <button id="searchBtnMobile">検索</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="categories">
+      <h1>カテゴリーで探す</h1>
+      <div class="category-grid">
+        <div class="category-card">
+          <a href="category.html?name=テクノロジー">
+            <img src="https://picsum.photos/300/200?random=21" alt="テクノロジー">
+            <div class="category-info">
+              <h2>テクノロジー</h2>
+              <p>最新技術、AI、IoT、スマートデバイスなど。</p>
+            </div>
+          </a>
+        </div>
+        <div class="category-card">
+          <a href="category.html?name=ビジネス">
+            <img src="https://picsum.photos/300/200?random=22" alt="ビジネス">
+            <div class="category-info">
+              <h2>ビジネス</h2>
+              <p>企業戦略、業績発表、投資情報など。</p>
+            </div>
+          </a>
+        </div>
+        <div class="category-card">
+          <a href="category.html?name=エンターテインメント">
+            <img src="https://picsum.photos/300/200?random=23" alt="エンターテインメント">
+            <div class="category-info">
+              <h2>エンターテインメント</h2>
+              <p>映画、音楽、イベントなど。</p>
+            </div>
+          </a>
+        </div>
+        <div class="category-card">
+          <a href="category.html?name=ヘルスケア">
+            <img src="https://picsum.photos/300/200?random=24" alt="ヘルスケア">
+            <div class="category-info">
+              <h2>ヘルスケア</h2>
+              <p>医療、健康、ウェルネス関連。</p>
+            </div>
+          </a>
+        </div>
+        <div class="category-card">
+          <a href="category.html?name=環境">
+            <img src="https://picsum.photos/300/200?random=25" alt="環境">
+            <div class="category-info">
+              <h2>環境</h2>
+              <p>環境保護、サステナビリティに関する情報。</p>
+            </div>
+          </a>
+        </div>
+        <div class="category-card">
+          <a href="category.html?name=スタートアップ">
+            <img src="https://picsum.photos/300/200?random=26" alt="スタートアップ">
+            <div class="category-info">
+              <h2>スタートアップ</h2>
+              <p>新興企業、資金調達、イノベーション関連。</p>
+            </div>
+          </a>
+        </div>
+        <div class="category-card">
+          <a href="category.html?name=ビューティー">
+            <img src="https://picsum.photos/300/200?random=27" alt="ビューティー">
+            <div class="category-info">
+              <h2>ビューティー</h2>
+              <p>美容、コスメ、ライフスタイル関連。</p>
+            </div>
+          </a>
+        </div>
+        <div class="category-card">
+          <a href="category.html?name=グルメ">
+            <img src="https://picsum.photos/300/200?random=28" alt="グルメ">
+            <div class="category-info">
+              <h2>グルメ</h2>
+              <p>飲食、食文化、フードビジネスなど。</p>
+            </div>
+          </a>
+        </div>
+        <div class="category-card">
+          <a href="category.html?name=その他">
+            <img src="https://picsum.photos/300/200?random=29" alt="その他">
+            <div class="category-info">
+              <h2>その他</h2>
+              <p>その他のトピックスや多様な分野のニュース。</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- フッター -->
+  <footer>
+    <div class="footer-inner">
+      <p>&copy; 2025 UP Global Press</p>
+      <nav class="footer-nav">
+        <a href="index.html">ホーム</a>
+        <a href="privacy.html">プライバシーポリシー</a>
+        <a href="contact.html">お問い合わせ</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="releases.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      function setupSearch(searchInputId, searchBtnId) {
+        const input = document.getElementById(searchInputId);
+        const btn = document.getElementById(searchBtnId);
+        if (input && btn) {
+          btn.addEventListener("click", function() {
+            const query = input.value.trim();
+            window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+          });
+          input.addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+              const query = input.value.trim();
+              window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+            }
+          });
+        }
+      }
+      setupSearch("searchInput", "searchBtn");
+      setupSearch("searchInputMobile", "searchBtnMobile");
+    });
+  </script>
+</body>
+</html>

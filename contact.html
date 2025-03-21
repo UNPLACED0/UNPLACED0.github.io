@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>お問い合わせ - UP Global Press</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Contactページ専用 */
+    .contact-section {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 40px;
+      background: linear-gradient(135deg, #ffffff, #f9f9f9);
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      font-size: 1rem;
+    }
+    .contact-section h1 {
+      font-size: 2.2rem;
+      color: var(--accent-color);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .contact-section p {
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .contact-section form div {
+      margin-bottom: 15px;
+    }
+    .contact-section label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .contact-section input,
+    .contact-section textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    .contact-section button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: var(--accent-color);
+      color: #ffffff;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .contact-section button:hover {
+      background: var(--highlight-color);
+    }
+  </style>
+</head>
+<body>
+  <!-- 共通ヘッダー -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="index.html">UP Global Press</a>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html">ホーム</a>
+        <a href="categories.html">カテゴリー</a>
+        <a href="release_list.html">プレスリリース一覧</a>
+        <a href="about.html">企業情報</a>
+        <a href="contact.html">お問い合わせ</a>
+      </nav>
+      <input type="checkbox" id="menu-toggle" style="display:none;">
+      <label for="menu-toggle" class="hamburger">&#9776;</label>
+      <div class="mobile-nav">
+        <a href="index.html">ホーム</a>
+        <a href="categories.html">カテゴリー</a>
+        <a href="release_list.html">プレスリリース一覧</a>
+        <a href="about.html">企業情報</a>
+        <a href="contact.html">お問い合わせ</a>
+
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="contact-section">
+      <h1>お問い合わせ</h1>
+      <p>ご質問やご意見は以下のフォームからお気軽にお問い合わせください。</p>
+      <form action="#" method="post">
+        <div>
+          <label for="name">お名前</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+          <label for="email">メールアドレス</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+          <label for="message">お問い合わせ内容</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit">送信</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- 共通フッター -->
+  <footer>
+    <div class="footer-inner">
+      <p>&copy; 2025 UP Global Press</p>
+      <nav class="footer-nav">
+        <a href="index.html">ホーム</a>
+        <a href="privacy.html">プライバシーポリシー</a>
+        <a href="contact.html">お問い合わせ</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

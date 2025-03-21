@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>プレスリリース詳細 - UP Global Press</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- ヘッダー -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="index.html">UP Global Press</a>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html">ホーム</a>
+        <a href="categories.html">カテゴリー</a>
+        <a href="release_list.html">プレスリリース一覧</a>
+        <a href="about.html">企業情報</a>
+        <a href="contact.html">お問い合わせ</a>
+      </nav>
+      <input type="checkbox" id="menu-toggle" style="display:none;">
+      <label for="menu-toggle" class="hamburger">&#9776;</label>
+      <div class="mobile-nav">
+        <a href="index.html">ホーム</a>
+        <a href="categories.html">カテゴリー</a>
+        <a href="release_list.html">プレスリリース一覧</a>
+        <a href="about.html">企業情報</a>
+        <a href="contact.html">お問い合わせ</a>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- 詳細表示 -->
+  <section class="release-detail">
+    <h1 id="release-title">プレスリリースタイトル</h1>
+    <p class="date" id="release-date">公開日</p>
+    <img id="release-img" src="" alt="プレスリリース画像">
+    <div class="content" id="release-content"></div>
+    <p class="tags" id="release-tags"></p>
+  </section>
+
+  <!-- フッター -->
+  <footer>
+    <div class="footer-inner">
+      <p>&copy; 2025 UP Global Press</p>
+      <nav class="footer-nav">
+        <a href="index.html">ホーム</a>
+        <a href="privacy.html">プライバシーポリシー</a>
+        <a href="contact.html">お問い合わせ</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="releases.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      const release = releasesData.find(item => item.id === id);
+      if(release) {
+        document.getElementById('release-title').textContent = release.title;
+        document.getElementById('release-date').textContent = release.date;
+        document.getElementById('release-img').src = release.img;
+        document.getElementById('release-img').alt = release.title;
+        document.getElementById('release-content').innerHTML = release.content;
+        const tagsText = release.tags ? release.tags.join(', ') : '';
+        document.getElementById('release-tags').textContent = "タグ: " + tagsText;
+      } else {
+        document.querySelector('.release-detail').innerHTML = '<p>該当するプレスリリースが見つかりませんでした。</p>';
+      }
+    });
+  </script>
+</body>
+</html>
