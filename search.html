@@ -1,45 +1,68 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>検索結果 - UP Global Press</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- GTranslateの初期化スクリプト -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'ja',
+        includedLanguages: 'ja,en,bn',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  <script
+    type="text/javascript"
+    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+  ></script>
 </head>
 <body>
-  <!-- ヘッダー -->
   <header>
-    <div class="header-top">
-      <div class="logo">
-        <a href="index.html">UP Global Press</a>
+    <div class="header-container">
+      <!-- 1行目：サイト名と翻訳プルダウン -->
+      <div class="header-top">
+        <div class="logo">
+          <a href="index.html">UP Global Press</a>
+        </div>
+        <div class="language-switcher">
+          <div id="google_translate_element"></div>
+        </div>
       </div>
-      <div class="language-switcher">
-        <div id="google_translate_element"></div>
-      </div>
-    </div>
-    <div class="header-bottom">
-      <nav class="main-nav">
-        <a href="index.html">ホーム</a>
-        <a href="categories.html">カテゴリー</a>
-        <a href="release_list.html">プレスリリース一覧</a>
-        <a href="about.html">企業情報</a>
-        <a href="contact.html">お問い合わせ</a>
-      </nav>
-      <div class="search-bar">
-        <input type="text" placeholder="キーワードで検索" id="searchInput">
-        <button id="searchBtn">検索</button>
-      </div>
-      <input type="checkbox" id="menu-toggle" style="display:none;">
-      <label for="menu-toggle" class="hamburger">&#9776;</label>
-      <div class="mobile-nav">
-        <a href="index.html">ホーム</a>
-        <a href="categories.html">カテゴリー</a>
-        <a href="release_list.html">プレスリリース一覧</a>
-        <a href="about.html">企業情報</a>
-        <a href="contact.html">お問い合わせ</a>
+      <!-- 2行目：ナビ＆検索バー -->
+      <div class="header-inner">
+        <nav class="main-nav">
+          <a href="index.html">ホーム</a>
+          <a href="categories.html">カテゴリー</a>
+          <a href="release_list.html">プレスリリース一覧</a>
+          <a href="about.html">企業情報</a>
+          <a href="contact.html">お問い合わせ</a>
+        </nav>
         <div class="search-bar">
-          <input type="text" placeholder="キーワードで検索" id="searchInputMobile">
-          <button id="searchBtnMobile">検索</button>
+          <input type="text" placeholder="キーワードで検索" id="searchInput" />
+          <button id="searchBtn">検索</button>
+        </div>
+        <!-- ハンバーガーメニュー -->
+        <input type="checkbox" id="menu-toggle" style="display: none" />
+        <label for="menu-toggle" class="hamburger">&#9776;</label>
+        <div class="mobile-nav">
+          <a href="index.html">ホーム</a>
+          <a href="categories.html">カテゴリー</a>
+          <a href="release_list.html">プレスリリース一覧</a>
+          <a href="about.html">企業情報</a>
+          <a href="contact.html">お問い合わせ</a>
+          <div class="search-bar">
+            <input
+              type="text"
+              placeholder="キーワードで検索"
+              id="searchInputMobile"
+            />
+            <button id="searchBtnMobile">検索</button>
+          </div>
         </div>
       </div>
     </div>
@@ -49,7 +72,9 @@
   <section class="hero">
     <div class="hero-content">
       <h1>検索結果</h1>
-      <p id="searchSummary">キーワード：<span id="searchQuery"></span></p>
+      <p id="searchSummary">
+        キーワード：<span id="searchQuery"></span>
+      </p>
     </div>
   </section>
 
@@ -58,7 +83,6 @@
     <!-- JSで検索結果を挿入 -->
   </section>
 
-  <!-- フッター -->
   <footer>
     <div class="footer-inner">
       <p>&copy; 2025 UP Global Press</p>
@@ -70,19 +94,6 @@
     </div>
   </footer>
 
-  <!-- GTranslateウィジェット -->
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({
-        pageLanguage: 'ja',
-        includedLanguages: 'ja,en,bn',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-      }, 'google_translate_element');
-    }
-  </script>
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-  <!-- 検索機能 -->
   <script src="releases.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -90,14 +101,18 @@
         const input = document.getElementById(searchInputId);
         const btn = document.getElementById(searchBtnId);
         if (input && btn) {
-          btn.addEventListener("click", function() {
+          btn.addEventListener("click", function () {
             const query = input.value.trim();
-            window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+            window.location.href = `search.html?query=${encodeURIComponent(
+              query
+            )}`;
           });
-          input.addEventListener("keypress", function(e) {
+          input.addEventListener("keypress", function (e) {
             if (e.key === "Enter") {
               const query = input.value.trim();
-              window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+              window.location.href = `search.html?query=${encodeURIComponent(
+                query
+              )}`;
             }
           });
         }
@@ -105,40 +120,46 @@
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
 
+      // URLパラメータからクエリを取得
       const params = new URLSearchParams(location.search);
-      const query = params.get('query') ? params.get('query').trim() : '';
+      const query = params.get("query") ? params.get("query").trim() : "";
       document.getElementById("searchQuery").textContent = query || "(なし)";
       document.getElementById("searchInput").value = query;
-      
-      const container = document.querySelector('.releases');
+
+      const container = document.querySelector(".releases");
       if (query) {
         doSearch(query.toLowerCase());
       } else {
-        container.innerHTML = '<p>検索キーワードが指定されていません。</p>';
+        container.innerHTML =
+          "<p>検索キーワードが指定されていません。</p>";
       }
-      
+
       function doSearch(keyword) {
-        container.innerHTML = '';
-        const results = releasesData.filter(item => {
+        container.innerHTML = "";
+        const results = releasesData.filter((item) => {
           const title = item.title.toLowerCase();
           const excerpt = item.excerpt.toLowerCase();
           const content = item.content.toLowerCase();
-          return (title.includes(keyword) || excerpt.includes(keyword) || content.includes(keyword));
+          return (
+            title.includes(keyword) ||
+            excerpt.includes(keyword) ||
+            content.includes(keyword)
+          );
         });
         if (results.length === 0) {
           container.innerHTML = `<p>「${keyword}」に該当するプレスリリースは見つかりませんでした。</p>`;
         } else {
-          results.forEach(release => {
+          results.forEach((release) => {
             const card = createReleaseCard(release);
             container.appendChild(card);
           });
         }
       }
-      
+
       function createReleaseCard(release) {
-        const card = document.createElement('div');
-        card.className = 'release-card';
-        const tagsText = release.tags ? release.tags.join(', ') : '';
+        const card = document.createElement("div");
+        card.className = "release-card";
+        const tagsText = release.tags ? release.tags.join(", ") : "";
         card.innerHTML = `
           <a href="${release.link}">
             <img src="${release.img}" alt="${release.title}">

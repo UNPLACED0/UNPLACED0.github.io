@@ -1,7 +1,11 @@
-/* Google Fonts: Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
+/* Google Fonts: 
+   - Poppins（英語/日本語の一部に対応）
+   - Noto Sans Bengali（ベンガル文字に対応）
+*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Noto+Sans+Bengali:wght@400;700&display=swap');
 
 :root {
+  /* カラーパレット（必要に応じて変更） */
   --primary-bg: #ffffff;
   --secondary-bg: #f2f2f2;
   --accent-color: #002244;
@@ -14,36 +18,43 @@
   --hero-bg-overlay: rgba(0, 34, 68, 0.8);
 }
 
-/* 基本リセット */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* フォント指定：Poppins が対応しない文字（ベンガル文字など）は Noto Sans Bengali にフォールバック */
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', 'Noto Sans Bengali', sans-serif;
   background-color: var(--primary-bg);
   color: var(--text-color);
   line-height: 1.6;
   scroll-behavior: smooth;
 }
 
-/* ヘッダー */
+/* ヘッダー全体 */
 header {
   background-color: var(--primary-bg);
   border-bottom: 2px solid var(--border-color);
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-/* 1行目：サイト名＆言語切替 */
+/* ヘッダー中央固定幅コンテナ */
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 1行目（header-top）: サイト名＆翻訳プルダウン */
 .header-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 40px;
+  padding: 10px 20px;
 }
 
+/* サイト名 */
 .logo a {
   font-size: 2rem;
   font-weight: 700;
@@ -51,26 +62,26 @@ header {
   text-decoration: none;
 }
 
-/* 言語切替 */
-.language-switcher {
-  /* 必要に応じてスタイルを調整 */
-}
-
-/* 2行目：ナビゲーション＆検索バー */
-.header-bottom {
+/* 2行目（header-inner）: ナビゲーション＋検索バー */
+.header-inner {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 10px 40px;
-  border-top: 1px solid var(--border-color);
+  padding: 10px 20px;
+  gap: 20px;
+  justify-content: flex-start; /* 左寄せ */
 }
 
+/* ナビゲーション */
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 .main-nav a {
-  margin-right: 10px;
-  padding: 8px 12px;
   background: var(--secondary-bg);
   color: var(--text-color);
   text-decoration: none;
+  padding: 8px 12px;
   border-radius: 4px;
   transition: background 0.3s ease;
 }
@@ -79,9 +90,11 @@ header {
   color: #fff;
 }
 
+/* 検索バー */
 .search-bar {
   display: flex;
   align-items: center;
+  margin-left: auto; /* ナビの右側へ寄せる */
 }
 .search-bar input {
   padding: 6px 10px;
@@ -103,16 +116,16 @@ header {
   background: var(--highlight-color);
 }
 
-/* ハンバーガーメニュー（デスクトップ非表示、スマホ表示） */
+/* ハンバーガーメニュー */
 .hamburger {
   display: none;
   font-size: 2rem;
   color: var(--accent-color);
   cursor: pointer;
-  flex-shrink: 0;
+  margin-left: 10px;
 }
 
-/* モバイル用ナビゲーション（初期非表示） */
+/* モバイル用ナビ（初期は非表示） */
 .mobile-nav {
   display: none;
   flex-direction: column;
@@ -129,7 +142,7 @@ header {
   color: var(--text-color);
   font-size: 1rem;
   border-radius: 5px;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background 0.3s ease;
 }
 .mobile-nav a:hover {
   background: var(--accent-color);
@@ -161,8 +174,7 @@ header {
 .hero::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   width: 100%;
   height: 100%;
   background: linear-gradient(180deg, var(--hero-bg-overlay) 0%, rgba(0,34,68,0.6) 100%);
@@ -190,8 +202,14 @@ header {
   text-shadow: 3px 3px 8px rgba(0,0,0,0.9);
 }
 @keyframes fadeInUp {
-  0% { opacity: 0; transform: translateY(40px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Releases Grid */
@@ -204,7 +222,7 @@ header {
   padding: 0 20px;
 }
 
-/* Card */
+/* カード */
 .release-card {
   background: var(--card-bg);
   border: 1px solid var(--border-color);
@@ -251,40 +269,7 @@ header {
   color: var(--sub-text);
 }
 
-/* Detail Page */
-.release-detail {
-  max-width: 800px;
-  margin: 60px auto;
-  background: var(--card-bg);
-  padding: 40px;
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  box-shadow: 0 8px 16px var(--hover-shadow);
-}
-.release-detail h1 {
-  font-size: 2.8rem;
-  margin-bottom: 20px;
-  color: var(--accent-color);
-  font-weight: 700;
-}
-.release-detail .date {
-  font-size: 1rem;
-  color: var(--sub-text);
-  margin-bottom: 30px;
-}
-.release-detail img {
-  width: 100%;
-  border-radius: 10px;
-  margin-bottom: 30px;
-}
-.release-detail .content p {
-  font-size: 1.1rem;
-  margin-bottom: 20px;
-  font-weight: 300;
-  line-height: 1.8;
-}
-
-/* Footer */
+/* フッター */
 footer {
   background: var(--secondary-bg);
   padding: 20px 0;
@@ -307,44 +292,39 @@ footer {
   color: var(--text-color);
 }
 
-/* Responsive: スマホ対応 */
+/* レスポンシブ（スマホ用） */
 @media (max-width: 600px) {
-  /* ヘッダー：ハンバーガーメニュー有効、文字サイズ縮小して改行許容 */
-  .header-top, .header-bottom {
+  .header-top, .header-inner {
     flex-wrap: wrap;
-    white-space: normal;
-    justify-content: space-between;
     padding: 10px 20px;
   }
   .logo a {
     font-size: 1.6rem;
   }
-  .main-nav a {
-    padding: 6px 8px;
-    font-size: 0.8rem;
-    margin: 4px;
+  .main-nav {
+    display: none; /* PC用ナビは非表示にし、ハンバーガーメニューで対応 */
   }
-  .search-bar input,
-  .search-bar button {
-    font-size: 0.8rem;
-    padding: 4px 8px;
+  .search-bar {
+    display: none; /* 検索バーもハンバーガーメニュー内に配置 */
   }
-  /* モバイルナビゲーション */
   .hamburger {
     display: block;
     font-size: 2rem;
     color: var(--accent-color);
     cursor: pointer;
-    margin-top: 10px;
+    margin-left: auto;
   }
-  /* ヒーローセクション：文字サイズさらに縮小 */
+  #menu-toggle:checked + .hamburger + .mobile-nav {
+    display: flex; /* チェックされたらモバイルナビ表示 */
+  }
+  /* Heroセクション */
   .hero-content h1 {
     font-size: 2rem;
   }
   .hero-content p {
     font-size: 1rem;
   }
-  /* Releasesグリッド：1カラム */
+  /* Releasesグリッド 1カラム */
   .releases {
     grid-template-columns: 1fr;
   }
