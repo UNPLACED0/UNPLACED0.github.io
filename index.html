@@ -2,9 +2,21 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UP Global Press - ホーム</title>
   <link rel="stylesheet" href="styles.css">
+  <!-- GTranslateウィジェット用スクリプト（HTTPS環境で動作させる） -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'ja',
+        includedLanguages: 'ja,en,bn',
+        layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
   <!-- ヘッダー -->
@@ -13,7 +25,6 @@
       <div class="logo">
         <a href="index.html">UP Global Press</a>
       </div>
-      <!-- デスクトップ用ナビ -->
       <nav class="main-nav">
         <a href="index.html">ホーム</a>
         <a href="categories.html">カテゴリー</a>
@@ -21,25 +32,8 @@
         <a href="about.html">企業情報</a>
         <a href="contact.html">お問い合わせ</a>
       </nav>
-      <!-- デスクトップ用検索バー -->
-      <div class="search-bar">
-        <input type="text" placeholder="キーワードで検索" id="searchInput">
-        <button id="searchBtn">検索</button>
-      </div>
-      <!-- スマホ用ハンバーガー -->
-      <input type="checkbox" id="menu-toggle" style="display:none;">
-      <label for="menu-toggle" class="hamburger">&#9776;</label>
-      <div class="mobile-nav">
-        <a href="index.html">ホーム</a>
-        <a href="categories.html">カテゴリー</a>
-        <a href="release_list.html">プレスリリース一覧</a>
-        <a href="about.html">企業情報</a>
-        <a href="contact.html">お問い合わせ</a>
-        <div class="search-bar">
-          <input type="text" placeholder="キーワードで検索" id="searchInputMobile">
-          <button id="searchBtnMobile">検索</button>
-        </div>
-      </div>
+      <!-- GTranslateウィジェットの配置 -->
+      <div id="google_translate_element"></div>
     </div>
   </header>
 
@@ -51,9 +45,9 @@
     </div>
   </section>
 
-  <!-- 最新プレスリリース一覧（最新6件） -->
+  <!-- プレスリリース一覧 -->
   <section class="releases">
-    <!-- JSで最新6件のカードが動的に挿入されます -->
+    <!-- JavaScript (releases.js) により最新プレスリリースが動的に挿入されます -->
   </section>
 
   <!-- フッター -->
@@ -68,30 +62,11 @@
     </div>
   </footer>
 
+  <!-- プレスリリースデータと表示用スクリプト -->
   <script src="releases.js"></script>
-  <!-- 共通検索機能（すべてのページ共通に適用） -->
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      function setupSearch(searchInputId, searchBtnId) {
-        const input = document.getElementById(searchInputId);
-        const btn = document.getElementById(searchBtnId);
-        if (input && btn) {
-          btn.addEventListener("click", function() {
-            const query = input.value.trim();
-            window.location.href = `search.html?query=${encodeURIComponent(query)}`;
-          });
-          input.addEventListener("keypress", function(e) {
-            if (e.key === "Enter") {
-              const query = input.value.trim();
-              window.location.href = `search.html?query=${encodeURIComponent(query)}`;
-            }
-          });
-        }
-      }
-      setupSearch("searchInput", "searchBtn");
-      setupSearch("searchInputMobile", "searchBtnMobile");
-
-      // 初期表示：最新6件
+      // 例として、最新6件のプレスリリースを表示する処理
       const container = document.querySelector('.releases');
       releasesData.sort((a, b) => new Date(b.date) - new Date(a.date));
       const latestSix = releasesData.slice(0, 6);
