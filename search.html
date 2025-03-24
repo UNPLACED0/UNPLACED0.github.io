@@ -18,12 +18,11 @@
   </script>
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-  <!-- インラインスタイルで高度なフィルタをおしゃれに -->
+  <!-- 高度なフィルタ用インラインスタイル（おしゃれに） -->
   <style>
-    /* 全体のフィルタセクションをカード風に */
     .advanced-filters {
       max-width: 1200px;
-      margin: 20px auto 40px auto; /* 上下に余白を取り、中央寄せ */
+      margin: 20px auto 40px auto;
       padding: 20px;
       background: #ffffff;
       border: 1px solid var(--border-color);
@@ -41,16 +40,12 @@
       flex-direction: column;
       gap: 20px;
     }
-
-    /* カテゴリー、日付範囲を2カラムに */
     .filter-row {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
       justify-content: center;
     }
-
-    /* カテゴリフィルタ */
     .filter-group {
       flex: 1 1 300px;
       display: flex;
@@ -71,7 +66,6 @@
       flex-wrap: wrap;
       gap: 8px;
     }
-    /* チェックボックスを見栄え良くする例 */
     .filter-options label {
       position: relative;
       display: inline-block;
@@ -82,21 +76,15 @@
       transition: background 0.3s, color 0.3s;
     }
     .filter-options input[type="checkbox"] {
-      display: none; /* チェックボックス自体を非表示に */
+      display: none;
     }
     .filter-options input[type="checkbox"]:checked + span {
       background: var(--accent-color);
       color: #fff;
     }
-    /* ラベル内にスパンを持たせ、チェックボックスは隠す */
     .filter-options label span {
       display: inline-block;
     }
-    .filter-options label:hover {
-      opacity: 0.8;
-    }
-
-    /* 日付範囲 */
     .date-range-group {
       flex: 1 1 300px;
       display: flex;
@@ -123,8 +111,6 @@
       border-radius: 4px;
       font-size: 1rem;
     }
-
-    /* フィルタ適用ボタン */
     #applyFilters {
       align-self: center;
       padding: 10px 20px;
@@ -143,10 +129,9 @@
   </style>
 </head>
 <body>
-  <!-- ヘッダー -->
   <header>
     <div class="header-container">
-      <!-- 1行目：サイト名＋翻訳プルダウン -->
+      <!-- 1行目 -->
       <div class="header-top">
         <div class="logo">
           <a href="index.html">UP Global Press</a>
@@ -155,7 +140,7 @@
           <div id="google_translate_element"></div>
         </div>
       </div>
-      <!-- 2行目：ナビゲーション＋検索バー -->
+      <!-- 2行目 -->
       <div class="header-inner">
         <nav class="main-nav">
           <a href="index.html">ホーム</a>
@@ -168,7 +153,6 @@
           <input type="text" placeholder="キーワードで検索" id="searchInput" />
           <button id="searchBtn">検索</button>
         </div>
-        <!-- スマホ用ハンバーガーメニュー -->
         <input type="checkbox" id="menu-toggle" style="display:none;" />
         <label for="menu-toggle" class="hamburger">&#9776;</label>
         <div class="mobile-nav">
@@ -193,7 +177,7 @@
       <p id="searchSummary">キーワード：<span id="searchQuery"></span></p>
     </div>
   </section>
-
+  
   <!-- 高度なフィルタリングパネル -->
   <section class="advanced-filters">
     <div class="filter-container">
@@ -204,45 +188,17 @@
           <div class="filter-group">
             <label class="filter-title">カテゴリー</label>
             <div class="filter-options">
-              <label>
-                <input type="checkbox" name="filter" value="テクノロジー" />
-                <span>テクノロジー</span>
-              </label>
-              <label>
-                <input type="checkbox" name="filter" value="ビジネス" />
-                <span>ビジネス</span>
-              </label>
-              <label>
-                <input type="checkbox" name="filter" value="エンターテインメント" />
-                <span>エンターテインメント</span>
-              </label>
-              <label>
-                <input type="checkbox" name="filter" value="ヘルスケア" />
-                <span>ヘルスケア</span>
-              </label>
-              <label>
-                <input type="checkbox" name="filter" value="環境" />
-                <span>環境</span>
-              </label>
-              <label>
-                <input type="checkbox" name="filter" value="スタートアップ" />
-                <span>スタートアップ</span>
-              </label>
-              <label>
-                <input type="checkbox" name="filter" value="ビューティー" />
-                <span>ビューティー</span>
-              </label>
-              <label>
-                <input type="checkbox" name="filter" value="グルメ" />
-                <span>グルメ</span>
-              </label>
-              <label>
-                <input type="checkbox" name="filter" value="その他" />
-                <span>その他</span>
-              </label>
+              <label><input type="checkbox" name="filter" value="テクノロジー" /><span>テクノロジー</span></label>
+              <label><input type="checkbox" name="filter" value="ビジネス" /><span>ビジネス</span></label>
+              <label><input type="checkbox" name="filter" value="エンターテインメント" /><span>エンターテインメント</span></label>
+              <label><input type="checkbox" name="filter" value="ヘルスケア" /><span>ヘルスケア</span></label>
+              <label><input type="checkbox" name="filter" value="環境" /><span>環境</span></label>
+              <label><input type="checkbox" name="filter" value="スタートアップ" /><span>スタートアップ</span></label>
+              <label><input type="checkbox" name="filter" value="ビューティー" /><span>ビューティー</span></label>
+              <label><input type="checkbox" name="filter" value="グルメ" /><span>グルメ</span></label>
+              <label><input type="checkbox" name="filter" value="その他" /><span>その他</span></label>
             </div>
           </div>
-
           <!-- 日付範囲 -->
           <div class="date-range-group">
             <label class="filter-title" for="startDate">日付範囲</label>
@@ -257,7 +213,7 @@
       </form>
     </div>
   </section>
-
+  
   <!-- 検索結果表示エリア -->
   <section class="releases">
     <!-- JSで検索結果が動的に挿入される -->
@@ -277,7 +233,7 @@
   <script src="releases.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // 検索欄のイベント
+      // 基本の検索機能設定
       function setupSearch(searchInputId, searchBtnId) {
         const input = document.getElementById(searchInputId);
         const btn = document.getElementById(searchBtnId);
@@ -297,13 +253,13 @@
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
 
-      // URLクエリ取得
+      // URLからクエリを取得
       const params = new URLSearchParams(location.search);
       const query = params.get("query") ? params.get("query").trim() : "";
       document.getElementById("searchQuery").textContent = query || "(なし)";
       document.getElementById("searchInput").value = query;
 
-      // 高度な検索実行
+      // 高度な検索実行関数（キーワード＋フィルター＋日付範囲）
       function doAdvancedSearch(keyword, filters, startDate, endDate) {
         const container = document.querySelector(".releases");
         container.innerHTML = "";
@@ -324,7 +280,7 @@
             return filters.some(filter => item.tags.includes(filter));
           });
         }
-        // 日付範囲
+        // 日付範囲で絞り込み
         if (startDate || endDate) {
           results = results.filter(item => {
             const itemDate = new Date(item.date);
@@ -349,10 +305,10 @@
         }
       }
 
-      // 初回検索
+      // 初回検索実行
       doAdvancedSearch(query.toLowerCase(), [], "", "");
 
-      // フィルター適用
+      // フィルター適用ボタンのイベント
       document.getElementById("applyFilters").addEventListener("click", function() {
         const selectedFilters = Array.from(document.querySelectorAll("#filterForm input[name='filter']:checked"))
           .map(checkbox => checkbox.value);

@@ -18,9 +18,7 @@
   </script>
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   
-  <!-- 追加のインラインスタイルでdetail専用の調整 -->
   <style>
-    /* 詳細ページ専用 */
     .detail-container {
       max-width: 800px;
       margin: 40px auto;
@@ -51,7 +49,6 @@
       margin-bottom: 30px;
       text-align: justify;
     }
-    /* シェアセクション */
     .share-section {
       margin-top: 30px;
       text-align: center;
@@ -82,7 +79,6 @@
       background: var(--accent-color);
       color: #fff;
     }
-    /* リンク下部の戻るボタン */
     .back-link {
       display: inline-block;
       margin-top: 20px;
@@ -118,10 +114,10 @@
           <a href="contact.html">お問い合わせ</a>
         </nav>
         <div class="search-bar">
-          <input type="text" placeholder="キーワードで検索" id="searchInput" />
-          <button id="searchBtn">検索</button>
+          <input type="text" placeholder="キーワードで検索" />
+          <button>検索</button>
         </div>
-        <input type="checkbox" id="menu-toggle" style="display:none;" />
+        <input type="checkbox" id="menu-toggle" style="display:none;"/>
         <label for="menu-toggle" class="hamburger">&#9776;</label>
         <div class="mobile-nav">
           <a href="index.html">ホーム</a>

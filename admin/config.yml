@@ -1,0 +1,20 @@
+backend:
+  name: git-gateway
+  branch: main  # 使用中のブランチに合わせて変更
+
+media_folder: "static/uploads"   # 画像などのアップロード先
+public_folder: "/uploads"          # アップロードファイルの公開パス
+
+collections:
+  - name: "releases"
+    label: "プレスリリース"
+    folder: "content/releases"   # ここに各投稿用の Markdown ファイルが保存されます
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "タイトル", name: "title", widget: "string" }
+      - { label: "公開日", name: "date", widget: "datetime" }
+      - { label: "概要", name: "excerpt", widget: "text" }
+      - { label: "本文", name: "body", widget: "markdown" }
+      - { label: "画像URL", name: "img", widget: "string", default: "https://picsum.photos/300/150?random=1" }
+      - { label: "タグ", name: "tags", widget: "list" }

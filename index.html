@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>UP Global Press - ホーム</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 
-  <!-- GTranslateの初期化スクリプト -->
+  <!-- GTranslate 初期化 -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
         pageLanguage: 'ja',
-        includedLanguages: 'ja,en,bn', /* 日本語、英語、ベンガル語 */
+        includedLanguages: 'ja,en,bn',
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE
       }, 'google_translate_element');
     }
@@ -19,11 +19,9 @@
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
-  <!-- ヘッダー -->
   <header>
-    <!-- ヘッダーを中央固定幅にするコンテナ -->
     <div class="header-container">
-      <!-- 1行目：サイト名（左）＋ 翻訳プルダウン（右） -->
+      <!-- 1行目：サイト名＋翻訳プルダウン -->
       <div class="header-top">
         <div class="logo">
           <a href="index.html">UP Global Press</a>
@@ -32,7 +30,7 @@
           <div id="google_translate_element"></div>
         </div>
       </div>
-      <!-- 2行目：ナビゲーションと検索バー -->
+      <!-- 2行目：ナビゲーション＆検索バー -->
       <div class="header-inner">
         <nav class="main-nav">
           <a href="index.html">ホーム</a>
@@ -42,11 +40,11 @@
           <a href="contact.html">お問い合わせ</a>
         </nav>
         <div class="search-bar">
-          <input type="text" placeholder="キーワードで検索" id="searchInput">
+          <input type="text" placeholder="キーワードで検索" id="searchInput" />
           <button id="searchBtn">検索</button>
         </div>
-        <!-- スマホ用ハンバーガーメニュー（必要に応じて） -->
-        <input type="checkbox" id="menu-toggle" style="display:none;">
+        <!-- スマホ用ハンバーガーメニュー -->
+        <input type="checkbox" id="menu-toggle" style="display:none;" />
         <label for="menu-toggle" class="hamburger">&#9776;</label>
         <div class="mobile-nav">
           <a href="index.html">ホーム</a>
@@ -55,7 +53,7 @@
           <a href="about.html">企業情報</a>
           <a href="contact.html">お問い合わせ</a>
           <div class="search-bar">
-            <input type="text" placeholder="キーワードで検索" id="searchInputMobile">
+            <input type="text" placeholder="キーワードで検索" id="searchInputMobile" />
             <button id="searchBtnMobile">検索</button>
           </div>
         </div>
@@ -71,12 +69,11 @@
     </div>
   </section>
 
-  <!-- 最新プレスリリース（6件） -->
+  <!-- 最新プレスリリース一覧（最新6件） -->
   <section class="releases">
-    <!-- releases.js により動的に挿入されます -->
+    <!-- releases.js により動的にカードが挿入される -->
   </section>
 
-  <!-- フッター -->
   <footer>
     <div class="footer-inner">
       <p>&copy; 2025 UP Global Press</p>
@@ -88,11 +85,9 @@
     </div>
   </footer>
 
-  <!-- releases.js & 検索機能 -->
   <script src="releases.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      // 検索設定
       function setupSearch(searchInputId, searchBtnId) {
         const input = document.getElementById(searchInputId);
         const btn = document.getElementById(searchBtnId);
@@ -112,7 +107,7 @@
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
 
-      // 最新6件を表示
+      // 最新6件を表示（ここではダミーデータ releasesData を使用）
       const container = document.querySelector('.releases');
       releasesData.sort((a, b) => new Date(b.date) - new Date(a.date));
       const latestSix = releasesData.slice(0, 6);
