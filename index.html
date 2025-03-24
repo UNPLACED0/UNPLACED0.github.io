@@ -5,28 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UP Global Press - ホーム</title>
   <link rel="stylesheet" href="styles.css">
-  <!-- GTranslateウィジェット用スクリプト（HTTPS環境で利用） -->
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({
-        pageLanguage: 'ja',
-        includedLanguages: 'ja,en,bn',
-        layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
-        autoDisplay: false
-      }, 'google_translate_element');
-    }
-  </script>
-  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
   <!-- ヘッダー -->
   <header>
-    <div class="header-inner">
-      <!-- ロゴ -->
+    <!-- 1行目: サイト名と言語切替 -->
+    <div class="header-top">
       <div class="logo">
         <a href="index.html">UP Global Press</a>
       </div>
-      <!-- メインナビゲーション -->
+      <div class="language-switcher">
+        <div id="google_translate_element"></div>
+      </div>
+    </div>
+    <!-- 2行目: ナビゲーションと検索バー -->
+    <div class="header-bottom">
       <nav class="main-nav">
         <a href="index.html">ホーム</a>
         <a href="categories.html">カテゴリー</a>
@@ -34,14 +27,11 @@
         <a href="about.html">企業情報</a>
         <a href="contact.html">お問い合わせ</a>
       </nav>
-      <!-- 検索バー -->
       <div class="search-bar">
         <input type="text" placeholder="キーワードで検索" id="searchInput">
         <button id="searchBtn">検索</button>
       </div>
-      <!-- GTranslateウィジェットの配置 -->
-      <div id="google_translate_element"></div>
-      <!-- スマホ用ハンバーガーメニュー（必要に応じて） -->
+      <!-- スマホ用ハンバーガーメニュー -->
       <input type="checkbox" id="menu-toggle" style="display:none;">
       <label for="menu-toggle" class="hamburger">&#9776;</label>
       <div class="mobile-nav">
@@ -54,8 +44,6 @@
           <input type="text" placeholder="キーワードで検索" id="searchInputMobile">
           <button id="searchBtnMobile">検索</button>
         </div>
-        <!-- モバイル用GTranslateウィジェット -->
-        <div id="google_translate_element_mobile"></div>
       </div>
     </div>
   </header>
@@ -68,9 +56,9 @@
     </div>
   </section>
 
-  <!-- プレスリリース一覧 -->
+  <!-- プレスリリース一覧（最新6件） -->
   <section class="releases">
-    <!-- releases.js により最新プレスリリースが動的に挿入されます -->
+    <!-- JSで最新6件のカードが動的に挿入されます -->
   </section>
 
   <!-- フッター -->
@@ -85,11 +73,22 @@
     </div>
   </footer>
 
-  <!-- プレスリリースデータと表示用スクリプト -->
+  <!-- GTranslateウィジェット -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'ja',
+        includedLanguages: 'ja,en,bn',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <!-- 検索機能・表示処理 -->
   <script src="releases.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      // 検索機能の共通セットアップ
       function setupSearch(searchInputId, searchBtnId) {
         const input = document.getElementById(searchInputId);
         const btn = document.getElementById(searchBtnId);
@@ -109,7 +108,7 @@
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
 
-      // 初期表示：最新6件のプレスリリースを表示
+      // 最新6件を表示
       const container = document.querySelector('.releases');
       releasesData.sort((a, b) => new Date(b.date) - new Date(a.date));
       const latestSix = releasesData.slice(0, 6);

@@ -2,17 +2,22 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>検索結果 - UP Global Press</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <!-- ヘッダー -->
   <header>
-    <div class="header-inner">
+    <div class="header-top">
       <div class="logo">
         <a href="index.html">UP Global Press</a>
       </div>
+      <div class="language-switcher">
+        <div id="google_translate_element"></div>
+      </div>
+    </div>
+    <div class="header-bottom">
       <nav class="main-nav">
         <a href="index.html">ホーム</a>
         <a href="categories.html">カテゴリー</a>
@@ -65,6 +70,19 @@
     </div>
   </footer>
 
+  <!-- GTranslateウィジェット -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'ja',
+        includedLanguages: 'ja,en,bn',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <!-- 検索機能 -->
   <script src="releases.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -87,13 +105,11 @@
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
 
-      // URLパラメータからqueryを取得
       const params = new URLSearchParams(location.search);
       const query = params.get('query') ? params.get('query').trim() : '';
       document.getElementById("searchQuery").textContent = query || "(なし)";
       document.getElementById("searchInput").value = query;
       
-      // 検索結果表示
       const container = document.querySelector('.releases');
       if (query) {
         doSearch(query.toLowerCase());
