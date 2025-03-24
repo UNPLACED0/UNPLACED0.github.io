@@ -2,11 +2,11 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>検索結果 - UP Global Press</title>
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- GTranslateの初期化スクリプト -->
+  <!-- GTranslate 初期化 -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
@@ -16,15 +16,137 @@
       }, 'google_translate_element');
     }
   </script>
-  <script
-    type="text/javascript"
-    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-  ></script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <!-- インラインスタイルで高度なフィルタをおしゃれに -->
+  <style>
+    /* 全体のフィルタセクションをカード風に */
+    .advanced-filters {
+      max-width: 1200px;
+      margin: 20px auto 40px auto; /* 上下に余白を取り、中央寄せ */
+      padding: 20px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+    .advanced-filters h2 {
+      font-size: 1.8rem;
+      color: var(--accent-color);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .filter-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* カテゴリー、日付範囲を2カラムに */
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    /* カテゴリフィルタ */
+    .filter-group {
+      flex: 1 1 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: var(--secondary-bg);
+      border-radius: 6px;
+      padding: 10px;
+    }
+    .filter-group label.filter-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--accent-color);
+      margin-bottom: 5px;
+    }
+    .filter-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    /* チェックボックスを見栄え良くする例 */
+    .filter-options label {
+      position: relative;
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 20px;
+      background: #f0f0f0;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    .filter-options input[type="checkbox"] {
+      display: none; /* チェックボックス自体を非表示に */
+    }
+    .filter-options input[type="checkbox"]:checked + span {
+      background: var(--accent-color);
+      color: #fff;
+    }
+    /* ラベル内にスパンを持たせ、チェックボックスは隠す */
+    .filter-options label span {
+      display: inline-block;
+    }
+    .filter-options label:hover {
+      opacity: 0.8;
+    }
+
+    /* 日付範囲 */
+    .date-range-group {
+      flex: 1 1 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: var(--secondary-bg);
+      border-radius: 6px;
+      padding: 10px;
+    }
+    .date-range-group label.filter-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--accent-color);
+      margin-bottom: 5px;
+    }
+    .date-range {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .date-range input[type="date"] {
+      padding: 6px 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    /* フィルタ適用ボタン */
+    #applyFilters {
+      align-self: center;
+      padding: 10px 20px;
+      background: var(--accent-color);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 10px;
+    }
+    #applyFilters:hover {
+      background: var(--highlight-color);
+    }
+  </style>
 </head>
 <body>
+  <!-- ヘッダー -->
   <header>
     <div class="header-container">
-      <!-- 1行目：サイト名と翻訳プルダウン -->
+      <!-- 1行目：サイト名＋翻訳プルダウン -->
       <div class="header-top">
         <div class="logo">
           <a href="index.html">UP Global Press</a>
@@ -33,7 +155,7 @@
           <div id="google_translate_element"></div>
         </div>
       </div>
-      <!-- 2行目：ナビ＆検索バー -->
+      <!-- 2行目：ナビゲーション＋検索バー -->
       <div class="header-inner">
         <nav class="main-nav">
           <a href="index.html">ホーム</a>
@@ -46,8 +168,8 @@
           <input type="text" placeholder="キーワードで検索" id="searchInput" />
           <button id="searchBtn">検索</button>
         </div>
-        <!-- ハンバーガーメニュー -->
-        <input type="checkbox" id="menu-toggle" style="display: none" />
+        <!-- スマホ用ハンバーガーメニュー -->
+        <input type="checkbox" id="menu-toggle" style="display:none;" />
         <label for="menu-toggle" class="hamburger">&#9776;</label>
         <div class="mobile-nav">
           <a href="index.html">ホーム</a>
@@ -56,11 +178,7 @@
           <a href="about.html">企業情報</a>
           <a href="contact.html">お問い合わせ</a>
           <div class="search-bar">
-            <input
-              type="text"
-              placeholder="キーワードで検索"
-              id="searchInputMobile"
-            />
+            <input type="text" placeholder="キーワードで検索" id="searchInputMobile" />
             <button id="searchBtnMobile">検索</button>
           </div>
         </div>
@@ -72,15 +190,77 @@
   <section class="hero">
     <div class="hero-content">
       <h1>検索結果</h1>
-      <p id="searchSummary">
-        キーワード：<span id="searchQuery"></span>
-      </p>
+      <p id="searchSummary">キーワード：<span id="searchQuery"></span></p>
+    </div>
+  </section>
+
+  <!-- 高度なフィルタリングパネル -->
+  <section class="advanced-filters">
+    <div class="filter-container">
+      <h2>高度なフィルタリング</h2>
+      <form id="filterForm">
+        <div class="filter-row">
+          <!-- カテゴリフィルタ -->
+          <div class="filter-group">
+            <label class="filter-title">カテゴリー</label>
+            <div class="filter-options">
+              <label>
+                <input type="checkbox" name="filter" value="テクノロジー" />
+                <span>テクノロジー</span>
+              </label>
+              <label>
+                <input type="checkbox" name="filter" value="ビジネス" />
+                <span>ビジネス</span>
+              </label>
+              <label>
+                <input type="checkbox" name="filter" value="エンターテインメント" />
+                <span>エンターテインメント</span>
+              </label>
+              <label>
+                <input type="checkbox" name="filter" value="ヘルスケア" />
+                <span>ヘルスケア</span>
+              </label>
+              <label>
+                <input type="checkbox" name="filter" value="環境" />
+                <span>環境</span>
+              </label>
+              <label>
+                <input type="checkbox" name="filter" value="スタートアップ" />
+                <span>スタートアップ</span>
+              </label>
+              <label>
+                <input type="checkbox" name="filter" value="ビューティー" />
+                <span>ビューティー</span>
+              </label>
+              <label>
+                <input type="checkbox" name="filter" value="グルメ" />
+                <span>グルメ</span>
+              </label>
+              <label>
+                <input type="checkbox" name="filter" value="その他" />
+                <span>その他</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 日付範囲 -->
+          <div class="date-range-group">
+            <label class="filter-title" for="startDate">日付範囲</label>
+            <div class="date-range">
+              <input type="date" id="startDate" name="startDate" />
+              <span>～</span>
+              <input type="date" id="endDate" name="endDate" />
+            </div>
+          </div>
+        </div>
+        <button type="button" id="applyFilters">フィルタ適用</button>
+      </form>
     </div>
   </section>
 
   <!-- 検索結果表示エリア -->
   <section class="releases">
-    <!-- JSで検索結果を挿入 -->
+    <!-- JSで検索結果が動的に挿入される -->
   </section>
 
   <footer>
@@ -97,22 +277,19 @@
   <script src="releases.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      // 検索欄のイベント
       function setupSearch(searchInputId, searchBtnId) {
         const input = document.getElementById(searchInputId);
         const btn = document.getElementById(searchBtnId);
         if (input && btn) {
           btn.addEventListener("click", function () {
             const query = input.value.trim();
-            window.location.href = `search.html?query=${encodeURIComponent(
-              query
-            )}`;
+            window.location.href = `search.html?query=${encodeURIComponent(query)}`;
           });
           input.addEventListener("keypress", function (e) {
             if (e.key === "Enter") {
               const query = input.value.trim();
-              window.location.href = `search.html?query=${encodeURIComponent(
-                query
-              )}`;
+              window.location.href = `search.html?query=${encodeURIComponent(query)}`;
             }
           });
         }
@@ -120,23 +297,17 @@
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
 
-      // URLパラメータからクエリを取得
+      // URLクエリ取得
       const params = new URLSearchParams(location.search);
       const query = params.get("query") ? params.get("query").trim() : "";
       document.getElementById("searchQuery").textContent = query || "(なし)";
       document.getElementById("searchInput").value = query;
 
-      const container = document.querySelector(".releases");
-      if (query) {
-        doSearch(query.toLowerCase());
-      } else {
-        container.innerHTML =
-          "<p>検索キーワードが指定されていません。</p>";
-      }
-
-      function doSearch(keyword) {
+      // 高度な検索実行
+      function doAdvancedSearch(keyword, filters, startDate, endDate) {
+        const container = document.querySelector(".releases");
         container.innerHTML = "";
-        const results = releasesData.filter((item) => {
+        let results = releasesData.filter(item => {
           const title = item.title.toLowerCase();
           const excerpt = item.excerpt.toLowerCase();
           const content = item.content.toLowerCase();
@@ -146,15 +317,49 @@
             content.includes(keyword)
           );
         });
+        // カテゴリー絞り込み
+        if (filters.length > 0) {
+          results = results.filter(item => {
+            if (!item.tags) return false;
+            return filters.some(filter => item.tags.includes(filter));
+          });
+        }
+        // 日付範囲
+        if (startDate || endDate) {
+          results = results.filter(item => {
+            const itemDate = new Date(item.date);
+            if (startDate) {
+              const sDate = new Date(startDate);
+              if (itemDate < sDate) return false;
+            }
+            if (endDate) {
+              const eDate = new Date(endDate);
+              if (itemDate > eDate) return false;
+            }
+            return true;
+          });
+        }
         if (results.length === 0) {
           container.innerHTML = `<p>「${keyword}」に該当するプレスリリースは見つかりませんでした。</p>`;
         } else {
-          results.forEach((release) => {
+          results.forEach(release => {
             const card = createReleaseCard(release);
             container.appendChild(card);
           });
         }
       }
+
+      // 初回検索
+      doAdvancedSearch(query.toLowerCase(), [], "", "");
+
+      // フィルター適用
+      document.getElementById("applyFilters").addEventListener("click", function() {
+        const selectedFilters = Array.from(document.querySelectorAll("#filterForm input[name='filter']:checked"))
+          .map(checkbox => checkbox.value);
+        const startDate = document.getElementById("startDate").value;
+        const endDate = document.getElementById("endDate").value;
+        doAdvancedSearch(query.toLowerCase(), selectedFilters, startDate, endDate);
+      });
 
       function createReleaseCard(release) {
         const card = document.createElement("div");

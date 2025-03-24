@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>プレスリリース詳細 - UP Global Press</title>
   <link rel="stylesheet" href="styles.css"/>
-
+  
   <!-- GTranslate -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
@@ -16,10 +16,85 @@
       }, 'google_translate_element');
     }
   </script>
-  <script
-    type="text/javascript"
-    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-  ></script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  
+  <!-- 追加のインラインスタイルでdetail専用の調整 -->
+  <style>
+    /* 詳細ページ専用 */
+    .detail-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: var(--card-bg);
+      border-radius: 10px;
+      box-shadow: 0 4px 12px var(--hover-shadow);
+    }
+    .release-detail h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+      color: var(--accent-color);
+      text-align: left;
+    }
+    .release-detail .date {
+      font-size: 1rem;
+      color: var(--sub-text);
+      margin-bottom: 20px;
+    }
+    .release-detail img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .release-detail .content {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 30px;
+      text-align: justify;
+    }
+    /* シェアセクション */
+    .share-section {
+      margin-top: 30px;
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+      padding-top: 20px;
+    }
+    .share-section h3 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: var(--accent-color);
+    }
+    .share-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .share-button {
+      padding: 10px 16px;
+      background: var(--secondary-bg);
+      color: var(--accent-color);
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .share-button:hover {
+      background: var(--accent-color);
+      color: #fff;
+    }
+    /* リンク下部の戻るボタン */
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: var(--accent-color);
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    .back-link:hover {
+      color: var(--highlight-color);
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -42,10 +117,9 @@
           <a href="about.html">企業情報</a>
           <a href="contact.html">お問い合わせ</a>
         </nav>
-        <!-- 検索バーは不要なら省略可。下記は例。 -->
         <div class="search-bar">
-          <input type="text" placeholder="キーワードで検索" />
-          <button>検索</button>
+          <input type="text" placeholder="キーワードで検索" id="searchInput" />
+          <button id="searchBtn">検索</button>
         </div>
         <input type="checkbox" id="menu-toggle" style="display:none;" />
         <label for="menu-toggle" class="hamburger">&#9776;</label>
@@ -60,13 +134,26 @@
     </div>
   </header>
 
-  <!-- 詳細表示 -->
+  <!-- プレスリリース詳細 -->
   <section class="release-detail">
-    <h1 id="release-title">プレスリリースタイトル</h1>
-    <p class="date" id="release-date">公開日</p>
-    <img id="release-img" src="" alt="プレスリリース画像" />
-    <div class="content" id="release-content"></div>
-    <p class="tags" id="release-tags"></p>
+    <div class="detail-container">
+      <h1 id="release-title">プレスリリースタイトル</h1>
+      <p class="date" id="release-date">公開日</p>
+      <img id="release-img" src="" alt="プレスリリース画像" />
+      <div class="content" id="release-content"></div>
+      <p class="tags" id="release-tags"></p>
+      <a href="release_list.html" class="back-link">&laquo; 戻る</a>
+    </div>
+  </section>
+
+  <!-- シェアセクション -->
+  <section class="share-section">
+    <h3>このプレスリリースをシェア</h3>
+    <div class="share-buttons">
+      <a href="#" target="_blank" id="fbShare" class="share-button">Facebook</a>
+      <a href="#" target="_blank" id="twShare" class="share-button">Twitter</a>
+      <a href="#" target="_blank" id="liShare" class="share-button">LinkedIn</a>
+    </div>
   </section>
 
   <footer>
@@ -85,7 +172,7 @@
     document.addEventListener("DOMContentLoaded", function() {
       const params = new URLSearchParams(window.location.search);
       const id = params.get("id");
-      const release = releasesData.find((item) => item.id === id);
+      const release = releasesData.find(item => item.id === id);
       if (release) {
         document.getElementById("release-title").textContent = release.title;
         document.getElementById("release-date").textContent = release.date;
@@ -94,9 +181,15 @@
         document.getElementById("release-content").innerHTML = release.content;
         const tagsText = release.tags ? release.tags.join(", ") : "";
         document.getElementById("release-tags").textContent = "タグ: " + tagsText;
+        
+        // シェア機能設定
+        const currentUrl = encodeURIComponent(window.location.href);
+        const shareText = encodeURIComponent(release.title);
+        document.getElementById("fbShare").href = `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`;
+        document.getElementById("twShare").href = `https://twitter.com/intent/tweet?url=${currentUrl}&text=${shareText}`;
+        document.getElementById("liShare").href = `https://www.linkedin.com/sharing/share-offsite/?url=${currentUrl}`;
       } else {
-        document.querySelector(".release-detail").innerHTML =
-          "<p>該当するプレスリリースが見つかりませんでした。</p>";
+        document.querySelector(".release-detail").innerHTML = '<p>該当するプレスリリースが見つかりませんでした。</p>';
       }
     });
   </script>
