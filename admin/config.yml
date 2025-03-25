@@ -1,19 +1,18 @@
 backend:
-  name: github  # または git-gateway, etc. 必要に応じて設定
-  repo: yourusername/yourrepo
-  branch: main
+  name: github            # GitHubをバックエンドに利用する場合
+  repo: unplaced0/unplaced0.github.io  # ※ここは「GitHubユーザ名/リポジトリ名」に置き換えてください
+  branch: main            # 使用するブランチ（例：main）
+  # auth_scope: repo      # 必要に応じて有効にする（読み書き権限）
 
-media_folder: "static/img"
-public_folder: "/img"
-
-# ログイン方法など詳しい設定は公式ドキュメント参照
+media_folder: "static/img"   # 画像などのアップロード先（サイト内の相対パス）
+public_folder: "/img"        # サイト公開時に使用するパス
 
 collections:
   - name: "releases"
     label: "Releases"
-    folder: "content/releases"
+    folder: "content/releases"  # プレスリリースのデータを格納するフォルダ
     create: true
-    slug: "{{fields.id}}"   # ファイル名に id の値を使う
+    slug: "{{fields.id}}"         # 新規作成時、IDフィールドの値をファイル名に利用
     extension: "json"
     fields:
       - { label: "ID", name: "id", widget: "string" }
@@ -21,5 +20,5 @@ collections:
       - { label: "Date", name: "date", widget: "datetime" }
       - { label: "Excerpt", name: "excerpt", widget: "text" }
       - { label: "Image URL", name: "img", widget: "string" }
-      - { label: "Content (HTML or Markdown)", name: "content", widget: "markdown" }
+      - { label: "Content", name: "content", widget: "markdown" }
       - { label: "Tags", name: "tags", widget: "list", default: ["その他"] }
