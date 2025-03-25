@@ -2,11 +2,11 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UP Global Press - ホーム</title>
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- GTranslate 初期化 -->
+  <!-- GTranslateウィジェット初期化 -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
@@ -21,11 +21,13 @@
 <body>
   <header>
     <div class="header-container">
-      <!-- 1行目：サイト名＋翻訳プルダウン -->
+      <!-- 1行目：サイト名、CMSボタン、翻訳プルダウン -->
       <div class="header-top">
         <div class="logo">
           <a href="index.html">UP Global Press</a>
         </div>
+        <!-- CMS管理画面へ飛ぶボタン -->
+        <a href="cms.html" class="cms-button">CMS</a>
         <div class="language-switcher">
           <div id="google_translate_element"></div>
         </div>
@@ -44,7 +46,7 @@
           <button id="searchBtn">検索</button>
         </div>
         <!-- スマホ用ハンバーガーメニュー -->
-        <input type="checkbox" id="menu-toggle" style="display:none;" />
+        <input type="checkbox" id="menu-toggle" style="display:none;">
         <label for="menu-toggle" class="hamburger">&#9776;</label>
         <div class="mobile-nav">
           <a href="index.html">ホーム</a>
@@ -52,10 +54,6 @@
           <a href="release_list.html">プレスリリース一覧</a>
           <a href="about.html">企業情報</a>
           <a href="contact.html">お問い合わせ</a>
-          <div class="search-bar">
-            <input type="text" placeholder="キーワードで検索" id="searchInputMobile" />
-            <button id="searchBtnMobile">検索</button>
-          </div>
         </div>
       </div>
     </div>
@@ -69,9 +67,9 @@
     </div>
   </section>
 
-  <!-- 最新プレスリリース一覧（最新6件） -->
+  <!-- 最新プレスリリース（最新6件） -->
   <section class="releases">
-    <!-- releases.js により動的にカードが挿入される -->
+    <!-- releases.js により動的に6件挿入されます -->
   </section>
 
   <footer>
@@ -107,7 +105,7 @@
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
 
-      // 最新6件を表示（ここではダミーデータ releasesData を使用）
+      // 最新6件の表示
       const container = document.querySelector('.releases');
       releasesData.sort((a, b) => new Date(b.date) - new Date(a.date));
       const latestSix = releasesData.slice(0, 6);

@@ -6,7 +6,7 @@
   <title>カテゴリー - UP Global Press</title>
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- GTranslate 初期化 -->
+  <!-- GTranslate初期化 -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
@@ -79,6 +79,7 @@
         <div class="logo">
           <a href="index.html">UP Global Press</a>
         </div>
+        <a href="cms.html" class="cms-button">CMS</a>
         <div class="language-switcher">
           <div id="google_translate_element"></div>
         </div>
@@ -234,6 +235,40 @@
       }
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
+
+      const params = new URLSearchParams(window.location.search);
+      const category = params.get("name");
+      document.getElementById("category-name").textContent = category || "（指定なし）";
+
+      const container = document.querySelector(".releases");
+      const filtered = releasesData.filter(item => item.tags && item.tags.includes(category));
+      filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+      if(filtered.length === 0) {
+        container.innerHTML = "<p>該当するプレスリリースは見つかりませんでした。</p>";
+      } else {
+        filtered.forEach(release => {
+          const card = createReleaseCard(release);
+          container.appendChild(card);
+        });
+      }
+      
+      function createReleaseCard(release) {
+        const card = document.createElement("div");
+        card.className = "release-card";
+        const tagsText = release.tags ? release.tags.join(", ") : "";
+        card.innerHTML = `
+          <a href="${release.link}">
+            <img src="${release.img}" alt="${release.title}">
+            <div class="release-info">
+              <h2>${release.title}</h2>
+              <p class="date">${release.date}</p>
+              <p class="excerpt">${release.excerpt}</p>
+              <p class="tags">タグ: ${tagsText}</p>
+            </div>
+          </a>
+        `;
+        return card;
+      }
     });
   </script>
 </body>

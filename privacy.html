@@ -64,6 +64,7 @@
         <div class="logo">
           <a href="index.html">UP Global Press</a>
         </div>
+        <a href="cms.html" class="cms-button">CMS</a>
         <div class="language-switcher">
           <div id="google_translate_element"></div>
         </div>
@@ -78,7 +79,7 @@
           <a href="contact.html">お問い合わせ</a>
         </nav>
         <div class="search-bar">
-          <input type="text" placeholder="キーワードで検索" id="searchInput" />
+          <input type="text" placeholder="キーワードで検索" id="searchInput"/>
           <button id="searchBtn">検索</button>
         </div>
         <input type="checkbox" id="menu-toggle" style="display:none;"/>
@@ -90,7 +91,7 @@
           <a href="about.html">企業情報</a>
           <a href="contact.html">お問い合わせ</a>
           <div class="search-bar">
-            <input type="text" placeholder="キーワードで検索" id="searchInputMobile" />
+            <input type="text" placeholder="キーワードで検索" id="searchInputMobile"/>
             <button id="searchBtnMobile">検索</button>
           </div>
         </div>
@@ -111,7 +112,9 @@
       </p>
       
       <h2>2. 個人情報の利用目的</h2>
-      <p>取得した個人情報は、以下の目的で利用いたします。</p>
+      <p>
+        取得した個人情報は、以下の目的で利用いたします。
+      </p>
       <ul>
         <li>サービス提供およびお客様サポートのため</li>
         <li>お知らせ、更新情報、キャンペーン等のご案内のため</li>
@@ -153,5 +156,29 @@
       </nav>
     </div>
   </footer>
+
+  <script src="releases.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      function setupSearch(searchInputId, searchBtnId) {
+        const input = document.getElementById(searchInputId);
+        const btn = document.getElementById(searchBtnId);
+        if (input && btn) {
+          btn.addEventListener("click", function() {
+            const query = input.value.trim();
+            window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+          });
+          input.addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+              const query = input.value.trim();
+              window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+            }
+          });
+        }
+      }
+      setupSearch("searchInput", "searchBtn");
+      setupSearch("searchInputMobile", "searchBtnMobile");
+    });
+  </script>
 </body>
 </html>

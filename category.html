@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>カテゴリー別 - UP Global Press</title>
-  <link rel="stylesheet" href="styles.css">
-  <!-- GTranslate 初期化 -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- GTranslate初期化 -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
@@ -25,6 +26,7 @@
         <div class="logo">
           <a href="index.html">UP Global Press</a>
         </div>
+        <a href="cms.html" class="cms-button">CMS</a>
         <div class="language-switcher">
           <div id="google_translate_element"></div>
         </div>
@@ -39,10 +41,10 @@
           <a href="contact.html">お問い合わせ</a>
         </nav>
         <div class="search-bar">
-          <input type="text" placeholder="キーワードで検索" id="searchInput">
+          <input type="text" placeholder="キーワードで検索" id="searchInput" />
           <button id="searchBtn">検索</button>
         </div>
-        <input type="checkbox" id="menu-toggle" style="display:none;">
+        <input type="checkbox" id="menu-toggle" style="display:none;" />
         <label for="menu-toggle" class="hamburger">&#9776;</label>
         <div class="mobile-nav">
           <a href="index.html">ホーム</a>
@@ -51,7 +53,7 @@
           <a href="about.html">企業情報</a>
           <a href="contact.html">お問い合わせ</a>
           <div class="search-bar">
-            <input type="text" placeholder="キーワードで検索" id="searchInputMobile">
+            <input type="text" placeholder="キーワードで検索" id="searchInputMobile" />
             <button id="searchBtnMobile">検索</button>
           </div>
         </div>
@@ -105,10 +107,9 @@
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
 
-      // URLパラメータからカテゴリー名を取得
       const params = new URLSearchParams(window.location.search);
       const category = params.get("name");
-      document.getElementById("category-name").textContent = category ? category : "（指定なし）";
+      document.getElementById("category-name").textContent = category || "（指定なし）";
 
       const container = document.querySelector(".releases");
       const filtered = releasesData.filter(item => item.tags && item.tags.includes(category));
