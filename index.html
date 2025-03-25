@@ -21,15 +21,16 @@
 <body>
   <header>
     <div class="header-container">
-      <!-- 1行目：サイト名、CMSボタン、翻訳プルダウン -->
+      <!-- 1行目：ロゴと右側に言語切替＋CMSボタン -->
       <div class="header-top">
         <div class="logo">
           <a href="index.html">UP Global Press</a>
         </div>
-        <!-- CMS管理画面へ飛ぶボタン -->
-        <a href="cms.html" class="cms-button">CMS</a>
-        <div class="language-switcher">
-          <div id="google_translate_element"></div>
+        <div class="language-cms">
+          <div class="language-switcher">
+            <div id="google_translate_element"></div>
+          </div>
+          <a href="cms.html" class="cms-button">CMS</a>
         </div>
       </div>
       <!-- 2行目：ナビゲーション＆検索バー -->
@@ -45,7 +46,6 @@
           <input type="text" placeholder="キーワードで検索" id="searchInput" />
           <button id="searchBtn">検索</button>
         </div>
-        <!-- スマホ用ハンバーガーメニュー -->
         <input type="checkbox" id="menu-toggle" style="display:none;">
         <label for="menu-toggle" class="hamburger">&#9776;</label>
         <div class="mobile-nav">
@@ -54,6 +54,10 @@
           <a href="release_list.html">プレスリリース一覧</a>
           <a href="about.html">企業情報</a>
           <a href="contact.html">お問い合わせ</a>
+          <div class="search-bar">
+            <input type="text" placeholder="キーワードで検索" id="searchInputMobile" />
+            <button id="searchBtnMobile">検索</button>
+          </div>
         </div>
       </div>
     </div>
