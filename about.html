@@ -58,16 +58,19 @@
 <body>
   <header>
     <div class="header-container">
-      <!-- 更新済ヘッダー -->
+      <!-- 上段：ロゴ + 翻訳ウィジェット + CMSボタン -->
       <div class="header-top">
         <div class="logo">
           <a href="index.html">UP Global Press</a>
         </div>
-        <div class="language-switcher">
-          <div id="google_translate_element"></div>
+        <div class="header-top-right">
+          <div class="language-switcher">
+            <div id="google_translate_element"></div>
+          </div>
+          <a href="cms.html" class="cms-button">CMS</a>
         </div>
-        <a href="cms.html" class="cms-button">CMS</a>
       </div>
+      <!-- 下段：ナビゲーション＆検索バー -->
       <div class="header-inner">
         <nav class="main-nav">
           <a href="index.html">ホーム</a>
@@ -92,6 +95,7 @@
       </div>
     </div>
   </header>
+
   <main>
     <section class="about-section">
       <h1>企業情報</h1>
@@ -109,6 +113,7 @@
       </p>
     </section>
   </main>
+
   <footer>
     <div class="footer-inner">
       <p>&copy; 2025 UP Global Press</p>
@@ -119,9 +124,29 @@
       </nav>
     </div>
   </footer>
+
   <script src="releases.js"></script>
   <script>
-    // 検索バーのセットアップ等の処理
+    document.addEventListener("DOMContentLoaded", function() {
+      function setupSearch(searchInputId, searchBtnId) {
+        const input = document.getElementById(searchInputId);
+        const btn = document.getElementById(searchBtnId);
+        if (input && btn) {
+          btn.addEventListener("click", function() {
+            const query = input.value.trim();
+            window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+          });
+          input.addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+              const query = input.value.trim();
+              window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+            }
+          });
+        }
+      }
+      setupSearch("searchInput", "searchBtn");
+      setupSearch("searchInputMobile", "searchBtnMobile");
+    });
   </script>
 </body>
 </html>

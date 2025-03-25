@@ -86,21 +86,19 @@
       border: 1px solid var(--border-color);
       border-radius: 4px;
     }
-    /* ログアウトボタン */
     .logout-btn {
-      float: right;
       padding: 6px 12px;
-      background: #777;
+      background: var(--accent-color);
       color: #fff;
       text-decoration: none;
       border-radius: 4px;
       cursor: pointer;
       transition: background 0.3s;
+      margin-left: 10px;
     }
     .logout-btn:hover {
-      background: #555;
+      background: var(--highlight-color);
     }
-    /* エラーメッセージ用 */
     .error-message {
       color: #d9534f;
       margin-top: 5px;
@@ -123,18 +121,20 @@
 <body>
   <header>
     <div class="header-container">
-      <!-- 更新済ヘッダー -->
+      <!-- 上段：ロゴ(左) + 右側(翻訳ウィジェット、CMSボタン、ログアウトボタン) -->
       <div class="header-top">
         <div class="logo">
           <a href="index.html">UP Global Press</a>
         </div>
-        <div class="language-switcher">
-          <div id="google_translate_element"></div>
+        <div class="header-top-right">
+          <div class="language-switcher">
+            <div id="google_translate_element"></div>
+          </div>
+          <a href="cms.html" class="cms-button">CMS</a>
+          <a href="cms_login.html" class="logout-btn" onclick="localStorage.removeItem('cmsRole');">ログアウト</a>
         </div>
-        <a href="cms.html" class="cms-button">CMS</a>
-        <!-- ログアウトボタンを追加 -->
-        <a href="cms_login.html" class="logout-btn" onclick="localStorage.removeItem('cmsRole');">ログアウト</a>
       </div>
+      <!-- 下段：ナビゲーション＆検索バー -->
       <div class="header-inner">
         <nav class="main-nav">
           <a href="index.html">ホーム</a>
@@ -227,6 +227,7 @@
 
   <script src="releases.js"></script>
   <script>
+    // ロールチェック
     const role = localStorage.getItem("cmsRole");
     if(!role) {
       window.location.href = "cms_login.html";
@@ -234,6 +235,8 @@
     if(role === "admin") {
       document.getElementById("adminSection").style.display = "block";
     }
+
+    // releases配列のコピー
     let cmsReleasesData = JSON.parse(JSON.stringify(releasesData || []));
     const releasesTableBody = document.querySelector("#releasesTable tbody");
     const formTitle = document.getElementById("formTitle");
@@ -250,14 +253,17 @@
     const generateJsonBtn = document.getElementById("generateJsonBtn");
     const jsonOutput = document.getElementById("jsonOutput");
 
-    const REQUIRED_TAGS = ["テクノロジー","ビジネス","エンターテインメント","ヘルスケア","環境","スタートアップ","ビューティー","グルメ","その他"];
+    const REQUIRED_TAGS = [
+      "テクノロジー","ビジネス","エンターテインメント","ヘルスケア","環境",
+      "スタートアップ","ビューティー","グルメ","その他"
+    ];
 
     let editIndex = null;
 
     renderTable();
     clearForm();
 
-    // トグルボタンによる最小化／展開処理
+    // テーブル最小化／展開トグル
     document.getElementById("toggleTableBtn").addEventListener("click", function() {
       const table = document.getElementById("releasesTable");
       if(table.style.display === "none") {
@@ -293,13 +299,13 @@
         date: releaseDateInput.value.trim(),
         excerpt: releaseExcerptInput.value.trim(),
         img: releaseImgInput.value.trim(),
-        link: "", 
+        link: "",
         content: releaseContentInput.value,
         tags: parseTags(releaseTagsInput.value)
       };
       newRelease.link = `detail.html?id=${newRelease.id}`;
 
-      // タグの必須チェック
+      // タグ必須チェック
       const hasRequired = newRelease.tags.some(tag => REQUIRED_TAGS.includes(tag));
       if(!hasRequired) {
         tagError.style.display = "block";
@@ -326,7 +332,7 @@
     });
 
     generateJsonBtn.addEventListener("click", () => {
-      // 生成前にタグ必須チェック
+      // 生成前にタグ必須チェック（現在入力中のフォームを簡易チェック）
       const currentTags = parseTags(releaseTagsInput.value);
       const hasReq = currentTags.some(tag => REQUIRED_TAGS.includes(tag));
       if(!hasReq) {
@@ -350,7 +356,7 @@
       formTitle.textContent = "プレスリリースを編集";
       saveBtn.textContent = "更新";
       cancelBtn.style.display = "inline-block";
-      // スクロールして編集フォームに移動
+      // 編集フォームまでスクロール
       document.getElementById("formContainer").scrollIntoView({behavior: "smooth"});
     };
 
@@ -384,6 +390,28 @@
       if(!tagStr.trim()) return [];
       return tagStr.split(",").map(s => s.trim()).filter(Boolean);
     }
+
+    // 検索バー
+    document.addEventListener("DOMContentLoaded", function() {
+      function setupSearch(searchInputId, searchBtnId) {
+        const input = document.getElementById(searchInputId);
+        const btn = document.getElementById(searchBtnId);
+        if (input && btn) {
+          btn.addEventListener("click", function() {
+            const query = input.value.trim();
+            window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+          });
+          input.addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+              const query = input.value.trim();
+              window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+            }
+          });
+        }
+      }
+      setupSearch("searchInput", "searchBtn");
+      setupSearch("searchInputMobile", "searchBtnMobile");
+    });
   </script>
 </body>
 </html>

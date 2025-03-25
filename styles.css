@@ -44,6 +44,11 @@ header {
   align-items: center;
   padding: 10px 20px;
 }
+.header-top-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* 翻訳ウィジェットとCMSボタンが重ならないよう余白を確保 */
+}
 .logo a {
   font-size: 2rem;
   font-weight: 700;
@@ -58,14 +63,27 @@ header {
   border: 1px solid var(--accent-color);
   border-radius: 4px;
   font-size: 0.9rem;
-  transition: background 0.3s;
+  transition: background 0.3s, color 0.3s;
 }
 .cms-button:hover {
   background: var(--accent-color);
   color: #fff;
 }
+.logout-btn {
+  padding: 6px 12px;
+  background: transparent;
+  color: var(--accent-color);
+  text-decoration: none;
+  border: 1px solid var(--accent-color);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: background 0.3s, color 0.3s;
+}
+.logout-btn:hover {
+  background: var(--accent-color);
+  color: #fff;
+}
 .language-switcher {
-  /* CMSボタンの左側に配置 */
   margin-right: 10px;
 }
 .header-inner {
@@ -258,6 +276,87 @@ header {
   color: var(--sub-text);
 }
 
+/* サービス紹介セクション */
+.service-section {
+  background-color: #f9fbfd; /* 薄めの背景色 */
+  padding: 60px 20px;
+  margin: 40px auto 0 auto;
+}
+.service-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+}
+.service-text {
+  flex: 1 1 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.catch-large {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--accent-color);
+  margin-bottom: 0;
+}
+.catch-small {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #666;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.service-text p {
+  font-size: 1rem;
+  line-height: 1.8;
+  text-align: justify;
+  color: var(--text-color);
+}
+.service-contact-btn {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 10px 20px;
+  background: var(--accent-color);
+  color: #fff;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: background 0.3s, transform 0.3s;
+}
+.service-contact-btn:hover {
+  background: var(--highlight-color);
+  transform: translateY(-2px);
+}
+.service-img {
+  flex: 1 1 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.service-img img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.service-bottom {
+  max-width: 1200px;
+  margin: 40px auto 0 auto;
+  text-align: center;
+}
+.service-bottom-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+.service-bottom-sub {
+  font-size: 1rem;
+  color: #444;
+  margin-top: 10px;
+}
+
 /* Footer */
 footer {
   background: var(--secondary-bg);
@@ -329,5 +428,20 @@ footer {
   }
   .tags {
     font-size: 0.8rem;
+  }
+
+  .service-content {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  .service-text, .service-img {
+    flex: 1 1 auto;
+  }
+  .catch-large {
+    font-size: 1.6rem;
+  }
+  .catch-small {
+    font-size: 1rem;
   }
 }
