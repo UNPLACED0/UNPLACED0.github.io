@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UP Global Press - ホーム</title>
   <link rel="stylesheet" href="styles.css" />
+
   <!-- GTranslateウィジェット初期化 -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
@@ -16,6 +17,25 @@
     }
   </script>
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <!-- ページ固有の追加スタイル（ボタンを大きくグレーに） -->
+  <style>
+    .big-gray-btn {
+      background: #777;               /* グレー背景 */
+      color: #fff;                   /* 白文字 */
+      font-weight: bold;            /* 太字 */
+      padding: 16px 32px;           /* 大きめのパディング */
+      border-radius: 30px;          /* 角丸 */
+      text-decoration: none;
+      display: inline-block;         /* インラインブロックで中央寄せが可能 */
+      font-size: 1.1rem;            /* 文字サイズ大きめ */
+      transition: background 0.3s, transform 0.3s;
+    }
+    .big-gray-btn:hover {
+      background: #555;             /* ホバー時は少し濃いグレー */
+      transform: translateY(-2px);  /* 少し浮き上がるアニメーション */
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -84,9 +104,9 @@
         <p>
           さらに、UP Global Pressでは、プレスリリースがSNSへ簡単にシェアできる仕組みを採用しています。これにより、あなたのニュースがスムーズに拡散される環境を整え、効果的な広報活動をサポートします。ぜひこの機会に、UP Global Pressであなたの情報を世界に届けてみてください。
         </p>
-        <!-- プレスリリース配信のお問い合わせボタン（中央配置） -->
-        <div style="text-align: center;">
-          <a href="contact.html" class="service-contact-btn">プレスリリース配信のお問い合わせ</a>
+        <!-- グレーのボタンを中央配置 -->
+        <div style="text-align: center; margin-top: 20px;">
+          <a href="contact.html" class="big-gray-btn">プレスリリース配信のお問い合わせ</a>
         </div>
       </div>
       <div class="service-img">
