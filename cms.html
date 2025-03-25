@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMS管理画面 - UP Global Press</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .cms-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .cms-container h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--accent-color);
+    }
+    .releases-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+    .releases-table th, .releases-table td {
+      border: 1px solid var(--border-color);
+      padding: 8px;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+    .releases-table th {
+      background: var(--secondary-bg);
+    }
+    .btn {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 4px;
+      background: var(--accent-color);
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: var(--highlight-color);
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+    .json-output {
+      width: 100%;
+      height: 200px;
+      font-size: 0.8rem;
+      padding: 8px;
+      margin-top: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+    }
+    .delete-btn {
+      background: #d9534f;
+    }
+    .delete-btn:hover {
+      background: #c9302c;
+    }
+    .cms-button {
+      margin-left: 10px;
+      padding: 6px 12px;
+      background: var(--accent-color);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+    .cms-button:hover {
+      background: var(--highlight-color);
+    }
+  </style>
+
+  <!-- GTranslate -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'ja',
+        includedLanguages: 'ja,en,bn',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <!-- 1行目：サイト名、CMSボタン、翻訳プルダウン -->
+      <div class="header-top">
+        <div class="logo">
+          <a href="index.html">UP Global Press</a>
+        </div>
+        <a href="cms.html" class="cms-button">CMS</a>
+        <div class="language-switcher">
+          <div id="google_translate_element"></div>
+        </div>
+      </div>
+      <!-- 2行目：ナビゲーション＆検索バー -->
+      <div class="header-inner">
+        <nav class="main-nav">
+          <a href="index.html">ホーム</a>
+          <a href="categories.html">カテゴリー</a>
+          <a href="release_list.html">プレスリリース一覧</a>
+          <a href="about.html">企業情報</a>
+          <a href="contact.html">お問い合わせ</a>
+        </nav>
+        <div class="search-bar">
+          <input type="text" placeholder="キーワードで検索" id="searchInput">
+          <button id="searchBtn">検索</button>
+        </div>
+        <input type="checkbox" id="menu-toggle" style="display:none;">
+        <label for="menu-toggle" class="hamburger">&#9776;</label>
+        <div class="mobile-nav">
+          <a href="index.html">ホーム</a>
+          <a href="categories.html">カテゴリー</a>
+          <a href="release_list.html">プレスリリース一覧</a>
+          <a href="about.html">企業情報</a>
+          <a href="contact.html">お問い合わせ</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="cms-container">
+    <h1>プレスリリース管理</h1>
+    <!-- 管理者向け：記事一覧 -->
+    <div id="adminSection" style="display:none;">
+      <table class="releases-table" id="releasesTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>タイトル</th>
+            <th>日付</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- JSで挿入 -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 編集／新規追加フォーム -->
+    <div id="formContainer">
+      <h2 id="formTitle">新規プレスリリースを追加</h2>
+      <div class="form-group">
+        <label for="releaseId">ID</label>
+        <input type="text" id="releaseId" placeholder="自動割り当て（新規の場合）" readonly>
+      </div>
+      <div class="form-group">
+        <label for="releaseTitle">タイトル</label>
+        <input type="text" id="releaseTitle" placeholder="例：FutureTech株式会社 新型スマートフォン..." />
+      </div>
+      <div class="form-group">
+        <label for="releaseDate">日付</label>
+        <input type="date" id="releaseDate" />
+      </div>
+      <div class="form-group">
+        <label for="releaseExcerpt">概要（excerpt）</label>
+        <textarea id="releaseExcerpt" rows="2" placeholder="簡単な概要"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="releaseImg">画像URL</label>
+        <input type="text" id="releaseImg" placeholder="https://..." />
+      </div>
+      <div class="form-group">
+        <label for="releaseContent">本文（content）</label>
+        <textarea id="releaseContent" rows="5" placeholder="<p>本文HTML</p>"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="releaseTags">タグ（カンマ区切り）</label>
+        <input type="text" id="releaseTags" placeholder="例：テクノロジー,AI,ITソリューション" />
+      </div>
+      <button class="btn" id="saveBtn">保存</button>
+      <button class="btn" id="cancelBtn" style="display:none;">キャンセル</button>
+    </div>
+
+    <!-- JSON生成 -->
+    <div style="margin-top:30px;">
+      <button class="btn" id="generateJsonBtn">Generate JSON</button>
+      <textarea class="json-output" id="jsonOutput" readonly></textarea>
+    </div>
+  </main>
+
+  <script src="releases.js"></script>
+  <script>
+    const role = localStorage.getItem("cmsRole");
+    if(!role) {
+      window.location.href = "cms_login.html";
+    }
+    if(role === "admin") {
+      document.getElementById("adminSection").style.display = "block";
+    }
+    let cmsReleasesData = JSON.parse(JSON.stringify(releasesData || []));
+    const releasesTableBody = document.querySelector("#releasesTable tbody");
+    const formTitle = document.getElementById("formTitle");
+    const releaseIdInput = document.getElementById("releaseId");
+    const releaseTitleInput = document.getElementById("releaseTitle");
+    const releaseDateInput = document.getElementById("releaseDate");
+    const releaseExcerptInput = document.getElementById("releaseExcerpt");
+    const releaseImgInput = document.getElementById("releaseImg");
+    const releaseContentInput = document.getElementById("releaseContent");
+    const releaseTagsInput = document.getElementById("releaseTags");
+    const saveBtn = document.getElementById("saveBtn");
+    const cancelBtn = document.getElementById("cancelBtn");
+    const generateJsonBtn = document.getElementById("generateJsonBtn");
+    const jsonOutput = document.getElementById("jsonOutput");
+
+    let editIndex = null;
+
+    renderTable();
+    clearForm();
+
+    function renderTable() {
+      if(role !== "admin") return;
+      releasesTableBody.innerHTML = "";
+      cmsReleasesData.forEach((rel, index) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${rel.id}</td>
+          <td>${rel.title}</td>
+          <td>${rel.date}</td>
+          <td>
+            <button class="btn" onclick="editRelease(${index})">編集</button>
+            <button class="btn delete-btn" onclick="deleteRelease(${index})">削除</button>
+          </td>
+        `;
+        releasesTableBody.appendChild(tr);
+      });
+    }
+
+    saveBtn.addEventListener("click", () => {
+      const newRelease = {
+        id: releaseIdInput.value.trim(),
+        title: releaseTitleInput.value.trim(),
+        date: releaseDateInput.value.trim(),
+        excerpt: releaseExcerptInput.value.trim(),
+        img: releaseImgInput.value.trim(),
+        link: "", 
+        content: releaseContentInput.value,
+        tags: parseTags(releaseTagsInput.value)
+      };
+      newRelease.link = `detail.html?id=${newRelease.id}`;
+
+      if (!newRelease.id || !newRelease.title) {
+        alert("IDとタイトルは必須です。");
+        return;
+      }
+      if (editIndex === null) {
+        cmsReleasesData.push(newRelease);
+      } else {
+        cmsReleasesData[editIndex] = newRelease;
+      }
+      clearForm();
+      renderTable();
+    });
+
+    cancelBtn.addEventListener("click", () => {
+      clearForm();
+    });
+
+    generateJsonBtn.addEventListener("click", () => {
+      const jsonStr = JSON.stringify(cmsReleasesData, null, 2);
+      jsonOutput.value = `var releasesData = ${jsonStr};`;
+    });
+
+    window.editRelease = function(index) {
+      editIndex = index;
+      const rel = cmsReleasesData[index];
+      releaseIdInput.value = rel.id;
+      releaseTitleInput.value = rel.title;
+      releaseDateInput.value = rel.date;
+      releaseExcerptInput.value = rel.excerpt;
+      releaseImgInput.value = rel.img;
+      releaseContentInput.value = rel.content;
+      releaseTagsInput.value = rel.tags ? rel.tags.join(",") : "";
+      formTitle.textContent = "プレスリリースを編集";
+      saveBtn.textContent = "更新";
+      cancelBtn.style.display = "inline-block";
+    };
+
+    window.deleteRelease = function(index) {
+      if(confirm("本当に削除しますか？")) {
+        cmsReleasesData.splice(index, 1);
+        renderTable();
+        clearForm();
+      }
+    };
+
+    function getNextId() {
+      let maxId = 0;
+      cmsReleasesData.forEach(item => {
+        const numId = parseInt(item.id, 10);
+        if(!isNaN(numId) && numId > maxId) {
+          maxId = numId;
+        }
+      });
+      return maxId + 1;
+    }
+
+    function clearForm() {
+      editIndex = null;
+      releaseIdInput.value = getNextId();
+      releaseTitleInput.value = "";
+      releaseDateInput.value = "";
+      releaseExcerptInput.value = "";
+      releaseImgInput.value = "";
+      releaseContentInput.value = "";
+      releaseTagsInput.value = "";
+      formTitle.textContent = "新規プレスリリースを追加";
+      saveBtn.textContent = "保存";
+      cancelBtn.style.display = "none";
+    }
+
+    function parseTags(tagStr) {
+      if(!tagStr.trim()) return [];
+      return tagStr.split(",").map(s => s.trim()).filter(Boolean);
+    }
+  </script>
+</body>
+</html>
