@@ -30,7 +30,6 @@
             <div id="google_translate_element"></div>
           </div>
           <a href="cms.html" class="cms-button">CMS</a>
-          <!-- このページはログアウトボタン非表示 -->
         </div>
       </div>
       <!-- 下段：ナビゲーション＆検索バー -->
@@ -72,28 +71,29 @@
     <!-- releases.js により動的に6件挿入されます -->
   </section>
 
-  <!-- サービス紹介セクション（背景色を追加） -->
-  <section class="service-intro">
+  <!-- サービス紹介セクション（背景色付き） -->
+  <section class="service-section">
     <div class="service-content">
       <div class="service-text">
-        <h2>UP Global Press – 世界へあなたのニュースを届けよう！</h2>
+        <!-- キャッチコピー -->
+        <h2 class="catch-large">UP Global Press</h2>
+        <h3 class="catch-small">– 世界へあなたのニュースを届けよう！</h3>
         <p>
           UP Global Pressは、バングラデシュの企業向けプレスリリース配信サービスです。企業、団体、店舗などのビジネスが、新商品や新サービスの情報を国内外のメディアや一般消費者に向けて効果的に発信することができます。プレスリリースを配信することで、報道機関や第三者からの注目を集め、ブランド認知度の向上に大きく貢献します。
         </p>
         <p>
           さらに、UP Global Pressでは、プレスリリースがSNSへ簡単にシェアできる仕組みを採用しています。これにより、あなたのニュースがスムーズに拡散される環境を整え、効果的な広報活動をサポートします。ぜひこの機会に、UP Global Pressであなたの情報を世界に届けてみてください。
         </p>
-        <a href="contact.html" class="contact-btn">プレスリリース配信のお問い合わせ</a>
+        <a href="contact.html" class="service-contact-btn">プレスリリース配信のお問い合わせ</a>
       </div>
-      <div class="service-image">
-        <!-- ランダム画像を配置 -->
-        <img src="https://picsum.photos/400/300?random=99" alt="Service Image">
+      <div class="service-img">
+        <img src="https://picsum.photos/400/250?random=100" alt="サービス紹介イメージ" />
       </div>
     </div>
-    <div class="service-footer">
-      <!-- ロゴを仮配置、実際には別途画像ファイルを参照する等 -->
-      <img src="https://picsum.photos/200/80?random=100" alt="UP Global Press Logo" class="service-logo">
-      <p>プレスリリース配信ならUP Global Press</p>
+    <!-- 下部にロゴとテキスト -->
+    <div class="service-bottom">
+      <h2 class="service-bottom-title">UP Global Press</h2>
+      <p class="service-bottom-sub">プレスリリース配信ならUP Global Press</p>
     </div>
   </section>
 
@@ -111,7 +111,7 @@
   <script src="releases.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      // 検索バーのセットアップ
+      // 検索設定
       function setupSearch(searchInputId, searchBtnId) {
         const input = document.getElementById(searchInputId);
         const btn = document.getElementById(searchBtnId);
