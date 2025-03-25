@@ -20,6 +20,20 @@
       margin-bottom: 20px;
       color: var(--accent-color);
     }
+    .toggle-btn {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 6px 12px;
+      background: var(--accent-color);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .toggle-btn:hover {
+      background: var(--highlight-color);
+    }
     .releases-table {
       width: 100%;
       border-collapse: collapse;
@@ -72,24 +86,25 @@
       border: 1px solid var(--border-color);
       border-radius: 4px;
     }
-    .delete-btn {
-      background: #d9534f;
-    }
-    .delete-btn:hover {
-      background: #c9302c;
-    }
-    .cms-button {
-      margin-left: 10px;
+    /* ログアウトボタン */
+    .logout-btn {
+      float: right;
       padding: 6px 12px;
-      background: var(--accent-color);
+      background: #777;
       color: #fff;
       text-decoration: none;
       border-radius: 4px;
-      font-size: 0.9rem;
+      cursor: pointer;
       transition: background 0.3s;
     }
-    .cms-button:hover {
-      background: var(--highlight-color);
+    .logout-btn:hover {
+      background: #555;
+    }
+    /* エラーメッセージ用 */
+    .error-message {
+      color: #d9534f;
+      margin-top: 5px;
+      font-size: 0.9rem;
     }
   </style>
 
@@ -108,17 +123,18 @@
 <body>
   <header>
     <div class="header-container">
-      <!-- 1行目：サイト名、CMSボタン、翻訳プルダウン -->
+      <!-- 更新済ヘッダー -->
       <div class="header-top">
         <div class="logo">
           <a href="index.html">UP Global Press</a>
         </div>
-        <a href="cms.html" class="cms-button">CMS</a>
         <div class="language-switcher">
           <div id="google_translate_element"></div>
         </div>
+        <a href="cms.html" class="cms-button">CMS</a>
+        <!-- ログアウトボタンを追加 -->
+        <a href="cms_login.html" class="logout-btn" onclick="localStorage.removeItem('cmsRole');">ログアウト</a>
       </div>
-      <!-- 2行目：ナビゲーション＆検索バー -->
       <div class="header-inner">
         <nav class="main-nav">
           <a href="index.html">ホーム</a>
@@ -146,8 +162,9 @@
 
   <main class="cms-container">
     <h1>プレスリリース管理</h1>
-    <!-- 管理者向け：記事一覧 -->
+    <!-- 管理者向け：記事一覧（最小化／展開トグル付き） -->
     <div id="adminSection" style="display:none;">
+      <button class="toggle-btn" id="toggleTableBtn">最小化</button>
       <table class="releases-table" id="releasesTable">
         <thead>
           <tr>
@@ -191,8 +208,11 @@
         <textarea id="releaseContent" rows="5" placeholder="<p>本文HTML</p>"></textarea>
       </div>
       <div class="form-group">
-        <label for="releaseTags">タグ（カンマ区切り）</label>
+        <label for="releaseTags">
+          タグ（カンマ区切り）【必ず「テクノロジー」「ビジネス」「エンターテインメント」「ヘルスケア」「環境」「スタートアップ」「ビューティー」「グルメ」「その他」のいずれか1つを含む必要があります】
+        </label>
         <input type="text" id="releaseTags" placeholder="例：テクノロジー,AI,ITソリューション" />
+        <div id="tagError" class="error-message" style="display:none;">必ず9カテゴリーの内1つ以上のタグを含めてください。</div>
       </div>
       <button class="btn" id="saveBtn">保存</button>
       <button class="btn" id="cancelBtn" style="display:none;">キャンセル</button>
@@ -224,15 +244,30 @@
     const releaseImgInput = document.getElementById("releaseImg");
     const releaseContentInput = document.getElementById("releaseContent");
     const releaseTagsInput = document.getElementById("releaseTags");
+    const tagError = document.getElementById("tagError");
     const saveBtn = document.getElementById("saveBtn");
     const cancelBtn = document.getElementById("cancelBtn");
     const generateJsonBtn = document.getElementById("generateJsonBtn");
     const jsonOutput = document.getElementById("jsonOutput");
 
+    const REQUIRED_TAGS = ["テクノロジー","ビジネス","エンターテインメント","ヘルスケア","環境","スタートアップ","ビューティー","グルメ","その他"];
+
     let editIndex = null;
 
     renderTable();
     clearForm();
+
+    // トグルボタンによる最小化／展開処理
+    document.getElementById("toggleTableBtn").addEventListener("click", function() {
+      const table = document.getElementById("releasesTable");
+      if(table.style.display === "none") {
+        table.style.display = "table";
+        this.textContent = "最小化";
+      } else {
+        table.style.display = "none";
+        this.textContent = "展開";
+      }
+    });
 
     function renderTable() {
       if(role !== "admin") return;
@@ -245,7 +280,6 @@
           <td>${rel.date}</td>
           <td>
             <button class="btn" onclick="editRelease(${index})">編集</button>
-            <button class="btn delete-btn" onclick="deleteRelease(${index})">削除</button>
           </td>
         `;
         releasesTableBody.appendChild(tr);
@@ -265,6 +299,15 @@
       };
       newRelease.link = `detail.html?id=${newRelease.id}`;
 
+      // タグの必須チェック
+      const hasRequired = newRelease.tags.some(tag => REQUIRED_TAGS.includes(tag));
+      if(!hasRequired) {
+        tagError.style.display = "block";
+        return;
+      } else {
+        tagError.style.display = "none";
+      }
+
       if (!newRelease.id || !newRelease.title) {
         alert("IDとタイトルは必須です。");
         return;
@@ -283,6 +326,13 @@
     });
 
     generateJsonBtn.addEventListener("click", () => {
+      // 生成前にタグ必須チェック
+      const currentTags = parseTags(releaseTagsInput.value);
+      const hasReq = currentTags.some(tag => REQUIRED_TAGS.includes(tag));
+      if(!hasReq) {
+        alert("必ず9カテゴリーの内1つ以上のタグを含めてください。");
+        return;
+      }
       const jsonStr = JSON.stringify(cmsReleasesData, null, 2);
       jsonOutput.value = `var releasesData = ${jsonStr};`;
     });
@@ -300,14 +350,8 @@
       formTitle.textContent = "プレスリリースを編集";
       saveBtn.textContent = "更新";
       cancelBtn.style.display = "inline-block";
-    };
-
-    window.deleteRelease = function(index) {
-      if(confirm("本当に削除しますか？")) {
-        cmsReleasesData.splice(index, 1);
-        renderTable();
-        clearForm();
-      }
+      // スクロールして編集フォームに移動
+      document.getElementById("formContainer").scrollIntoView({behavior: "smooth"});
     };
 
     function getNextId() {
@@ -333,6 +377,7 @@
       formTitle.textContent = "新規プレスリリースを追加";
       saveBtn.textContent = "保存";
       cancelBtn.style.display = "none";
+      tagError.style.display = "none";
     }
 
     function parseTags(tagStr) {

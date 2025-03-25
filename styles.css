@@ -51,20 +51,22 @@ header {
   text-decoration: none;
 }
 .cms-button {
-  margin-left: 10px;
   padding: 6px 12px;
-  background: var(--accent-color);
-  color: #fff;
+  background: transparent;
+  color: var(--accent-color);
   text-decoration: none;
+  border: 1px solid var(--accent-color);
   border-radius: 4px;
   font-size: 0.9rem;
   transition: background 0.3s;
 }
 .cms-button:hover {
-  background: var(--highlight-color);
+  background: var(--accent-color);
+  color: #fff;
 }
 .language-switcher {
-  /* 必要に応じて調整 */
+  /* CMSボタンの左側に配置 */
+  margin-right: 10px;
 }
 .header-inner {
   display: flex;
