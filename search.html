@@ -205,7 +205,7 @@
   
   <!-- 検索結果表示エリア -->
   <section class="releases">
-    <!-- JSで検索結果が動的に挿入される -->
+    <!-- JavaScript により検索結果が動的に挿入されます -->
   </section>
   
   <!-- フッター読み込み -->
@@ -221,6 +221,34 @@
     }
     loadHTML('includes/header.html', 'header-placeholder');
     loadHTML('includes/footer.html', 'footer-placeholder');
+
+    (function() {
+      function performSearch(inputId) {
+        var input = document.getElementById(inputId);
+        if (input) {
+          var query = input.value.trim();
+          if (query) {
+            window.location.href = "search.html?query=" + encodeURIComponent(query);
+          }
+        }
+      }
+      document.getElementById("searchBtn").addEventListener("click", function() {
+        performSearch("searchInput");
+      });
+      document.getElementById("searchInput").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+          performSearch("searchInput");
+        }
+      });
+      document.getElementById("searchBtnMobile").addEventListener("click", function() {
+        performSearch("searchInputMobile");
+      });
+      document.getElementById("searchInputMobile").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+          performSearch("searchInputMobile");
+        }
+      });
+    })();
 
     document.addEventListener("DOMContentLoaded", function() {
       function setupSearch(searchInputId, searchBtnId) {

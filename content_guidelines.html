@@ -112,6 +112,35 @@
     }
     loadHTML('includes/header.html', 'header-placeholder');
     loadHTML('includes/footer.html', 'footer-placeholder');
+
+    // 各ページ共通の検索機能
+    (function() {
+      function performSearch(inputId) {
+        var input = document.getElementById(inputId);
+        if (input) {
+          var query = input.value.trim();
+          if (query) {
+            window.location.href = "search.html?query=" + encodeURIComponent(query);
+          }
+        }
+      }
+      document.getElementById("searchBtn").addEventListener("click", function() {
+        performSearch("searchInput");
+      });
+      document.getElementById("searchInput").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+          performSearch("searchInput");
+        }
+      });
+      document.getElementById("searchBtnMobile").addEventListener("click", function() {
+        performSearch("searchInputMobile");
+      });
+      document.getElementById("searchInputMobile").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+          performSearch("searchInputMobile");
+        }
+      });
+    })();
   </script>
 </body>
 </html>

@@ -32,7 +32,7 @@
       margin-bottom: 20px;
       text-align: center;
     }
-    .contact-section p {
+    .contact-section p.intro {
       font-size: 1rem;
       line-height: 1.8;
       margin-bottom: 30px;
@@ -83,6 +83,13 @@
       margin-top: 5px;
       text-align: center;
     }
+    .disclaimer {
+      font-size: 0.8rem;
+      color: #777;
+      margin-top: 10px;
+      text-align: center;
+      line-height: 1.4;
+    }
   </style>
 </head>
 <body>
@@ -92,7 +99,10 @@
   <main>
     <section class="contact-section">
       <h1>お問い合わせ</h1>
-      <p>すべての必須項目を入力し、利用規約とプライバシーポリシーに同意してください。</p>
+      <p class="intro">
+        UP Global Pressにご関心をお持ちいただきまして、ありがとうございます。<br>
+        サービスに関することやプレスリリースに関するお問い合わせはお気軽にどうぞ。担当者が丁寧に対応いたします。
+      </p>
       <form id="contactForm" action="mailto:unplaced.prinfo@gmail.com" method="post" enctype="text/plain">
         <div>
           <label for="name">名前*</label>
@@ -124,6 +134,13 @@
             UP Global Pressの利用規約とプライバシーポリシーに同意する*
           </label>
         </div>
+        <!-- 追加の注意文（小さくグレー） -->
+        <p class="disclaimer">
+          営業メール関連のお問い合わせはお断りしております。<br>
+          お問い合わせの内容によっては、返信に時間を要する場合がございます。あらかじめご了承ください。<br>
+          当社からの返信メールは、お客様個人宛にお送りするものです。返信メールの一部または全部を無断で転載することはご遠慮ください。<br>
+          お問い合わせいただいた際に伺った個人情報は、ご回答のために必要な範囲に限定して利用させていただくとともに、個人情報保護方針に基づき厳重に取り扱います。
+        </p>
         <button type="submit" id="submitBtn">メール送信</button>
         <div id="formError" class="error-message"></div>
       </form>
@@ -153,6 +170,35 @@
       }
       formError.textContent = "";
     });
+
+    // 各ページ共通の検索機能
+    (function() {
+      function performSearch(inputId) {
+        var input = document.getElementById(inputId);
+        if (input) {
+          var query = input.value.trim();
+          if (query) {
+            window.location.href = "search.html?query=" + encodeURIComponent(query);
+          }
+        }
+      }
+      document.getElementById("searchBtn").addEventListener("click", function() {
+        performSearch("searchInput");
+      });
+      document.getElementById("searchInput").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+          performSearch("searchInput");
+        }
+      });
+      document.getElementById("searchBtnMobile").addEventListener("click", function() {
+        performSearch("searchInputMobile");
+      });
+      document.getElementById("searchInputMobile").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+          performSearch("searchInputMobile");
+        }
+      });
+    })();
   </script>
 </body>
 </html>

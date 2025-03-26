@@ -13,7 +13,7 @@
         <!-- ログアウトボタンは必要に応じて追加可能 -->
       </div>
     </div>
-    <!-- 下段：ナビゲーション＆検索バー（企業概要リンクは除外） -->
+    <!-- 下段：ナビゲーション＆検索バー -->
     <div class="header-inner">
       <nav class="main-nav">
         <a href="index.html">ホーム</a>
@@ -21,6 +21,7 @@
         <a href="release_list.html">プレスリリース一覧</a>
         <a href="contact.html">お問い合わせ</a>
       </nav>
+      <!-- 検索バー（検索機能のスクリプトは各ページに実装） -->
       <div class="search-bar">
         <input type="text" placeholder="キーワードで検索" id="searchInput" />
         <button id="searchBtn">検索</button>
@@ -39,34 +40,5 @@
       </div>
     </div>
   </div>
-  <!-- 検索機能の実装 -->
-  <script>
-    (function() {
-      function performSearch(inputId) {
-        var input = document.getElementById(inputId);
-        if (input) {
-          var query = input.value.trim();
-          if (query) {
-            window.location.href = "search.html?query=" + encodeURIComponent(query);
-          }
-        }
-      }
-      document.getElementById("searchBtn").addEventListener("click", function() {
-        performSearch("searchInput");
-      });
-      document.getElementById("searchInput").addEventListener("keypress", function(e) {
-        if (e.key === "Enter") {
-          performSearch("searchInput");
-        }
-      });
-      document.getElementById("searchBtnMobile").addEventListener("click", function() {
-        performSearch("searchInputMobile");
-      });
-      document.getElementById("searchInputMobile").addEventListener("keypress", function(e) {
-        if (e.key === "Enter") {
-          performSearch("searchInputMobile");
-        }
-      });
-    })();
-  </script>
+  <!-- Google翻訳ウィジェット初期化用スクリプトは各ページでも動作するよう読み込み済み -->
 </header>
