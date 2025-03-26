@@ -47,6 +47,33 @@
       margin-bottom: 30px;
       text-align: justify;
     }
+    .sections-container {
+      margin-top: 40px;
+    }
+    .sections-container h2 {
+      font-size: 1.8rem;
+      color: var(--accent-color);
+      margin-bottom: 20px;
+    }
+    .section {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .section:last-child {
+      border-bottom: none;
+    }
+    .section p {
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 10px;
+      text-align: justify;
+    }
+    .section img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
     .share-section {
       margin-top: 30px;
       text-align: center;
@@ -98,11 +125,16 @@
     <div class="detail-container">
       <h1 id="release-title">プレスリリースタイトル</h1>
       <p class="date" id="release-date">公開日</p>
-      <img id="release-img" src="" alt="プレスリリース画像" />
+      <img id="release-img" src="" alt="プレスリリース画像">
       <div class="content" id="release-content"></div>
       <p class="tags" id="release-tags"></p>
       <a href="release_list.html" class="back-link">&laquo; 戻る</a>
     </div>
+  </section>
+
+  <!-- 追加情報（sections）表示エリア -->
+  <section class="sections-container" id="sectionsContainer">
+    <!-- JavaScriptにより各セクションが動的に挿入される -->
   </section>
 
   <section class="share-section">
@@ -124,18 +156,20 @@
       const data = await response.text();
       document.getElementById(elementId).innerHTML = data;
     }
+    loadHTML('includes/header.html', 'header-placeholder');
+    loadHTML('includes/footer.html', 'footer-placeholder');
 
     function setupSearch(inputId, btnId) {
       const input = document.getElementById(inputId);
       const btn = document.getElementById(btnId);
       if (input && btn) {
-        btn.addEventListener("click", function() {
+        btn.addEventListener("click", () => {
           const query = input.value.trim();
           if (query) {
             window.location.href = "search.html?query=" + encodeURIComponent(query);
           }
         });
-        input.addEventListener("keypress", function(e) {
+        input.addEventListener("keypress", (e) => {
           if (e.key === "Enter") {
             const query = input.value.trim();
             if (query) {
@@ -146,34 +180,48 @@
       }
     }
 
-    document.addEventListener("DOMContentLoaded", async function() {
-      await loadHTML('includes/header.html', 'header-placeholder');
-      await loadHTML('includes/footer.html', 'footer-placeholder');
-
+    document.addEventListener("DOMContentLoaded", function() {
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
 
-      // URLパラメータからIDを取得して該当データを表示
+      // URLパラメータからIDを取得
       const params = new URLSearchParams(window.location.search);
       const id = params.get("id");
+
+      // 該当するリリースデータを取得
       const release = releasesData.find(item => item.id === id);
       if(release) {
         document.getElementById("release-title").textContent = release.title;
         document.getElementById("release-date").textContent = release.date;
         document.getElementById("release-img").src = release.img;
         document.getElementById("release-img").alt = release.title;
-        document.getElementById("release-content").innerHTML = release.content;
+        document.getElementById("release-content").innerHTML = release.excerpt;
         const tagsText = release.tags ? release.tags.join(", ") : "";
         document.getElementById("release-tags").textContent = "タグ: " + tagsText;
 
-        // シェアボタンURL
+        // 追加のセクションがある場合
+        if(release.sections && Array.isArray(release.sections) && release.sections.length > 0) {
+          const sectionsContainer = document.getElementById("sectionsContainer");
+          sectionsContainer.innerHTML = "<h2>追加情報</h2>";
+          release.sections.forEach((sec, index) => {
+            const secDiv = document.createElement("div");
+            secDiv.className = "section";
+            secDiv.innerHTML = `
+              <p>${sec.body}</p>
+              <img src="${sec.img}" alt="追加画像 ${index + 1}">
+            `;
+            sectionsContainer.appendChild(secDiv);
+          });
+        }
+
+        // シェアボタンのリンク設定
         const currentUrl = encodeURIComponent(window.location.href);
         const shareText = encodeURIComponent(release.title);
         document.getElementById("fbShare").href = `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`;
         document.getElementById("twShare").href = `https://twitter.com/intent/tweet?url=${currentUrl}&text=${shareText}`;
         document.getElementById("liShare").href = `https://www.linkedin.com/sharing/share-offsite/?url=${currentUrl}`;
       } else {
-        document.querySelector(".release-detail").innerHTML = '<p>該当するプレスリリースが見つかりませんでした。</p>';
+        document.querySelector(".detail-container").innerHTML = '<p>該当するプレスリリースが見つかりませんでした。</p>';
       }
     });
   </script>
