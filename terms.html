@@ -129,10 +129,14 @@
       const data = await response.text();
       document.getElementById(elementId).innerHTML = data;
     }
-    loadHTML('includes/header.html', 'header-placeholder');
-    loadHTML('includes/footer.html', 'footer-placeholder');
-
-    // 検索機能の設定
+    Promise.all([
+      loadHTML('includes/header.html', 'header-placeholder'),
+      loadHTML('includes/footer.html', 'footer-placeholder')
+    ]).then(() => {
+      setupSearch("searchInput", "searchBtn");
+      setupSearch("searchInputMobile", "searchBtnMobile");
+    });
+    
     function setupSearch(inputId, btnId) {
       const input = document.getElementById(inputId);
       const btn = document.getElementById(btnId);
@@ -153,10 +157,6 @@
         });
       }
     }
-    document.addEventListener("DOMContentLoaded", () => {
-      setupSearch("searchInput", "searchBtn");
-      setupSearch("searchInputMobile", "searchBtnMobile");
-    });
   </script>
 </body>
 </html>
