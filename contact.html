@@ -16,79 +16,120 @@
     }
   </script>
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
+
   <style>
+    /* 全体の調整 */
     .contact-section {
-      max-width: 600px;
+      max-width: 700px;
       margin: 60px auto;
-      padding: 40px 30px;
+      padding: 40px;
       background: #fff;
       border-radius: 10px;
       box-shadow: 0 6px 20px rgba(0,0,0,0.1);
       font-size: 1rem;
     }
+
     .contact-section h1 {
-      font-size: 2.4rem;
+      font-size: 2rem;
       color: var(--accent-color);
       margin-bottom: 20px;
-      text-align: center;
     }
+
     .contact-section p.intro {
       font-size: 1rem;
       line-height: 1.8;
       margin-bottom: 30px;
-      text-align: center;
       color: #555;
     }
-    .contact-section form > div {
+
+    /* フォーム全体を囲むコンテナ */
+    .form-box {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      background: var(--secondary-bg);
+    }
+
+    .form-box h2 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    /* フォームグループ */
+    .form-group {
       margin-bottom: 20px;
       display: flex;
       flex-direction: column;
     }
-    .contact-section label {
+
+    .form-group label {
       font-weight: 600;
       margin-bottom: 8px;
       color: #333;
     }
-    .contact-section input,
-    .contact-section textarea {
+
+    .form-group input,
+    .form-group textarea {
       padding: 12px;
       border: 1px solid var(--border-color);
       border-radius: 5px;
       font-size: 1rem;
       transition: border 0.3s;
     }
-    .contact-section input:focus,
-    .contact-section textarea:focus {
+
+    .form-group input:focus,
+    .form-group textarea:focus {
       border-color: var(--accent-color);
       outline: none;
     }
+
+    /* ボタン */
     .contact-section button {
-      width: 100%;
-      padding: 14px;
+      display: inline-block;
+      padding: 14px 24px;
       background: var(--accent-color);
       color: #fff;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: bold;
       border: none;
       border-radius: 5px;
       cursor: pointer;
       transition: background 0.3s ease;
+      margin-top: 10px;
     }
+
     .contact-section button:hover {
       background: var(--highlight-color);
     }
+
+    /* エラーメッセージ */
     .error-message {
       color: #d9534f;
       font-size: 0.9rem;
       margin-top: 5px;
-      text-align: center;
     }
+
+    /* 追加の注意文（小さくグレー、左寄せ） */
     .disclaimer {
       font-size: 0.8rem;
       color: #777;
-      margin-top: 10px;
-      text-align: center;
-      line-height: 1.4;
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+
+    /* スマホ対応 */
+    @media (max-width: 600px) {
+      .contact-section {
+        padding: 20px;
+      }
+      .form-box {
+        padding: 15px;
+      }
+      .contact-section h1 {
+        font-size: 1.8rem;
+      }
     }
   </style>
 </head>
@@ -101,49 +142,63 @@
       <h1>お問い合わせ</h1>
       <p class="intro">
         UP Global Pressにご関心をお持ちいただきまして、ありがとうございます。<br>
-        サービスに関することやプレスリリースに関するお問い合わせはお気軽にどうぞ。担当者が丁寧に対応いたします。
+        サービスやプレスリリースに関するご質問など、お気軽にお問い合わせください。<br>
+        担当者が丁寧に対応いたします。
       </p>
-      <form id="contactForm" action="mailto:unplaced.prinfo@gmail.com" method="post" enctype="text/plain">
-        <div>
-          <label for="name">名前*</label>
-          <input type="text" id="name" name="name" required>
-        </div>
-        <div>
-          <label for="company">会社名</label>
-          <input type="text" id="company" name="company">
-        </div>
-        <div>
-          <label for="companyHP">会社HP</label>
-          <input type="url" id="companyHP" name="companyHP" placeholder="https://example.com">
-        </div>
-        <div>
-          <label for="email">アドレス*</label>
-          <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-          <label for="tel">電話番号</label>
-          <input type="tel" id="tel" name="tel">
-        </div>
-        <div>
-          <label for="message">お問い合わせ内容</label>
-          <textarea id="message" name="message" rows="5"></textarea>
-        </div>
-        <div>
-          <label>
-            <input type="checkbox" id="agreement" name="agreement" required>
-            UP Global Pressの利用規約とプライバシーポリシーに同意する*
-          </label>
-        </div>
-        <!-- 追加の注意文（小さくグレー） -->
-        <p class="disclaimer">
-          営業メール関連のお問い合わせはお断りしております。<br>
-          お問い合わせの内容によっては、返信に時間を要する場合がございます。あらかじめご了承ください。<br>
-          当社からの返信メールは、お客様個人宛にお送りするものです。返信メールの一部または全部を無断で転載することはご遠慮ください。<br>
-          お問い合わせいただいた際に伺った個人情報は、ご回答のために必要な範囲に限定して利用させていただくとともに、個人情報保護方針に基づき厳重に取り扱います。
-        </p>
-        <button type="submit" id="submitBtn">メール送信</button>
-        <div id="formError" class="error-message"></div>
-      </form>
+
+      <div class="form-box">
+        <h2>お問い合わせフォーム</h2>
+        <form id="contactForm" action="mailto:unplaced.prinfo@gmail.com" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="name">お名前*</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="company">会社名</label>
+            <input type="text" id="company" name="company">
+          </div>
+
+          <div class="form-group">
+            <label for="companyHP">会社HP</label>
+            <input type="url" id="companyHP" name="companyHP" placeholder="https://example.com">
+          </div>
+
+          <div class="form-group">
+            <label for="email">メールアドレス*</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label for="tel">電話番号</label>
+            <input type="tel" id="tel" name="tel">
+          </div>
+
+          <div class="form-group">
+            <label for="message">お問い合わせ内容</label>
+            <textarea id="message" name="message" rows="5"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="agreement" name="agreement" required>
+              UP Global Pressの利用規約とプライバシーポリシーに同意する*
+            </label>
+          </div>
+
+          <div id="formError" class="error-message"></div>
+
+          <button type="submit" id="submitBtn">送信</button>
+
+          <!-- 追加の注意文：小さく左寄せ -->
+          <div class="disclaimer">
+            営業メール関連のお問い合わせはお断りしております。<br>
+            お問い合わせの内容によっては、返信に時間を要する場合がございます。あらかじめご了承ください。<br>
+            当社からの返信メールは、お客様個人宛にお送りするものです。返信メールの一部または全部を無断で転載することはご遠慮ください。<br>
+            お問い合わせいただいた際に伺った個人情報は、ご回答のために必要な範囲に限定して利用させていただくとともに、個人情報保護方針に基づき厳重に取り扱います。
+          </div>
+        </form>
+      </div>
     </section>
   </main>
 
@@ -151,15 +206,19 @@
   <div id="footer-placeholder"></div>
 
   <script>
+    // ヘッダー・フッター読み込み
     function loadHTML(url, elementId) {
       fetch(url)
         .then(response => response.text())
-        .then(data => { document.getElementById(elementId).innerHTML = data; })
+        .then(data => {
+          document.getElementById(elementId).innerHTML = data;
+        })
         .catch(error => console.error('Error loading ' + url + ':', error));
     }
     loadHTML('includes/header.html', 'header-placeholder');
     loadHTML('includes/footer.html', 'footer-placeholder');
 
+    // お問い合わせフォームのバリデーション
     document.getElementById("contactForm").addEventListener("submit", function(event) {
       const agreement = document.getElementById("agreement");
       const formError = document.getElementById("formError");
@@ -171,7 +230,7 @@
       formError.textContent = "";
     });
 
-    // 各ページ共通の検索機能
+    // 検索機能（各ページ共通の実装例）
     (function() {
       function performSearch(inputId) {
         var input = document.getElementById(inputId);
