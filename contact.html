@@ -168,9 +168,17 @@
       const data = await response.text();
       document.getElementById(elementId).innerHTML = data;
     }
-    loadHTML('includes/header.html', 'header-placeholder');
-    loadHTML('includes/footer.html', 'footer-placeholder');
+    // ヘッダーとフッターの読み込み完了を待つ
+    Promise.all([
+      loadHTML('includes/header.html', 'header-placeholder'),
+      loadHTML('includes/footer.html', 'footer-placeholder')
+    ]).then(() => {
+      // ヘッダー読み込み後に検索機能をバインド
+      setupSearch("searchInput", "searchBtn");
+      setupSearch("searchInputMobile", "searchBtnMobile");
+    });
 
+    // お問い合わせフォームのバリデーション
     document.getElementById("contactForm").addEventListener("submit", function(event) {
       const agreement = document.getElementById("agreement");
       const formError = document.getElementById("formError");
@@ -182,7 +190,7 @@
       formError.textContent = "";
     });
 
-    // 各ページ共通の検索機能
+    // 検索機能の設定（共通）
     function setupSearch(inputId, btnId) {
       const input = document.getElementById(inputId);
       const btn = document.getElementById(btnId);
@@ -203,10 +211,6 @@
         });
       }
     }
-    document.addEventListener("DOMContentLoaded", () => {
-      setupSearch("searchInput", "searchBtn");
-      setupSearch("searchInputMobile", "searchBtnMobile");
-    });
   </script>
 </body>
 </html>
