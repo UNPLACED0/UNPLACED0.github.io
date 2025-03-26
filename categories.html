@@ -156,44 +156,4 @@
               <h2>その他</h2>
               <p>その他のトピックスや多様な分野のニュース。</p>
             </div>
-          </a>
-        </div>
-      </div>
-    </section>
-  </main>
-  <!-- フッター読み込み -->
-  <div id="footer-placeholder"></div>
-  <script src="releases.js"></script>
-  <script>
-    function loadHTML(url, elementId) {
-      fetch(url)
-        .then(response => response.text())
-        .then(data => { document.getElementById(elementId).innerHTML = data; })
-        .catch(error => console.error('Error loading ' + url + ':', error));
-    }
-    loadHTML('includes/header.html', 'header-placeholder');
-    loadHTML('includes/footer.html', 'footer-placeholder');
-
-    document.addEventListener("DOMContentLoaded", function() {
-      function setupSearch(searchInputId, searchBtnId) {
-        const input = document.getElementById(searchInputId);
-        const btn = document.getElementById(searchBtnId);
-        if (input && btn) {
-          btn.addEventListener("click", function() {
-            const query = input.value.trim();
-            window.location.href = `search.html?query=${encodeURIComponent(query)}`;
-          });
-          input.addEventListener("keypress", function(e) {
-            if (e.key === "Enter") {
-              const query = input.value.trim();
-              window.location.href = `search.html?query=${encodeURIComponent(query)}`;
-            }
-          });
-        }
-      }
-      setupSearch("searchInput", "searchBtn");
-      setupSearch("searchInputMobile", "searchBtnMobile");
-    });
-  </script>
-</body>
-</html>
+          </a

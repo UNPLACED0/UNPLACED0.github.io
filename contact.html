@@ -144,7 +144,6 @@
     loadHTML('includes/footer.html', 'footer-placeholder');
 
     document.getElementById("contactForm").addEventListener("submit", function(event) {
-      const form = event.target;
       const agreement = document.getElementById("agreement");
       const formError = document.getElementById("formError");
       if (!agreement.checked) {
@@ -153,7 +152,6 @@
         return false;
       }
       formError.textContent = "";
-      // メール送信はmailto:で行われます
     });
   </script>
 </body>

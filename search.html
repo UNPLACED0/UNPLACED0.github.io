@@ -213,7 +213,6 @@
 
   <script src="releases.js"></script>
   <script>
-    // ヘッダーとフッターを外部ファイルから読み込む
     function loadHTML(url, elementId) {
       fetch(url)
         .then(response => response.text())
@@ -223,16 +222,16 @@
     loadHTML('includes/header.html', 'header-placeholder');
     loadHTML('includes/footer.html', 'footer-placeholder');
 
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", function() {
       function setupSearch(searchInputId, searchBtnId) {
         const input = document.getElementById(searchInputId);
         const btn = document.getElementById(searchBtnId);
         if (input && btn) {
-          btn.addEventListener("click", () => {
+          btn.addEventListener("click", function() {
             const query = input.value.trim();
             window.location.href = `search.html?query=${encodeURIComponent(query)}`;
           });
-          input.addEventListener("keypress", (e) => {
+          input.addEventListener("keypress", function(e) {
             if (e.key === "Enter") {
               const query = input.value.trim();
               window.location.href = `search.html?query=${encodeURIComponent(query)}`;
@@ -292,8 +291,9 @@
       }
       doAdvancedSearch(query.toLowerCase(), [], "", "");
 
-      document.getElementById("applyFilters").addEventListener("click", () => {
-        const selectedFilters = Array.from(document.querySelectorAll("#filterForm input[name='filter']:checked")).map(cb => cb.value);
+      document.getElementById("applyFilters").addEventListener("click", function() {
+        const selectedFilters = Array.from(document.querySelectorAll("#filterForm input[name='filter']:checked"))
+          .map(checkbox => checkbox.value);
         const startDate = document.getElementById("startDate").value;
         const endDate = document.getElementById("endDate").value;
         doAdvancedSearch(query.toLowerCase(), selectedFilters, startDate, endDate);

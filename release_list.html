@@ -50,17 +50,17 @@
 
     document.addEventListener("DOMContentLoaded", function() {
       function setupSearch(searchInputId, searchBtnId) {
-        const input = document.getElementById(searchInputId);
-        const btn = document.getElementById(searchBtnId);
+        var input = document.getElementById(searchInputId);
+        var btn = document.getElementById(searchBtnId);
         if (input && btn) {
           btn.addEventListener("click", function() {
-            const query = input.value.trim();
-            window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+            var query = input.value.trim();
+            window.location.href = "search.html?query=" + encodeURIComponent(query);
           });
           input.addEventListener("keypress", function(e) {
             if (e.key === "Enter") {
-              const query = input.value.trim();
-              window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+              var query = input.value.trim();
+              window.location.href = "search.html?query=" + encodeURIComponent(query);
             }
           });
         }
@@ -68,12 +68,12 @@
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
 
-      const container = document.querySelector(".releases");
-      releasesData.sort((a, b) => new Date(b.date) - new Date(a.date));
-      releasesData.forEach(release => {
-        const card = document.createElement("div");
+      var container = document.querySelector(".releases");
+      releasesData.sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
+      releasesData.forEach(function(release) {
+        var card = document.createElement("div");
         card.className = "release-card";
-        const tagsText = release.tags ? release.tags.join(", ") : "";
+        var tagsText = release.tags ? release.tags.join(", ") : "";
         card.innerHTML = `
           <a href="${release.link}">
             <img src="${release.img}" alt="${release.title}">

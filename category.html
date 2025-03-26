@@ -30,9 +30,9 @@
     </div>
   </section>
 
-  <!-- カテゴリー別結果表示 -->
+  <!-- カテゴリー別結果表示エリア -->
   <section class="releases">
-    <!-- JSでフィルタ結果を表示 -->
+    <!-- JavaScript によりフィルタ結果が動的に挿入されます -->
   </section>
 
   <!-- フッター読み込み -->
@@ -40,7 +40,7 @@
 
   <script src="releases.js"></script>
   <script>
-    // ヘッダーとフッターを外部ファイルから読み込む
+    // 外部HTML（ヘッダー、フッター）の読み込み
     function loadHTML(url, elementId) {
       fetch(url)
         .then(response => response.text())
@@ -51,33 +51,16 @@
     loadHTML('includes/footer.html', 'footer-placeholder');
 
     document.addEventListener("DOMContentLoaded", function() {
-      function setupSearch(searchInputId, searchBtnId) {
-        const input = document.getElementById(searchInputId);
-        const btn = document.getElementById(searchBtnId);
-        if (input && btn) {
-          btn.addEventListener("click", function() {
-            const query = input.value.trim();
-            window.location.href = `search.html?query=${encodeURIComponent(query)}`;
-          });
-          input.addEventListener("keypress", function(e) {
-            if (e.key === "Enter") {
-              const query = input.value.trim();
-              window.location.href = `search.html?query=${encodeURIComponent(query)}`;
-            }
-          });
-        }
-      }
-      setupSearch("searchInput", "searchBtn");
-      setupSearch("searchInputMobile", "searchBtnMobile");
-
+      // URLパラメータからカテゴリー名を取得して表示
       const params = new URLSearchParams(window.location.search);
       const category = params.get("name");
       document.getElementById("category-name").textContent = category || "（指定なし）";
 
+      // 指定されたカテゴリーに一致するプレスリリースをフィルタリングして表示
       const container = document.querySelector(".releases");
       const filtered = releasesData.filter(item => item.tags && item.tags.includes(category));
       filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
-      if(filtered.length === 0) {
+      if (filtered.length === 0) {
         container.innerHTML = "<p>該当するプレスリリースは見つかりませんでした。</p>";
       } else {
         filtered.forEach(release => {
