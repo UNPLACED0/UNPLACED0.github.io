@@ -7,15 +7,13 @@
       </div>
       <div class="header-top-right">
         <div class="language-switcher">
-          <!-- Google翻訳ウィジェット用 -->
           <div id="google_translate_element"></div>
         </div>
         <a href="cms.html" class="cms-button">CMS</a>
-        <!-- ログアウトボタン（CMS管理画面用の場合など） -->
-        <!-- <a href="cms_login.html" class="logout-btn" onclick="localStorage.removeItem('cmsRole');">ログアウト</a> -->
+        <!-- 必要に応じてログアウトボタンもここに追加可能 -->
       </div>
     </div>
-    <!-- 下段：ナビゲーション＆検索バー（企業概要リンクは除外） -->
+    <!-- 下段：ナビゲーション＆検索バー -->
     <div class="header-inner">
       <nav class="main-nav">
         <a href="index.html">ホーム</a>
@@ -41,4 +39,34 @@
       </div>
     </div>
   </div>
+  <!-- 検索機能の実装 -->
+  <script>
+    (function() {
+      function performSearch(inputId) {
+        var input = document.getElementById(inputId);
+        if (input) {
+          var query = input.value.trim();
+          if (query) {
+            window.location.href = "search.html?query=" + encodeURIComponent(query);
+          }
+        }
+      }
+      document.getElementById("searchBtn").addEventListener("click", function() {
+        performSearch("searchInput");
+      });
+      document.getElementById("searchInput").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+          performSearch("searchInput");
+        }
+      });
+      document.getElementById("searchBtnMobile").addEventListener("click", function() {
+        performSearch("searchInputMobile");
+      });
+      document.getElementById("searchInputMobile").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+          performSearch("searchInputMobile");
+        }
+      });
+    })();
+  </script>
 </header>
