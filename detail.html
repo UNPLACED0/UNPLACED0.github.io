@@ -6,7 +6,7 @@
   <title>プレスリリース詳細 - UP Global Press</title>
   <link rel="stylesheet" href="styles.css"/>
   
-  <!-- GTranslate -->
+  <!-- GTranslateウィジェット初期化 -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
@@ -113,7 +113,7 @@
           <a href="index.html">ホーム</a>
           <a href="categories.html">カテゴリー</a>
           <a href="release_list.html">プレスリリース一覧</a>
-          <a href="about.html">企業情報</a>
+          <a href="about.html">企業概要</a>
           <a href="contact.html">お問い合わせ</a>
         </nav>
         <div class="search-bar">
@@ -126,7 +126,7 @@
           <a href="index.html">ホーム</a>
           <a href="categories.html">カテゴリー</a>
           <a href="release_list.html">プレスリリース一覧</a>
-          <a href="about.html">企業情報</a>
+          <a href="about.html">企業概要</a>
           <a href="contact.html">お問い合わせ</a>
         </div>
       </div>
@@ -187,7 +187,7 @@
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
 
-      // リリース詳細
+      // リリース詳細表示
       const params = new URLSearchParams(window.location.search);
       const id = params.get("id");
       const release = releasesData.find(item => item.id === id);

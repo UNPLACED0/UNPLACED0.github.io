@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>検索結果 - UP Global Press</title>
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- GTranslate初期化 -->
+  <!-- GTranslateウィジェット初期化 -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
@@ -17,8 +16,6 @@
     }
   </script>
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-  <!-- 高度なフィルタリング用スタイル（前回と同様） -->
   <style>
     .advanced-filters {
       max-width: 1200px;
@@ -152,7 +149,7 @@
           <a href="index.html">ホーム</a>
           <a href="categories.html">カテゴリー</a>
           <a href="release_list.html">プレスリリース一覧</a>
-          <a href="about.html">企業情報</a>
+          <a href="about.html">企業概要</a>
           <a href="contact.html">お問い合わせ</a>
         </nav>
         <div class="search-bar">
@@ -165,7 +162,7 @@
           <a href="index.html">ホーム</a>
           <a href="categories.html">カテゴリー</a>
           <a href="release_list.html">プレスリリース一覧</a>
-          <a href="about.html">企業情報</a>
+          <a href="about.html">企業概要</a>
           <a href="contact.html">お問い合わせ</a>
           <div class="search-bar">
             <input type="text" placeholder="キーワードで検索" id="searchInputMobile" />
@@ -291,7 +288,7 @@
       document.getElementById("searchQuery").textContent = query || "(なし)";
       document.getElementById("searchInput").value = query;
 
-      // 高度な検索実行（キーワード＋フィルター＋日付範囲）
+      // 高度な検索実行
       function doAdvancedSearch(keyword, filters, startDate, endDate) {
         const container = document.querySelector(".releases");
         container.innerHTML = "";
@@ -305,14 +302,12 @@
             content.includes(keyword)
           );
         });
-        // カテゴリーで絞り込み
         if (filters.length > 0) {
           results = results.filter(item => {
             if (!item.tags) return false;
             return filters.some(filter => item.tags.includes(filter));
           });
         }
-        // 日付範囲で絞り込み
         if (startDate || endDate) {
           results = results.filter(item => {
             const itemDate = new Date(item.date);
@@ -336,10 +331,8 @@
           });
         }
       }
-      // 初回検索実行
       doAdvancedSearch(query.toLowerCase(), [], "", "");
 
-      // フィルター適用ボタンイベント
       document.getElementById("applyFilters").addEventListener("click", function() {
         const selectedFilters = Array.from(document.querySelectorAll("#filterForm input[name='filter']:checked"))
           .map(checkbox => checkbox.value);

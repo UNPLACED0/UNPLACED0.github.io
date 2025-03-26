@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>お問い合わせ - UP Global Press</title>
   <link rel="stylesheet" href="styles.css"/>
-  <!-- GTranslate -->
+  <!-- GTranslateウィジェット初期化 -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
@@ -57,7 +57,7 @@
     .contact-section button {
       display: block;
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       background: var(--accent-color);
       color: #ffffff;
       font-size: 1.1rem;
@@ -69,12 +69,17 @@
     .contact-section button:hover {
       background: var(--highlight-color);
     }
+    .error-message {
+      color: #d9534f;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="header-container">
-      <!-- 上段：ロゴ + 翻訳ウィジェット + CMSボタン -->
+      <!-- ヘッダー上段：ロゴ（左） + 右側（翻訳ウィジェット、CMSボタン） -->
       <div class="header-top">
         <div class="logo">
           <a href="index.html">UP Global Press</a>
@@ -86,13 +91,13 @@
           <a href="cms.html" class="cms-button">CMS</a>
         </div>
       </div>
-      <!-- 下段：ナビゲーション＆検索バー -->
+      <!-- ヘッダー下段：ナビゲーション＆検索バー -->
       <div class="header-inner">
         <nav class="main-nav">
           <a href="index.html">ホーム</a>
           <a href="categories.html">カテゴリー</a>
           <a href="release_list.html">プレスリリース一覧</a>
-          <a href="about.html">企業情報</a>
+          <a href="about.html">企業概要</a>
           <a href="contact.html">お問い合わせ</a>
         </nav>
         <div class="search-bar">
@@ -105,7 +110,7 @@
           <a href="index.html">ホーム</a>
           <a href="categories.html">カテゴリー</a>
           <a href="release_list.html">プレスリリース一覧</a>
-          <a href="about.html">企業情報</a>
+          <a href="about.html">企業概要</a>
           <a href="contact.html">お問い合わせ</a>
           <div class="search-bar">
             <input type="text" placeholder="キーワードで検索" id="searchInputMobile"/>
@@ -119,21 +124,40 @@
   <main>
     <section class="contact-section">
       <h1>お問い合わせ</h1>
-      <p>ご質問やご意見は以下のフォームからお気軽にお問い合わせください。</p>
-      <form action="#" method="post">
+      <p>すべての必須項目を入力し、利用規約とプライバシーポリシーに同意してください。</p>
+      <form id="contactForm" action="mailto:unplaced.prinfo@gmail.com" method="post" enctype="text/plain">
         <div>
-          <label for="name">お名前</label>
-          <input type="text" id="name" name="name" required />
+          <label for="name">名前*</label>
+          <input type="text" id="name" name="name" required>
         </div>
         <div>
-          <label for="email">メールアドレス</label>
-          <input type="email" id="email" name="email" required />
+          <label for="company">会社名</label>
+          <input type="text" id="company" name="company">
+        </div>
+        <div>
+          <label for="companyHP">会社HP</label>
+          <input type="url" id="companyHP" name="companyHP" placeholder="https://example.com">
+        </div>
+        <div>
+          <label for="email">アドレス*</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+          <label for="tel">電話番号</label>
+          <input type="tel" id="tel" name="tel">
         </div>
         <div>
           <label for="message">お問い合わせ内容</label>
-          <textarea id="message" name="message" rows="5" required></textarea>
+          <textarea id="message" name="message" rows="5"></textarea>
         </div>
-        <button type="submit">送信</button>
+        <div>
+          <label>
+            <input type="checkbox" id="agreement" name="agreement" required>
+            UP Global Pressの利用規約とプライバシーポリシーに同意する*
+          </label>
+        </div>
+        <button type="submit" id="submitBtn">メール送信</button>
+        <div id="formError" class="error-message"></div>
       </form>
     </section>
   </main>
@@ -144,32 +168,30 @@
       <nav class="footer-nav">
         <a href="index.html">ホーム</a>
         <a href="privacy.html">プライバシーポリシー</a>
-        <a href="contact.html">お問い合わせ</a>
+        <a href="terms.html">利用規約</a>
+        <a href="content_guidelines.html">コンテンツ基準</a>
+        <a href="about.html">企業概要</a>
       </nav>
     </div>
   </footer>
 
   <script src="releases.js"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      function setupSearch(searchInputId, searchBtnId) {
-        const input = document.getElementById(searchInputId);
-        const btn = document.getElementById(searchBtnId);
-        if (input && btn) {
-          btn.addEventListener("click", function() {
-            const query = input.value.trim();
-            window.location.href = `search.html?query=${encodeURIComponent(query)}`;
-          });
-          input.addEventListener("keypress", function(e) {
-            if (e.key === "Enter") {
-              const query = input.value.trim();
-              window.location.href = `search.html?query=${encodeURIComponent(query)}`;
-            }
-          });
-        }
+    // HTML5のrequired属性により基本的なバリデーションは動作しますが、
+    // 追加でJavaScriptでチェックする例です。
+    document.getElementById("contactForm").addEventListener("submit", function(event) {
+      const form = event.target;
+      const agreement = document.getElementById("agreement");
+      const formError = document.getElementById("formError");
+      
+      if (!agreement.checked) {
+        event.preventDefault();
+        formError.textContent = "利用規約とプライバシーポリシーに同意してください。";
+        return false;
       }
-      setupSearch("searchInput", "searchBtn");
-      setupSearch("searchInputMobile", "searchBtnMobile");
+      
+      formError.textContent = "";
+      // 正常ならそのまま送信（mailto:によるメール送信）
     });
   </script>
 </body>

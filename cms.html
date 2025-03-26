@@ -88,16 +88,18 @@
     }
     .logout-btn {
       padding: 6px 12px;
-      background: var(--accent-color);
-      color: #fff;
+      background: transparent;
+      color: var(--accent-color);
       text-decoration: none;
+      border: 1px solid var(--accent-color);
       border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s;
+      font-size: 0.9rem;
+      transition: background 0.3s, color 0.3s;
       margin-left: 10px;
     }
     .logout-btn:hover {
-      background: var(--highlight-color);
+      background: var(--accent-color);
+      color: #fff;
     }
     .error-message {
       color: #d9534f;
@@ -121,7 +123,7 @@
 <body>
   <header>
     <div class="header-container">
-      <!-- 上段：ロゴ(左) + 右側(翻訳ウィジェット、CMSボタン、ログアウトボタン) -->
+      <!-- 上段：ロゴ(左) + 右側（翻訳ウィジェット、CMSボタン、ログアウトボタン） -->
       <div class="header-top">
         <div class="logo">
           <a href="index.html">UP Global Press</a>
@@ -140,7 +142,7 @@
           <a href="index.html">ホーム</a>
           <a href="categories.html">カテゴリー</a>
           <a href="release_list.html">プレスリリース一覧</a>
-          <a href="about.html">企業情報</a>
+          <a href="about.html">企業概要</a>
           <a href="contact.html">お問い合わせ</a>
         </nav>
         <div class="search-bar">
@@ -153,7 +155,7 @@
           <a href="index.html">ホーム</a>
           <a href="categories.html">カテゴリー</a>
           <a href="release_list.html">プレスリリース一覧</a>
-          <a href="about.html">企業情報</a>
+          <a href="about.html">企業概要</a>
           <a href="contact.html">お問い合わせ</a>
         </div>
       </div>
@@ -227,7 +229,6 @@
 
   <script src="releases.js"></script>
   <script>
-    // ロールチェック
     const role = localStorage.getItem("cmsRole");
     if(!role) {
       window.location.href = "cms_login.html";
@@ -235,8 +236,6 @@
     if(role === "admin") {
       document.getElementById("adminSection").style.display = "block";
     }
-
-    // releases配列のコピー
     let cmsReleasesData = JSON.parse(JSON.stringify(releasesData || []));
     const releasesTableBody = document.querySelector("#releasesTable tbody");
     const formTitle = document.getElementById("formTitle");
@@ -299,7 +298,7 @@
         date: releaseDateInput.value.trim(),
         excerpt: releaseExcerptInput.value.trim(),
         img: releaseImgInput.value.trim(),
-        link: "",
+        link: "", 
         content: releaseContentInput.value,
         tags: parseTags(releaseTagsInput.value)
       };
@@ -332,7 +331,6 @@
     });
 
     generateJsonBtn.addEventListener("click", () => {
-      // 生成前にタグ必須チェック（現在入力中のフォームを簡易チェック）
       const currentTags = parseTags(releaseTagsInput.value);
       const hasReq = currentTags.some(tag => REQUIRED_TAGS.includes(tag));
       if(!hasReq) {
@@ -356,7 +354,6 @@
       formTitle.textContent = "プレスリリースを編集";
       saveBtn.textContent = "更新";
       cancelBtn.style.display = "inline-block";
-      // 編集フォームまでスクロール
       document.getElementById("formContainer").scrollIntoView({behavior: "smooth"});
     };
 
@@ -391,7 +388,6 @@
       return tagStr.split(",").map(s => s.trim()).filter(Boolean);
     }
 
-    // 検索バー
     document.addEventListener("DOMContentLoaded", function() {
       function setupSearch(searchInputId, searchBtnId) {
         const input = document.getElementById(searchInputId);

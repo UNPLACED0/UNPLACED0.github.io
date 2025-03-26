@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>プライバシーポリシー - UP Global Press</title>
   <link rel="stylesheet" href="styles.css"/>
-  <!-- GTranslate -->
+  <!-- GTranslateウィジェット初期化 -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
@@ -25,6 +25,7 @@
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       font-size: 1rem;
+      line-height: 1.8;
     }
     .privacy-section h1 {
       font-size: 2.5rem;
@@ -40,7 +41,6 @@
     }
     .privacy-section p {
       font-size: 1rem;
-      line-height: 1.8;
       margin-bottom: 20px;
       text-align: justify;
     }
@@ -51,14 +51,13 @@
     .privacy-section ul li {
       font-size: 1rem;
       margin-bottom: 10px;
-      line-height: 1.6;
     }
   </style>
 </head>
 <body>
   <header>
     <div class="header-container">
-      <!-- 上段：ロゴ + 翻訳ウィジェット + CMSボタン -->
+      <!-- ヘッダー上段：ロゴ（左）+ 右側（翻訳ウィジェット、CMSボタン） -->
       <div class="header-top">
         <div class="logo">
           <a href="index.html">UP Global Press</a>
@@ -70,32 +69,15 @@
           <a href="cms.html" class="cms-button">CMS</a>
         </div>
       </div>
-      <!-- 下段：ナビゲーション＆検索バー -->
+      <!-- ヘッダー下段：ナビゲーション -->
       <div class="header-inner">
         <nav class="main-nav">
           <a href="index.html">ホーム</a>
           <a href="categories.html">カテゴリー</a>
           <a href="release_list.html">プレスリリース一覧</a>
-          <a href="about.html">企業情報</a>
+          <a href="about.html">企業概要</a>
           <a href="contact.html">お問い合わせ</a>
         </nav>
-        <div class="search-bar">
-          <input type="text" placeholder="キーワードで検索" id="searchInput"/>
-          <button id="searchBtn">検索</button>
-        </div>
-        <input type="checkbox" id="menu-toggle" style="display:none;"/>
-        <label for="menu-toggle" class="hamburger">&#9776;</label>
-        <div class="mobile-nav">
-          <a href="index.html">ホーム</a>
-          <a href="categories.html">カテゴリー</a>
-          <a href="release_list.html">プレスリリース一覧</a>
-          <a href="about.html">企業情報</a>
-          <a href="contact.html">お問い合わせ</a>
-          <div class="search-bar">
-            <input type="text" placeholder="キーワードで検索" id="searchInputMobile"/>
-            <button id="searchBtnMobile">検索</button>
-          </div>
-        </div>
       </div>
     </div>
   </header>
@@ -153,33 +135,11 @@
       <nav class="footer-nav">
         <a href="index.html">ホーム</a>
         <a href="privacy.html">プライバシーポリシー</a>
-        <a href="contact.html">お問い合わせ</a>
+        <a href="terms.html">利用規約</a>
+        <a href="content_guidelines.html">コンテンツ基準</a>
+        <a href="about.html">企業概要</a>
       </nav>
     </div>
   </footer>
-
-  <script src="releases.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      function setupSearch(searchInputId, searchBtnId) {
-        const input = document.getElementById(searchInputId);
-        const btn = document.getElementById(searchBtnId);
-        if (input && btn) {
-          btn.addEventListener("click", function() {
-            const query = input.value.trim();
-            window.location.href = `search.html?query=${encodeURIComponent(query)}`;
-          });
-          input.addEventListener("keypress", function(e) {
-            if (e.key === "Enter") {
-              const query = input.value.trim();
-              window.location.href = `search.html?query=${encodeURIComponent(query)}`;
-            }
-          });
-        }
-      }
-      setupSearch("searchInput", "searchBtn");
-      setupSearch("searchInputMobile", "searchBtnMobile");
-    });
-  </script>
 </body>
 </html>
