@@ -19,15 +19,15 @@
   <style>
     .contact-section {
       max-width: 600px;
-      margin: 40px auto;
-      padding: 40px;
-      background: linear-gradient(135deg, #ffffff, #f9f9f9);
+      margin: 60px auto;
+      padding: 40px 30px;
+      background: #fff;
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
       font-size: 1rem;
     }
     .contact-section h1 {
-      font-size: 2.2rem;
+      font-size: 2.4rem;
       color: var(--accent-color);
       margin-bottom: 20px;
       text-align: center;
@@ -35,32 +35,40 @@
     .contact-section p {
       font-size: 1rem;
       line-height: 1.8;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
       text-align: center;
+      color: #555;
     }
-    .contact-section form div {
-      margin-bottom: 15px;
+    .contact-section form > div {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
     }
     .contact-section label {
-      display: block;
       font-weight: 600;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
+      color: #333;
     }
     .contact-section input,
     .contact-section textarea {
-      width: 100%;
-      padding: 10px;
+      padding: 12px;
       border: 1px solid var(--border-color);
       border-radius: 5px;
       font-size: 1rem;
+      transition: border 0.3s;
+    }
+    .contact-section input:focus,
+    .contact-section textarea:focus {
+      border-color: var(--accent-color);
+      outline: none;
     }
     .contact-section button {
-      display: block;
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       background: var(--accent-color);
-      color: #ffffff;
+      color: #fff;
       font-size: 1.1rem;
+      font-weight: bold;
       border: none;
       border-radius: 5px;
       cursor: pointer;
@@ -73,51 +81,13 @@
       color: #d9534f;
       font-size: 0.9rem;
       margin-top: 5px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="header-container">
-      <!-- ヘッダー上段：ロゴ（左）+ 右側（翻訳ウィジェット、CMSボタン） -->
-      <div class="header-top">
-        <div class="logo">
-          <a href="index.html">UP Global Press</a>
-        </div>
-        <div class="header-top-right">
-          <div class="language-switcher">
-            <div id="google_translate_element"></div>
-          </div>
-          <a href="cms.html" class="cms-button">CMS</a>
-        </div>
-      </div>
-      <!-- ヘッダー下段：ナビゲーション＆検索バー（企業概要リンク除外） -->
-      <div class="header-inner">
-        <nav class="main-nav">
-          <a href="index.html">ホーム</a>
-          <a href="categories.html">カテゴリー</a>
-          <a href="release_list.html">プレスリリース一覧</a>
-          <a href="contact.html">お問い合わせ</a>
-        </nav>
-        <div class="search-bar">
-          <input type="text" placeholder="キーワードで検索" id="searchInput"/>
-          <button id="searchBtn">検索</button>
-        </div>
-        <input type="checkbox" id="menu-toggle" style="display:none;"/>
-        <label for="menu-toggle" class="hamburger">&#9776;</label>
-        <div class="mobile-nav">
-          <a href="index.html">ホーム</a>
-          <a href="categories.html">カテゴリー</a>
-          <a href="release_list.html">プレスリリース一覧</a>
-          <a href="contact.html">お問い合わせ</a>
-          <div class="search-bar">
-            <input type="text" placeholder="キーワードで検索" id="searchInputMobile"/>
-            <button id="searchBtnMobile">検索</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+  <!-- ヘッダー読み込み -->
+  <div id="header-placeholder"></div>
 
   <main>
     <section class="contact-section">
@@ -160,34 +130,30 @@
     </section>
   </main>
 
-  <footer>
-    <div class="footer-inner">
-      <p>&copy; 2025 UP Global Press</p>
-      <nav class="footer-nav">
-        <a href="index.html">ホーム</a>
-        <a href="privacy.html">プライバシーポリシー</a>
-        <a href="terms.html">利用規約</a>
-        <a href="content_guidelines.html">コンテンツ基準</a>
-        <a href="about.html">企業概要</a>
-      </nav>
-    </div>
-  </footer>
+  <!-- フッター読み込み -->
+  <div id="footer-placeholder"></div>
 
-  <script src="releases.js"></script>
   <script>
+    function loadHTML(url, elementId) {
+      fetch(url)
+        .then(response => response.text())
+        .then(data => { document.getElementById(elementId).innerHTML = data; })
+        .catch(error => console.error('Error loading ' + url + ':', error));
+    }
+    loadHTML('includes/header.html', 'header-placeholder');
+    loadHTML('includes/footer.html', 'footer-placeholder');
+
     document.getElementById("contactForm").addEventListener("submit", function(event) {
       const form = event.target;
       const agreement = document.getElementById("agreement");
       const formError = document.getElementById("formError");
-      
       if (!agreement.checked) {
         event.preventDefault();
         formError.textContent = "利用規約とプライバシーポリシーに同意してください。";
         return false;
       }
-      
       formError.textContent = "";
-      // メール送信（mailto:）で送信されます
+      // メール送信はmailto:で行われます
     });
   </script>
 </body>

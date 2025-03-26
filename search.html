@@ -19,7 +19,7 @@
   <style>
     .advanced-filters {
       max-width: 1200px;
-      margin: 20px auto 40px auto;
+      margin: 20px auto 40px;
       padding: 20px;
       background: #ffffff;
       border: 1px solid var(--border-color);
@@ -129,47 +129,8 @@
   </style>
 </head>
 <body>
-  <header>
-    <div class="header-container">
-      <!-- 上段：ロゴ + 翻訳ウィジェット + CMSボタン -->
-      <div class="header-top">
-        <div class="logo">
-          <a href="index.html">UP Global Press</a>
-        </div>
-        <div class="header-top-right">
-          <div class="language-switcher">
-            <div id="google_translate_element"></div>
-          </div>
-          <a href="cms.html" class="cms-button">CMS</a>
-        </div>
-      </div>
-      <!-- 下段：ナビゲーション＆検索バー -->
-      <div class="header-inner">
-        <nav class="main-nav">
-          <a href="index.html">ホーム</a>
-          <a href="categories.html">カテゴリー</a>
-          <a href="release_list.html">プレスリリース一覧</a>
-          <a href="contact.html">お問い合わせ</a>
-        </nav>
-        <div class="search-bar">
-          <input type="text" placeholder="キーワードで検索" id="searchInput" />
-          <button id="searchBtn">検索</button>
-        </div>
-        <input type="checkbox" id="menu-toggle" style="display:none;" />
-        <label for="menu-toggle" class="hamburger">&#9776;</label>
-        <div class="mobile-nav">
-          <a href="index.html">ホーム</a>
-          <a href="categories.html">カテゴリー</a>
-          <a href="release_list.html">プレスリリース一覧</a>
-          <a href="contact.html">お問い合わせ</a>
-          <div class="search-bar">
-            <input type="text" placeholder="キーワードで検索" id="searchInputMobile" />
-            <button id="searchBtnMobile">検索</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+  <!-- ヘッダー読み込み -->
+  <div id="header-placeholder"></div>
   
   <!-- ヒーローセクション -->
   <section class="hero">
@@ -247,29 +208,31 @@
     <!-- JSで検索結果が動的に挿入される -->
   </section>
   
-  <footer>
-    <div class="footer-inner">
-      <p>&copy; 2025 UP Global Press</p>
-      <nav class="footer-nav">
-        <a href="index.html">ホーム</a>
-        <a href="privacy.html">プライバシーポリシー</a>
-        <a href="contact.html">お問い合わせ</a>
-      </nav>
-    </div>
-  </footer>
+  <!-- フッター読み込み -->
+  <div id="footer-placeholder"></div>
 
   <script src="releases.js"></script>
   <script>
+    // ヘッダーとフッターを外部ファイルから読み込む
+    function loadHTML(url, elementId) {
+      fetch(url)
+        .then(response => response.text())
+        .then(data => { document.getElementById(elementId).innerHTML = data; })
+        .catch(error => console.error('Error loading ' + url + ':', error));
+    }
+    loadHTML('includes/header.html', 'header-placeholder');
+    loadHTML('includes/footer.html', 'footer-placeholder');
+
     document.addEventListener("DOMContentLoaded", () => {
       function setupSearch(searchInputId, searchBtnId) {
         const input = document.getElementById(searchInputId);
         const btn = document.getElementById(searchBtnId);
         if (input && btn) {
-          btn.addEventListener("click", function () {
+          btn.addEventListener("click", () => {
             const query = input.value.trim();
             window.location.href = `search.html?query=${encodeURIComponent(query)}`;
           });
-          input.addEventListener("keypress", function (e) {
+          input.addEventListener("keypress", (e) => {
             if (e.key === "Enter") {
               const query = input.value.trim();
               window.location.href = `search.html?query=${encodeURIComponent(query)}`;
@@ -280,13 +243,11 @@
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
 
-      // URLからクエリ取得
       const params = new URLSearchParams(location.search);
       const query = params.get("query") ? params.get("query").trim() : "";
       document.getElementById("searchQuery").textContent = query || "(なし)";
       document.getElementById("searchInput").value = query;
 
-      // 高度な検索実行
       function doAdvancedSearch(keyword, filters, startDate, endDate) {
         const container = document.querySelector(".releases");
         container.innerHTML = "";
@@ -294,29 +255,16 @@
           const title = item.title.toLowerCase();
           const excerpt = item.excerpt.toLowerCase();
           const content = item.content.toLowerCase();
-          return (
-            title.includes(keyword) ||
-            excerpt.includes(keyword) ||
-            content.includes(keyword)
-          );
+          return title.includes(keyword) || excerpt.includes(keyword) || content.includes(keyword);
         });
         if (filters.length > 0) {
-          results = results.filter(item => {
-            if (!item.tags) return false;
-            return filters.some(filter => item.tags.includes(filter));
-          });
+          results = results.filter(item => item.tags && filters.some(filter => item.tags.includes(filter)));
         }
         if (startDate || endDate) {
           results = results.filter(item => {
             const itemDate = new Date(item.date);
-            if (startDate) {
-              const sDate = new Date(startDate);
-              if (itemDate < sDate) return false;
-            }
-            if (endDate) {
-              const eDate = new Date(endDate);
-              if (itemDate > eDate) return false;
-            }
+            if (startDate && itemDate < new Date(startDate)) return false;
+            if (endDate && itemDate > new Date(endDate)) return false;
             return true;
           });
         }
@@ -324,38 +272,32 @@
           container.innerHTML = `<p>「${keyword}」に該当するプレスリリースは見つかりませんでした。</p>`;
         } else {
           results.forEach(release => {
-            const card = createReleaseCard(release);
+            const card = document.createElement("div");
+            card.className = "release-card";
+            const tagsText = release.tags ? release.tags.join(", ") : "";
+            card.innerHTML = `
+              <a href="${release.link}">
+                <img src="${release.img}" alt="${release.title}">
+                <div class="release-info">
+                  <h2>${release.title}</h2>
+                  <p class="date">${release.date}</p>
+                  <p class="excerpt">${release.excerpt}</p>
+                  <p class="tags">タグ: ${tagsText}</p>
+                </div>
+              </a>
+            `;
             container.appendChild(card);
           });
         }
       }
       doAdvancedSearch(query.toLowerCase(), [], "", "");
 
-      document.getElementById("applyFilters").addEventListener("click", function() {
-        const selectedFilters = Array.from(document.querySelectorAll("#filterForm input[name='filter']:checked"))
-          .map(checkbox => checkbox.value);
+      document.getElementById("applyFilters").addEventListener("click", () => {
+        const selectedFilters = Array.from(document.querySelectorAll("#filterForm input[name='filter']:checked")).map(cb => cb.value);
         const startDate = document.getElementById("startDate").value;
         const endDate = document.getElementById("endDate").value;
         doAdvancedSearch(query.toLowerCase(), selectedFilters, startDate, endDate);
       });
-
-      function createReleaseCard(release) {
-        const card = document.createElement("div");
-        card.className = "release-card";
-        const tagsText = release.tags ? release.tags.join(", ") : "";
-        card.innerHTML = `
-          <a href="${release.link}">
-            <img src="${release.img}" alt="${release.title}">
-            <div class="release-info">
-              <h2>${release.title}</h2>
-              <p class="date">${release.date}</p>
-              <p class="excerpt">${release.excerpt}</p>
-              <p class="tags">タグ: ${tagsText}</p>
-            </div>
-          </a>
-        `;
-        return card;
-      }
     });
   </script>
 </body>

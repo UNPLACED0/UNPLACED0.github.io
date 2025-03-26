@@ -50,31 +50,8 @@
   </style>
 </head>
 <body>
-  <header>
-    <div class="header-container">
-      <!-- ヘッダー上段：ロゴ（左）+ 右側（翻訳ウィジェット、CMSボタン） -->
-      <div class="header-top">
-        <div class="logo">
-          <a href="index.html">UP Global Press</a>
-        </div>
-        <div class="header-top-right">
-          <div class="language-switcher">
-            <div id="google_translate_element"></div>
-          </div>
-          <a href="cms.html" class="cms-button">CMS</a>
-        </div>
-      </div>
-      <!-- ヘッダー下段：ナビゲーション -->
-      <div class="header-inner">
-        <nav class="main-nav">
-          <a href="index.html">ホーム</a>
-          <a href="categories.html">カテゴリー</a>
-          <a href="release_list.html">プレスリリース一覧</a>
-          <a href="contact.html">お問い合わせ</a>
-        </nav>
-      </div>
-    </div>
-  </header>
+  <!-- ヘッダー読み込み -->
+  <div id="header-placeholder"></div>
 
   <main class="content-guidelines">
     <h1>UP Global Press コンテンツ基準</h1>
@@ -123,17 +100,18 @@
     </p>
   </main>
 
-  <footer>
-    <div class="footer-inner">
-      <p>&copy; 2025 UP Global Press</p>
-      <nav class="footer-nav">
-        <a href="index.html">ホーム</a>
-        <a href="privacy.html">プライバシーポリシー</a>
-        <a href="terms.html">利用規約</a>
-        <a href="content_guidelines.html">コンテンツ基準</a>
-        <a href="about.html">企業概要</a>
-      </nav>
-    </div>
-  </footer>
+  <!-- フッター読み込み -->
+  <div id="footer-placeholder"></div>
+
+  <script>
+    function loadHTML(url, elementId) {
+      fetch(url)
+        .then(response => response.text())
+        .then(data => { document.getElementById(elementId).innerHTML = data; })
+        .catch(error => console.error('Error loading ' + url + ':', error));
+    }
+    loadHTML('includes/header.html', 'header-placeholder');
+    loadHTML('includes/footer.html', 'footer-placeholder');
+  </script>
 </body>
 </html>

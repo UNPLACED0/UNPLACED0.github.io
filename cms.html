@@ -107,7 +107,6 @@
       font-size: 0.9rem;
     }
   </style>
-
   <!-- GTranslate -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
@@ -121,44 +120,8 @@
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
 </head>
 <body>
-  <header>
-    <div class="header-container">
-      <!-- 上段：ロゴ(左) + 右側（翻訳ウィジェット、CMSボタン、ログアウトボタン） -->
-      <div class="header-top">
-        <div class="logo">
-          <a href="index.html">UP Global Press</a>
-        </div>
-        <div class="header-top-right">
-          <div class="language-switcher">
-            <div id="google_translate_element"></div>
-          </div>
-          <a href="cms.html" class="cms-button">CMS</a>
-          <a href="cms_login.html" class="logout-btn" onclick="localStorage.removeItem('cmsRole');">ログアウト</a>
-        </div>
-      </div>
-      <!-- 下段：ナビゲーション＆検索バー（企業概要リンク除外） -->
-      <div class="header-inner">
-        <nav class="main-nav">
-          <a href="index.html">ホーム</a>
-          <a href="categories.html">カテゴリー</a>
-          <a href="release_list.html">プレスリリース一覧</a>
-          <a href="contact.html">お問い合わせ</a>
-        </nav>
-        <div class="search-bar">
-          <input type="text" placeholder="キーワードで検索" id="searchInput">
-          <button id="searchBtn">検索</button>
-        </div>
-        <input type="checkbox" id="menu-toggle" style="display:none;">
-        <label for="menu-toggle" class="hamburger">&#9776;</label>
-        <div class="mobile-nav">
-          <a href="index.html">ホーム</a>
-          <a href="categories.html">カテゴリー</a>
-          <a href="release_list.html">プレスリリース一覧</a>
-          <a href="contact.html">お問い合わせ</a>
-        </div>
-      </div>
-    </div>
-  </header>
+  <!-- ヘッダー読み込み -->
+  <div id="header-placeholder"></div>
 
   <main class="cms-container">
     <h1>プレスリリース管理</h1>
@@ -179,7 +142,6 @@
         </tbody>
       </table>
     </div>
-
     <!-- 編集／新規追加フォーム -->
     <div id="formContainer">
       <h2 id="formTitle">新規プレスリリースを追加</h2>
@@ -217,7 +179,6 @@
       <button class="btn" id="saveBtn">保存</button>
       <button class="btn" id="cancelBtn" style="display:none;">キャンセル</button>
     </div>
-
     <!-- JSON生成 -->
     <div style="margin-top:30px;">
       <button class="btn" id="generateJsonBtn">Generate JSON</button>
@@ -225,8 +186,20 @@
     </div>
   </main>
 
+  <!-- フッター読み込み -->
+  <div id="footer-placeholder"></div>
+
   <script src="releases.js"></script>
   <script>
+    function loadHTML(url, elementId) {
+      fetch(url)
+        .then(response => response.text())
+        .then(data => { document.getElementById(elementId).innerHTML = data; })
+        .catch(error => console.error('Error loading ' + url + ':', error));
+    }
+    loadHTML('includes/header.html', 'header-placeholder');
+    loadHTML('includes/footer.html', 'footer-placeholder');
+
     const role = localStorage.getItem("cmsRole");
     if(!role) {
       window.location.href = "cms_login.html";
@@ -260,7 +233,6 @@
     renderTable();
     clearForm();
 
-    // テーブル最小化／展開トグル
     document.getElementById("toggleTableBtn").addEventListener("click", function() {
       const table = document.getElementById("releasesTable");
       if(table.style.display === "none") {
@@ -296,13 +268,11 @@
         date: releaseDateInput.value.trim(),
         excerpt: releaseExcerptInput.value.trim(),
         img: releaseImgInput.value.trim(),
-        link: "", 
+        link: "",
         content: releaseContentInput.value,
         tags: parseTags(releaseTagsInput.value)
       };
       newRelease.link = `detail.html?id=${newRelease.id}`;
-
-      // タグ必須チェック
       const hasRequired = newRelease.tags.some(tag => REQUIRED_TAGS.includes(tag));
       if(!hasRequired) {
         tagError.style.display = "block";
@@ -310,7 +280,6 @@
       } else {
         tagError.style.display = "none";
       }
-
       if (!newRelease.id || !newRelease.title) {
         alert("IDとタイトルは必須です。");
         return;

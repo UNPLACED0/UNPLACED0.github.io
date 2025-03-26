@@ -55,31 +55,8 @@
   </style>
 </head>
 <body>
-  <header>
-    <div class="header-container">
-      <!-- ヘッダー上段：ロゴ（左）+ 右側（翻訳ウィジェット、CMSボタン） -->
-      <div class="header-top">
-        <div class="logo">
-          <a href="index.html">UP Global Press</a>
-        </div>
-        <div class="header-top-right">
-          <div class="language-switcher">
-            <div id="google_translate_element"></div>
-          </div>
-          <a href="cms.html" class="cms-button">CMS</a>
-        </div>
-      </div>
-      <!-- ヘッダー下段：ナビゲーション -->
-      <div class="header-inner">
-        <nav class="main-nav">
-          <a href="index.html">ホーム</a>
-          <a href="categories.html">カテゴリー</a>
-          <a href="release_list.html">プレスリリース一覧</a>
-          <a href="contact.html">お問い合わせ</a>
-        </nav>
-      </div>
-    </div>
-  </header>
+  <!-- ヘッダー読み込み -->
+  <div id="header-placeholder"></div>
 
   <main>
     <section class="privacy-section">
@@ -87,12 +64,10 @@
       <p>
         UP Global Press（以下、「当社」）は、株式会社UNPLACEDとして、お客様の個人情報の保護に最大限の注意を払い、適切な管理と利用を実施しております。本プライバシーポリシーは、当社が収集する個人情報の種類、利用目的、管理方法、第三者提供に関する情報を明示し、お客様のプライバシーを保護するための基本方針を示すものです。
       </p>
-      
       <h2>1. 個人情報の取得</h2>
       <p>
         当社は、プレスリリースの閲覧、問い合わせ、会員登録などの各種サービス提供に際し、お客様の氏名、メールアドレス、電話番号、その他連絡先等の個人情報を取得する場合があります。これらの情報は、適正な手段により収集されます。
       </p>
-      
       <h2>2. 個人情報の利用目的</h2>
       <p>
         取得した個人情報は、以下の目的で利用いたします。
@@ -103,42 +78,38 @@
         <li>当社サービスの品質向上および新サービス開発のため</li>
         <li>統計データ作成やマーケティング調査のため（個人が特定できない形で）</li>
       </ul>
-      
       <h2>3. 第三者への提供</h2>
       <p>
         当社は、法令に基づく場合やお客様の同意がある場合を除き、取得した個人情報を第三者に提供することはありません。ただし、業務委託先には当社の指示のもと、必要な範囲で個人情報を提供する場合があります。
       </p>
-      
       <h2>4. セキュリティ対策</h2>
       <p>
         当社は、お客様の個人情報を安全に管理するため、技術的および組織的なセキュリティ対策を講じています。情報への不正アクセス、改ざん、漏えい等を防止するため、最新のセキュリティ技術と運用管理を徹底しています。
       </p>
-      
       <h2>5. 個人情報の保存期間</h2>
       <p>
         お客様の個人情報は、利用目的に必要な期間のみ保存し、不要になった場合は速やかに廃棄いたします。保存期間は法令や業務上の必要性に基づき決定されます。
       </p>
-      
       <h2>6. プライバシーポリシーの変更</h2>
       <p>
         当社は、本プライバシーポリシーを必要に応じて改訂する場合があります。改訂後のポリシーは当社ウェブサイト上に掲載された時点で有効となりますので、定期的にご確認いただくことをお勧めします。
       </p>
-      
       <p>お客様の個人情報に関するお問い合わせは、当社までご連絡ください。</p>
     </section>
   </main>
 
-  <footer>
-    <div class="footer-inner">
-      <p>&copy; 2025 UP Global Press</p>
-      <nav class="footer-nav">
-        <a href="index.html">ホーム</a>
-        <a href="privacy.html">プライバシーポリシー</a>
-        <a href="terms.html">利用規約</a>
-        <a href="content_guidelines.html">コンテンツ基準</a>
-        <a href="about.html">企業概要</a>
-      </nav>
-    </div>
-  </footer>
+  <!-- フッター読み込み -->
+  <div id="footer-placeholder"></div>
+
+  <script>
+    function loadHTML(url, elementId) {
+      fetch(url)
+        .then(response => response.text())
+        .then(data => { document.getElementById(elementId).innerHTML = data; })
+        .catch(error => console.error('Error loading ' + url + ':', error));
+    }
+    loadHTML('includes/header.html', 'header-placeholder');
+    loadHTML('includes/footer.html', 'footer-placeholder');
+  </script>
 </body>
 </html>

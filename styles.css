@@ -281,7 +281,7 @@ header {
 .service-section {
   background-color: #f9fbfd;
   padding: 60px 20px;
-  margin: 40px auto 0 auto;
+  margin: 40px auto 0;
 }
 .service-content {
   max-width: 1200px;
@@ -345,7 +345,7 @@ header {
 }
 .service-bottom {
   max-width: 1200px;
-  margin: 40px auto 0 auto;
+  margin: 40px auto 0;
   text-align: center;
 }
 .service-bottom-title {
@@ -442,7 +442,6 @@ footer {
   .tags {
     font-size: 0.8rem;
   }
-
   .service-content {
     flex-direction: column;
     gap: 20px;

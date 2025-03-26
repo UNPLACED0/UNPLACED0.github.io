@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>プレスリリース詳細 - UP Global Press</title>
   <link rel="stylesheet" href="styles.css"/>
-  
   <!-- GTranslateウィジェット初期化 -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
@@ -17,7 +16,6 @@
     }
   </script>
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
-  
   <style>
     .detail-container {
       max-width: 800px;
@@ -93,43 +91,8 @@
   </style>
 </head>
 <body>
-  <header>
-    <div class="header-container">
-      <!-- 上段：ロゴ + 翻訳ウィジェット + CMSボタン -->
-      <div class="header-top">
-        <div class="logo">
-          <a href="index.html">UP Global Press</a>
-        </div>
-        <div class="header-top-right">
-          <div class="language-switcher">
-            <div id="google_translate_element"></div>
-          </div>
-          <a href="cms.html" class="cms-button">CMS</a>
-        </div>
-      </div>
-      <!-- 下段：ナビゲーション＆検索バー（企業概要リンク除外） -->
-      <div class="header-inner">
-        <nav class="main-nav">
-          <a href="index.html">ホーム</a>
-          <a href="categories.html">カテゴリー</a>
-          <a href="release_list.html">プレスリリース一覧</a>
-          <a href="contact.html">お問い合わせ</a>
-        </nav>
-        <div class="search-bar">
-          <input type="text" placeholder="キーワードで検索" id="searchInput">
-          <button id="searchBtn">検索</button>
-        </div>
-        <input type="checkbox" id="menu-toggle" style="display:none;">
-        <label for="menu-toggle" class="hamburger">&#9776;</label>
-        <div class="mobile-nav">
-          <a href="index.html">ホーム</a>
-          <a href="categories.html">カテゴリー</a>
-          <a href="release_list.html">プレスリリース一覧</a>
-          <a href="contact.html">お問い合わせ</a>
-        </div>
-      </div>
-    </div>
-  </header>
+  <!-- ヘッダー読み込み -->
+  <div id="header-placeholder"></div>
 
   <section class="release-detail">
     <div class="detail-container">
@@ -151,21 +114,20 @@
     </div>
   </section>
 
-  <footer>
-    <div class="footer-inner">
-      <p>&copy; 2025 UP Global Press</p>
-      <nav class="footer-nav">
-        <a href="index.html">ホーム</a>
-        <a href="privacy.html">プライバシーポリシー</a>
-        <a href="terms.html">利用規約</a>
-        <a href="content_guidelines.html">コンテンツ基準</a>
-        <a href="about.html">企業概要</a>
-      </nav>
-    </div>
-  </footer>
+  <!-- フッター読み込み -->
+  <div id="footer-placeholder"></div>
 
   <script src="releases.js"></script>
   <script>
+    function loadHTML(url, elementId) {
+      fetch(url)
+        .then(response => response.text())
+        .then(data => { document.getElementById(elementId).innerHTML = data; })
+        .catch(error => console.error('Error loading ' + url + ':', error));
+    }
+    loadHTML('includes/header.html', 'header-placeholder');
+    loadHTML('includes/footer.html', 'footer-placeholder');
+
     document.addEventListener("DOMContentLoaded", function() {
       function setupSearch(searchInputId, searchBtnId) {
         const input = document.getElementById(searchInputId);
