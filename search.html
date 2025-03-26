@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>検索結果 - UP Global Press</title>
   <link rel="stylesheet" href="styles.css" />
+
   <!-- GTranslateウィジェット初期化 -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
@@ -16,117 +17,6 @@
     }
   </script>
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
-  <style>
-    .advanced-filters {
-      max-width: 1200px;
-      margin: 20px auto 40px;
-      padding: 20px;
-      background: #ffffff;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-    }
-    .advanced-filters h2 {
-      font-size: 1.8rem;
-      color: var(--accent-color);
-      margin-bottom: 16px;
-      text-align: center;
-    }
-    .filter-container {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .filter-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-    .filter-group {
-      flex: 1 1 300px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      background: var(--secondary-bg);
-      border-radius: 6px;
-      padding: 10px;
-    }
-    .filter-group label.filter-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--accent-color);
-      margin-bottom: 5px;
-    }
-    .filter-options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .filter-options label {
-      position: relative;
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 20px;
-      background: #f0f0f0;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s;
-    }
-    .filter-options input[type="checkbox"] {
-      display: none;
-    }
-    .filter-options input[type="checkbox"]:checked + span {
-      background: var(--accent-color);
-      color: #fff;
-    }
-    .filter-options label span {
-      display: inline-block;
-    }
-    .filter-options label:hover {
-      opacity: 0.8;
-    }
-    .date-range-group {
-      flex: 1 1 300px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      background: var(--secondary-bg);
-      border-radius: 6px;
-      padding: 10px;
-    }
-    .date-range-group label.filter-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--accent-color);
-      margin-bottom: 5px;
-    }
-    .date-range {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .date-range input[type="date"] {
-      padding: 6px 10px;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-    #applyFilters {
-      align-self: center;
-      padding: 10px 20px;
-      background: var(--accent-color);
-      color: #fff;
-      border: none;
-      border-radius: 20px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      margin-top: 10px;
-    }
-    #applyFilters:hover {
-      background: var(--highlight-color);
-    }
-  </style>
 </head>
 <body>
   <!-- ヘッダー読み込み -->
@@ -140,163 +30,70 @@
     </div>
   </section>
   
-  <!-- 高度なフィルタリングパネル -->
-  <section class="advanced-filters">
-    <div class="filter-container">
-      <h2>高度なフィルタリング</h2>
-      <form id="filterForm">
-        <div class="filter-row">
-          <!-- カテゴリフィルタ -->
-          <div class="filter-group">
-            <label class="filter-title">カテゴリー</label>
-            <div class="filter-options">
-              <label>
-                <input type="checkbox" name="filter" value="テクノロジー" />
-                <span>テクノロジー</span>
-              </label>
-              <label>
-                <input type="checkbox" name="filter" value="ビジネス" />
-                <span>ビジネス</span>
-              </label>
-              <label>
-                <input type="checkbox" name="filter" value="エンターテインメント" />
-                <span>エンターテインメント</span>
-              </label>
-              <label>
-                <input type="checkbox" name="filter" value="ヘルスケア" />
-                <span>ヘルスケア</span>
-              </label>
-              <label>
-                <input type="checkbox" name="filter" value="環境" />
-                <span>環境</span>
-              </label>
-              <label>
-                <input type="checkbox" name="filter" value="スタートアップ" />
-                <span>スタートアップ</span>
-              </label>
-              <label>
-                <input type="checkbox" name="filter" value="ビューティー" />
-                <span>ビューティー</span>
-              </label>
-              <label>
-                <input type="checkbox" name="filter" value="グルメ" />
-                <span>グルメ</span>
-              </label>
-              <label>
-                <input type="checkbox" name="filter" value="その他" />
-                <span>その他</span>
-              </label>
-            </div>
-          </div>
-          <!-- 日付範囲フィルタ -->
-          <div class="date-range-group">
-            <label class="filter-title" for="startDate">日付範囲</label>
-            <div class="date-range">
-              <input type="date" id="startDate" name="startDate" />
-              <span>～</span>
-              <input type="date" id="endDate" name="endDate" />
-            </div>
-          </div>
-        </div>
-        <button type="button" id="applyFilters">フィルタ適用</button>
-      </form>
-    </div>
-  </section>
-  
   <!-- 検索結果表示エリア -->
   <section class="releases">
-    <!-- JavaScript により検索結果が動的に挿入されます -->
+    <!-- JSで検索結果が動的に挿入される -->
   </section>
-  
+
   <!-- フッター読み込み -->
   <div id="footer-placeholder"></div>
 
   <script src="releases.js"></script>
   <script>
-    function loadHTML(url, elementId) {
-      fetch(url)
-        .then(response => response.text())
-        .then(data => { document.getElementById(elementId).innerHTML = data; })
-        .catch(error => console.error('Error loading ' + url + ':', error));
+    async function loadHTML(url, elementId) {
+      const response = await fetch(url);
+      const data = await response.text();
+      document.getElementById(elementId).innerHTML = data;
     }
-    loadHTML('includes/header.html', 'header-placeholder');
-    loadHTML('includes/footer.html', 'footer-placeholder');
 
-    (function() {
-      function performSearch(inputId) {
-        var input = document.getElementById(inputId);
-        if (input) {
-          var query = input.value.trim();
+    function setupSearch(inputId, btnId) {
+      const input = document.getElementById(inputId);
+      const btn = document.getElementById(btnId);
+      if (input && btn) {
+        btn.addEventListener("click", () => {
+          const query = input.value.trim();
           if (query) {
             window.location.href = "search.html?query=" + encodeURIComponent(query);
           }
-        }
-      }
-      document.getElementById("searchBtn").addEventListener("click", function() {
-        performSearch("searchInput");
-      });
-      document.getElementById("searchInput").addEventListener("keypress", function(e) {
-        if (e.key === "Enter") {
-          performSearch("searchInput");
-        }
-      });
-      document.getElementById("searchBtnMobile").addEventListener("click", function() {
-        performSearch("searchInputMobile");
-      });
-      document.getElementById("searchInputMobile").addEventListener("keypress", function(e) {
-        if (e.key === "Enter") {
-          performSearch("searchInputMobile");
-        }
-      });
-    })();
-
-    document.addEventListener("DOMContentLoaded", function() {
-      function setupSearch(searchInputId, searchBtnId) {
-        const input = document.getElementById(searchInputId);
-        const btn = document.getElementById(searchBtnId);
-        if (input && btn) {
-          btn.addEventListener("click", function() {
+        });
+        input.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
             const query = input.value.trim();
-            window.location.href = `search.html?query=${encodeURIComponent(query)}`;
-          });
-          input.addEventListener("keypress", function(e) {
-            if (e.key === "Enter") {
-              const query = input.value.trim();
-              window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+            if (query) {
+              window.location.href = "search.html?query=" + encodeURIComponent(query);
             }
-          });
-        }
+          }
+        });
       }
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      // ヘッダー・フッター読み込み
+      await loadHTML('includes/header.html', 'header-placeholder');
+      await loadHTML('includes/footer.html', 'footer-placeholder');
+
+      // 検索機能バインド
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
 
+      // URLからクエリを取得
       const params = new URLSearchParams(location.search);
       const query = params.get("query") ? params.get("query").trim() : "";
       document.getElementById("searchQuery").textContent = query || "(なし)";
-      document.getElementById("searchInput").value = query;
 
-      function doAdvancedSearch(keyword, filters, startDate, endDate) {
+      // 検索結果の表示
+      if (typeof releasesData !== "undefined") {
         const container = document.querySelector(".releases");
         container.innerHTML = "";
+        const lowerQuery = query.toLowerCase();
         let results = releasesData.filter(item => {
           const title = item.title.toLowerCase();
           const excerpt = item.excerpt.toLowerCase();
           const content = item.content.toLowerCase();
-          return title.includes(keyword) || excerpt.includes(keyword) || content.includes(keyword);
+          return (title.includes(lowerQuery) || excerpt.includes(lowerQuery) || content.includes(lowerQuery));
         });
-        if (filters.length > 0) {
-          results = results.filter(item => item.tags && filters.some(filter => item.tags.includes(filter)));
-        }
-        if (startDate || endDate) {
-          results = results.filter(item => {
-            const itemDate = new Date(item.date);
-            if (startDate && itemDate < new Date(startDate)) return false;
-            if (endDate && itemDate > new Date(endDate)) return false;
-            return true;
-          });
-        }
         if (results.length === 0) {
-          container.innerHTML = `<p>「${keyword}」に該当するプレスリリースは見つかりませんでした。</p>`;
+          container.innerHTML = `<p>「${query}」に該当するプレスリリースは見つかりませんでした。</p>`;
         } else {
           results.forEach(release => {
             const card = document.createElement("div");
@@ -317,15 +114,6 @@
           });
         }
       }
-      doAdvancedSearch(query.toLowerCase(), [], "", "");
-
-      document.getElementById("applyFilters").addEventListener("click", function() {
-        const selectedFilters = Array.from(document.querySelectorAll("#filterForm input[name='filter']:checked"))
-          .map(checkbox => checkbox.value);
-        const startDate = document.getElementById("startDate").value;
-        const endDate = document.getElementById("endDate").value;
-        doAdvancedSearch(query.toLowerCase(), selectedFilters, startDate, endDate);
-      });
     });
   </script>
 </body>
