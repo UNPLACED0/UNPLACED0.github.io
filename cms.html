@@ -106,6 +106,31 @@
       margin-top: 5px;
       font-size: 0.9rem;
     }
+    /* コンテンツセクション用 */
+    .content-section {
+      border: 1px dashed var(--border-color);
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+    .content-section label {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .add-section-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      background: var(--accent-color);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 10px;
+    }
+    .add-section-btn:hover {
+      background: var(--highlight-color);
+    }
   </style>
   <!-- GTranslate -->
   <script type="text/javascript">
@@ -120,10 +145,9 @@
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
 </head>
 <body>
-  <!-- ヘッダー（インライン） -->
+  <!-- ヘッダー読み込み（CMSは独立したヘッダー） -->
   <header>
     <div class="header-container">
-      <!-- 上段：ロゴ(左) + 右側（翻訳ウィジェット、CMSボタン、ログアウトボタン） -->
       <div class="header-top">
         <div class="logo">
           <a href="index.html">UP Global Press</a>
@@ -136,7 +160,6 @@
           <a href="cms_login.html" class="logout-btn" onclick="localStorage.removeItem('cmsRole');">ログアウト</a>
         </div>
       </div>
-      <!-- 下段：ナビゲーション＆検索バー（企業概要リンク除外） -->
       <div class="header-inner">
         <nav class="main-nav">
           <a href="index.html">ホーム</a>
@@ -162,7 +185,6 @@
 
   <main class="cms-container">
     <h1>プレスリリース管理</h1>
-    <!-- 管理者向け：記事一覧（最小化／展開トグル付き） -->
     <div id="adminSection" style="display:none;">
       <button class="toggle-btn" id="toggleTableBtn">最小化</button>
       <table class="releases-table" id="releasesTable">
@@ -179,6 +201,7 @@
         </tbody>
       </table>
     </div>
+
     <!-- 編集／新規追加フォーム -->
     <div id="formContainer">
       <h2 id="formTitle">新規プレスリリースを追加</h2>
@@ -200,11 +223,21 @@
       </div>
       <div class="form-group">
         <label for="releaseImg">画像URL</label>
-        <input type="text" id="releaseImg" placeholder="https://..." />
+        <input type="text" id="releaseImg" placeholder="（サムネイル用）https://..." />
       </div>
+      <!-- コンテンツセクション追加部分 -->
       <div class="form-group">
-        <label for="releaseContent">本文（content）</label>
-        <textarea id="releaseContent" rows="5" placeholder="<p>本文HTML</p>"></textarea>
+        <label>コンテンツセクション（本文と画像、最大3セット）</label>
+        <div id="contentSectionsContainer">
+          <!-- 初期は1セット -->
+          <div class="content-section">
+            <label>本文 1</label>
+            <textarea class="section-body" placeholder="本文を入力"></textarea>
+            <label>画像 URL 1</label>
+            <input type="text" class="section-img" placeholder="画像URLを入力">
+          </div>
+        </div>
+        <button type="button" class="add-section-btn" id="addSectionBtn">＋ セクション追加</button>
       </div>
       <div class="form-group">
         <label for="releaseTags">
@@ -229,16 +262,16 @@
 
   <script src="releases.js"></script>
   <script>
-    // CMSページではヘッダーはインラインのため外部読み込みは不要
+    // 共通の外部読み込み関数
     async function loadHTML(url, elementId) {
       const response = await fetch(url);
       const data = await response.text();
       document.getElementById(elementId).innerHTML = data;
     }
-    // フッターのみ外部読み込み
+    // CMSはヘッダーはインラインなのでフッターのみ読み込み
     loadHTML('includes/footer.html', 'footer-placeholder');
 
-    // 共通の検索機能設定
+    // 共通の検索機能
     function setupSearch(inputId, btnId) {
       const input = document.getElementById(inputId);
       const btn = document.getElementById(btnId);
@@ -264,6 +297,7 @@
       setupSearch("searchInputMobile", "searchBtnMobile");
     });
 
+    // CMS管理画面用：roleに応じたJSON出力
     const role = localStorage.getItem("cmsRole");
     if (!role) {
       window.location.href = "cms_login.html";
@@ -271,6 +305,9 @@
     if (role === "admin") {
       document.getElementById("adminSection").style.display = "block";
     }
+    // 初期のデータ件数を記録（新規作成分と判別するため）
+    const initialCount = releasesData.length;
+
     let cmsReleasesData = JSON.parse(JSON.stringify(releasesData || []));
     const releasesTableBody = document.querySelector("#releasesTable tbody");
     const formTitle = document.getElementById("formTitle");
@@ -279,7 +316,7 @@
     const releaseDateInput = document.getElementById("releaseDate");
     const releaseExcerptInput = document.getElementById("releaseExcerpt");
     const releaseImgInput = document.getElementById("releaseImg");
-    const releaseContentInput = document.getElementById("releaseContent");
+    // 本文は now contentSectionsContainer から取得するので releaseContentInput は削除
     const releaseTagsInput = document.getElementById("releaseTags");
     const tagError = document.getElementById("tagError");
     const saveBtn = document.getElementById("saveBtn");
@@ -293,6 +330,39 @@
     ];
 
     let editIndex = null;
+
+    // コンテンツセクションの追加処理
+    const contentSectionsContainer = document.getElementById("contentSectionsContainer");
+    const addSectionBtn = document.getElementById("addSectionBtn");
+
+    addSectionBtn.addEventListener("click", () => {
+      const currentSections = contentSectionsContainer.querySelectorAll(".content-section");
+      if (currentSections.length >= 3) {
+        alert("最大3セットまで入力できます。");
+        return;
+      }
+      const sectionNumber = currentSections.length + 1;
+      const sectionDiv = document.createElement("div");
+      sectionDiv.className = "content-section";
+      sectionDiv.innerHTML = `
+        <label>本文 ${sectionNumber}</label>
+        <textarea class="section-body" placeholder="本文を入力"></textarea>
+        <label>画像 URL ${sectionNumber}</label>
+        <input type="text" class="section-img" placeholder="画像URLを入力">
+      `;
+      contentSectionsContainer.appendChild(sectionDiv);
+    });
+
+    function getSectionsData() {
+      const sections = [];
+      const sectionDivs = contentSectionsContainer.querySelectorAll(".content-section");
+      sectionDivs.forEach(div => {
+        const body = div.querySelector(".section-body").value.trim();
+        const img = div.querySelector(".section-img").value.trim();
+        sections.push({ body, img });
+      });
+      return sections;
+    }
 
     function renderTable() {
       if (role !== "admin") return;
@@ -319,7 +389,7 @@
         excerpt: releaseExcerptInput.value.trim(),
         img: releaseImgInput.value.trim(),
         link: "",
-        content: releaseContentInput.value,
+        sections: getSectionsData(),
         tags: parseTags(releaseTagsInput.value)
       };
       newRelease.link = `detail.html?id=${newRelease.id}`;
@@ -348,13 +418,20 @@
     });
 
     generateJsonBtn.addEventListener("click", () => {
+      let outputData;
+      if (role === "editor") {
+        // editor の場合は新規作成分のみ
+        outputData = cmsReleasesData.slice(initialCount);
+      } else {
+        outputData = cmsReleasesData;
+      }
       const currentTags = parseTags(releaseTagsInput.value);
       const hasReq = currentTags.some(tag => REQUIRED_TAGS.includes(tag));
       if (!hasReq) {
         alert("必ず9カテゴリーの内1つ以上のタグを含めてください。");
         return;
       }
-      const jsonStr = JSON.stringify(cmsReleasesData, null, 2);
+      const jsonStr = JSON.stringify(outputData, null, 2);
       jsonOutput.value = `var releasesData = ${jsonStr};`;
     });
 
@@ -366,8 +443,32 @@
       releaseDateInput.value = rel.date;
       releaseExcerptInput.value = rel.excerpt;
       releaseImgInput.value = rel.img;
-      releaseContentInput.value = rel.content;
-      releaseTagsInput.value = rel.tags ? rel.tags.join(",") : "";
+      // 既存のセクションがあれば再構築
+      contentSectionsContainer.innerHTML = "";
+      if (rel.sections && Array.isArray(rel.sections) && rel.sections.length > 0) {
+        rel.sections.forEach((sec, i) => {
+          const sectionDiv = document.createElement("div");
+          sectionDiv.className = "content-section";
+          sectionDiv.innerHTML = `
+            <label>本文 ${i+1}</label>
+            <textarea class="section-body" placeholder="本文を入力">${sec.body}</textarea>
+            <label>画像 URL ${i+1}</label>
+            <input type="text" class="section-img" placeholder="画像URLを入力" value="${sec.img}">
+          `;
+          contentSectionsContainer.appendChild(sectionDiv);
+        });
+      } else {
+        // なければ1セットを作成
+        const sectionDiv = document.createElement("div");
+        sectionDiv.className = "content-section";
+        sectionDiv.innerHTML = `
+          <label>本文 1</label>
+          <textarea class="section-body" placeholder="本文を入力"></textarea>
+          <label>画像 URL 1</label>
+          <input type="text" class="section-img" placeholder="画像URLを入力">
+        `;
+        contentSectionsContainer.appendChild(sectionDiv);
+      }
       formTitle.textContent = "プレスリリースを編集";
       saveBtn.textContent = "更新";
       cancelBtn.style.display = "inline-block";
@@ -392,7 +493,15 @@
       releaseDateInput.value = "";
       releaseExcerptInput.value = "";
       releaseImgInput.value = "";
-      releaseContentInput.value = "";
+      // クリア：コンテンツセクションは初期1セットに戻す
+      contentSectionsContainer.innerHTML = `
+        <div class="content-section">
+          <label>本文 1</label>
+          <textarea class="section-body" placeholder="本文を入力"></textarea>
+          <label>画像 URL 1</label>
+          <input type="text" class="section-img" placeholder="画像URLを入力">
+        </div>
+      `;
       releaseTagsInput.value = "";
       formTitle.textContent = "新規プレスリリースを追加";
       saveBtn.textContent = "保存";
