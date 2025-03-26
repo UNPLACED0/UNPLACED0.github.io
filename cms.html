@@ -107,7 +107,6 @@
       font-size: 0.9rem;
     }
   </style>
-
   <!-- GTranslate -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
@@ -121,6 +120,7 @@
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
 </head>
 <body>
+  <!-- ヘッダー（インライン） -->
   <header>
     <div class="header-container">
       <!-- 上段：ロゴ(左) + 右側（翻訳ウィジェット、CMSボタン、ログアウトボタン） -->
@@ -179,7 +179,6 @@
         </tbody>
       </table>
     </div>
-
     <!-- 編集／新規追加フォーム -->
     <div id="formContainer">
       <h2 id="formTitle">新規プレスリリースを追加</h2>
@@ -225,13 +224,51 @@
     </div>
   </main>
 
+  <!-- フッターは外部ファイルから読み込み -->
+  <div id="footer-placeholder"></div>
+
   <script src="releases.js"></script>
   <script>
+    // CMSページではヘッダーはインラインのため外部読み込みは不要
+    async function loadHTML(url, elementId) {
+      const response = await fetch(url);
+      const data = await response.text();
+      document.getElementById(elementId).innerHTML = data;
+    }
+    // フッターのみ外部読み込み
+    loadHTML('includes/footer.html', 'footer-placeholder');
+
+    // 共通の検索機能設定
+    function setupSearch(inputId, btnId) {
+      const input = document.getElementById(inputId);
+      const btn = document.getElementById(btnId);
+      if (input && btn) {
+        btn.addEventListener("click", function() {
+          const query = input.value.trim();
+          if (query) {
+            window.location.href = "search.html?query=" + encodeURIComponent(query);
+          }
+        });
+        input.addEventListener("keypress", function(e) {
+          if (e.key === "Enter") {
+            const query = input.value.trim();
+            if (query) {
+              window.location.href = "search.html?query=" + encodeURIComponent(query);
+            }
+          }
+        });
+      }
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+      setupSearch("searchInput", "searchBtn");
+      setupSearch("searchInputMobile", "searchBtnMobile");
+    });
+
     const role = localStorage.getItem("cmsRole");
-    if(!role) {
+    if (!role) {
       window.location.href = "cms_login.html";
     }
-    if(role === "admin") {
+    if (role === "admin") {
       document.getElementById("adminSection").style.display = "block";
     }
     let cmsReleasesData = JSON.parse(JSON.stringify(releasesData || []));
@@ -251,29 +288,14 @@
     const jsonOutput = document.getElementById("jsonOutput");
 
     const REQUIRED_TAGS = [
-      "テクノロジー","ビジネス","エンターテインメント","ヘルスケア","環境",
-      "スタートアップ","ビューティー","グルメ","その他"
+      "テクノロジー", "ビジネス", "エンターテインメント", "ヘルスケア", "環境",
+      "スタートアップ", "ビューティー", "グルメ", "その他"
     ];
 
     let editIndex = null;
 
-    renderTable();
-    clearForm();
-
-    // テーブル最小化／展開トグル
-    document.getElementById("toggleTableBtn").addEventListener("click", function() {
-      const table = document.getElementById("releasesTable");
-      if(table.style.display === "none") {
-        table.style.display = "table";
-        this.textContent = "最小化";
-      } else {
-        table.style.display = "none";
-        this.textContent = "展開";
-      }
-    });
-
     function renderTable() {
-      if(role !== "admin") return;
+      if (role !== "admin") return;
       releasesTableBody.innerHTML = "";
       cmsReleasesData.forEach((rel, index) => {
         const tr = document.createElement("tr");
@@ -296,21 +318,18 @@
         date: releaseDateInput.value.trim(),
         excerpt: releaseExcerptInput.value.trim(),
         img: releaseImgInput.value.trim(),
-        link: "", 
+        link: "",
         content: releaseContentInput.value,
         tags: parseTags(releaseTagsInput.value)
       };
       newRelease.link = `detail.html?id=${newRelease.id}`;
-
-      // タグ必須チェック
       const hasRequired = newRelease.tags.some(tag => REQUIRED_TAGS.includes(tag));
-      if(!hasRequired) {
+      if (!hasRequired) {
         tagError.style.display = "block";
         return;
       } else {
         tagError.style.display = "none";
       }
-
       if (!newRelease.id || !newRelease.title) {
         alert("IDとタイトルは必須です。");
         return;
@@ -331,7 +350,7 @@
     generateJsonBtn.addEventListener("click", () => {
       const currentTags = parseTags(releaseTagsInput.value);
       const hasReq = currentTags.some(tag => REQUIRED_TAGS.includes(tag));
-      if(!hasReq) {
+      if (!hasReq) {
         alert("必ず9カテゴリーの内1つ以上のタグを含めてください。");
         return;
       }
@@ -352,14 +371,14 @@
       formTitle.textContent = "プレスリリースを編集";
       saveBtn.textContent = "更新";
       cancelBtn.style.display = "inline-block";
-      document.getElementById("formContainer").scrollIntoView({behavior: "smooth"});
+      document.getElementById("formContainer").scrollIntoView({ behavior: "smooth" });
     };
 
     function getNextId() {
       let maxId = 0;
       cmsReleasesData.forEach(item => {
         const numId = parseInt(item.id, 10);
-        if(!isNaN(numId) && numId > maxId) {
+        if (!isNaN(numId) && numId > maxId) {
           maxId = numId;
         }
       });
@@ -382,29 +401,13 @@
     }
 
     function parseTags(tagStr) {
-      if(!tagStr.trim()) return [];
+      if (!tagStr.trim()) return [];
       return tagStr.split(",").map(s => s.trim()).filter(Boolean);
     }
 
     document.addEventListener("DOMContentLoaded", function() {
-      function setupSearch(searchInputId, searchBtnId) {
-        const input = document.getElementById(searchInputId);
-        const btn = document.getElementById(searchBtnId);
-        if (input && btn) {
-          btn.addEventListener("click", function() {
-            const query = input.value.trim();
-            window.location.href = `search.html?query=${encodeURIComponent(query)}`;
-          });
-          input.addEventListener("keypress", function(e) {
-            if (e.key === "Enter") {
-              const query = input.value.trim();
-              window.location.href = `search.html?query=${encodeURIComponent(query)}`;
-            }
-          });
-        }
-      }
-      setupSearch("searchInput", "searchBtn");
-      setupSearch("searchInputMobile", "searchBtnMobile");
+      renderTable();
+      clearForm();
     });
   </script>
 </body>
