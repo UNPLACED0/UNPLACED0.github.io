@@ -6,7 +6,7 @@
   <title>カテゴリー別 - UP Global Press</title>
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- GTranslate初期化 -->
+  <!-- GTranslateウィジェット初期化 -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
@@ -16,12 +16,12 @@
       }, 'google_translate_element');
     }
   </script>
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
 </head>
 <body>
   <header>
     <div class="header-container">
-      <!-- 上段：ロゴ + 翻訳ウィジェット + CMSボタン -->
+      <!-- 上段：ロゴ(左) + 右側（翻訳ウィジェット、CMSボタン） -->
       <div class="header-top">
         <div class="logo">
           <a href="index.html">UP Global Press</a>
@@ -33,13 +33,12 @@
           <a href="cms.html" class="cms-button">CMS</a>
         </div>
       </div>
-      <!-- 下段：ナビゲーション＆検索バー -->
+      <!-- 下段：ナビゲーション＆検索バー（企業概要リンク除外） -->
       <div class="header-inner">
         <nav class="main-nav">
           <a href="index.html">ホーム</a>
           <a href="categories.html">カテゴリー</a>
           <a href="release_list.html">プレスリリース一覧</a>
-          <a href="about.html">企業情報</a>
           <a href="contact.html">お問い合わせ</a>
         </nav>
         <div class="search-bar">
@@ -52,7 +51,6 @@
           <a href="index.html">ホーム</a>
           <a href="categories.html">カテゴリー</a>
           <a href="release_list.html">プレスリリース一覧</a>
-          <a href="about.html">企業情報</a>
           <a href="contact.html">お問い合わせ</a>
           <div class="search-bar">
             <input type="text" placeholder="キーワードで検索" id="searchInputMobile" />
@@ -82,7 +80,9 @@
       <nav class="footer-nav">
         <a href="index.html">ホーム</a>
         <a href="privacy.html">プライバシーポリシー</a>
-        <a href="contact.html">お問い合わせ</a>
+        <a href="terms.html">利用規約</a>
+        <a href="content_guidelines.html">コンテンツ基準</a>
+        <a href="about.html">企業概要</a>
       </nav>
     </div>
   </footer>

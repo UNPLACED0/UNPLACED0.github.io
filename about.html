@@ -15,7 +15,7 @@
       }, 'google_translate_element');
     }
   </script>
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
   <style>
     .about-section {
       background: linear-gradient(135deg, #ffffff, #f2f2f2);
@@ -70,13 +70,12 @@
           <a href="cms.html" class="cms-button">CMS</a>
         </div>
       </div>
-      <!-- ヘッダー下段：ナビゲーション＆検索バー -->
+      <!-- ヘッダー下段：ナビゲーション（企業概要リンク除外） -->
       <div class="header-inner">
         <nav class="main-nav">
           <a href="index.html">ホーム</a>
           <a href="categories.html">カテゴリー</a>
           <a href="release_list.html">プレスリリース一覧</a>
-          <a href="about.html">企業概要</a>
           <a href="contact.html">お問い合わせ</a>
         </nav>
         <div class="search-bar">
@@ -89,8 +88,11 @@
           <a href="index.html">ホーム</a>
           <a href="categories.html">カテゴリー</a>
           <a href="release_list.html">プレスリリース一覧</a>
-          <a href="about.html">企業概要</a>
           <a href="contact.html">お問い合わせ</a>
+          <div class="search-bar">
+            <input type="text" placeholder="キーワードで検索" id="searchInputMobile" />
+            <button id="searchBtnMobile">検索</button>
+          </div>
         </div>
       </div>
     </div>
