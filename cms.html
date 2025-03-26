@@ -127,7 +127,7 @@
           </tr>
         </thead>
         <tbody>
-          <!-- JavaScript により挿入 -->
+          <!-- JSにより挿入 -->
         </tbody>
       </table>
     </div>
@@ -180,11 +180,10 @@
 
   <script src="releases.js"></script>
   <script>
-    function loadHTML(url, elementId) {
-      fetch(url)
-        .then(response => response.text())
-        .then(data => { document.getElementById(elementId).innerHTML = data; })
-        .catch(error => console.error('Error loading ' + url + ':', error));
+    async function loadHTML(url, elementId) {
+      const response = await fetch(url);
+      const data = await response.text();
+      document.getElementById(elementId).innerHTML = data;
     }
     loadHTML('includes/header.html', 'header-placeholder');
     loadHTML('includes/footer.html', 'footer-placeholder');
@@ -219,20 +218,6 @@
 
     let editIndex = null;
 
-    renderTable();
-    clearForm();
-
-    document.getElementById("toggleTableBtn").addEventListener("click", function() {
-      const table = document.getElementById("releasesTable");
-      if(table.style.display === "none") {
-        table.style.display = "table";
-        this.textContent = "最小化";
-      } else {
-        table.style.display = "none";
-        this.textContent = "展開";
-      }
-    });
-
     function renderTable() {
       if(role !== "admin") return;
       releasesTableBody.innerHTML = "";
@@ -257,7 +242,7 @@
         date: releaseDateInput.value.trim(),
         excerpt: releaseExcerptInput.value.trim(),
         img: releaseImgInput.value.trim(),
-        link: "", 
+        link: "",
         content: releaseContentInput.value,
         tags: parseTags(releaseTagsInput.value)
       };
@@ -344,25 +329,14 @@
       return tagStr.split(",").map(s => s.trim()).filter(Boolean);
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
-      function setupSearch(searchInputId, searchBtnId) {
-        const input = document.getElementById(searchInputId);
-        const btn = document.getElementById(searchBtnId);
-        if (input && btn) {
-          btn.addEventListener("click", function() {
-            const query = input.value.trim();
-            window.location.href = `search.html?query=${encodeURIComponent(query)}`;
-          });
-          input.addEventListener("keypress", function(e) {
-            if (e.key === "Enter") {
-              const query = input.value.trim();
-              window.location.href = `search.html?query=${encodeURIComponent(query)}`;
-            }
-          });
-        }
-      }
+    document.addEventListener("DOMContentLoaded", async function() {
+      await loadHTML('includes/header.html', 'header-placeholder');
+      await loadHTML('includes/footer.html', 'footer-placeholder');
+
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
+      renderTable();
+      clearForm();
     });
   </script>
 </body>

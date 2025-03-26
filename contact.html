@@ -16,9 +16,7 @@
     }
   </script>
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
-
   <style>
-    /* 全体の調整 */
     .contact-section {
       max-width: 700px;
       margin: 60px auto;
@@ -28,48 +26,39 @@
       box-shadow: 0 6px 20px rgba(0,0,0,0.1);
       font-size: 1rem;
     }
-
     .contact-section h1 {
       font-size: 2rem;
       color: var(--accent-color);
       margin-bottom: 20px;
     }
-
     .contact-section p.intro {
       font-size: 1rem;
       line-height: 1.8;
       margin-bottom: 30px;
       color: #555;
     }
-
-    /* フォーム全体を囲むコンテナ */
     .form-box {
       border: 1px solid var(--border-color);
       border-radius: 8px;
       padding: 20px;
       background: var(--secondary-bg);
     }
-
     .form-box h2 {
       font-size: 1.2rem;
       margin-bottom: 10px;
       color: var(--accent-color);
       font-weight: 600;
     }
-
-    /* フォームグループ */
     .form-group {
       margin-bottom: 20px;
       display: flex;
       flex-direction: column;
     }
-
     .form-group label {
       font-weight: 600;
       margin-bottom: 8px;
       color: #333;
     }
-
     .form-group input,
     .form-group textarea {
       padding: 12px;
@@ -78,14 +67,11 @@
       font-size: 1rem;
       transition: border 0.3s;
     }
-
     .form-group input:focus,
     .form-group textarea:focus {
       border-color: var(--accent-color);
       outline: none;
     }
-
-    /* ボタン */
     .contact-section button {
       display: inline-block;
       padding: 14px 24px;
@@ -99,37 +85,19 @@
       transition: background 0.3s ease;
       margin-top: 10px;
     }
-
     .contact-section button:hover {
       background: var(--highlight-color);
     }
-
-    /* エラーメッセージ */
     .error-message {
       color: #d9534f;
       font-size: 0.9rem;
       margin-top: 5px;
     }
-
-    /* 追加の注意文（小さくグレー、左寄せ） */
     .disclaimer {
       font-size: 0.8rem;
       color: #777;
       margin-top: 20px;
       line-height: 1.6;
-    }
-
-    /* スマホ対応 */
-    @media (max-width: 600px) {
-      .contact-section {
-        padding: 20px;
-      }
-      .form-box {
-        padding: 15px;
-      }
-      .contact-section h1 {
-        font-size: 1.8rem;
-      }
     }
   </style>
 </head>
@@ -142,8 +110,7 @@
       <h1>お問い合わせ</h1>
       <p class="intro">
         UP Global Pressにご関心をお持ちいただきまして、ありがとうございます。<br>
-        サービスやプレスリリースに関するご質問など、お気軽にお問い合わせください。<br>
-        担当者が丁寧に対応いたします。
+        サービスやプレスリリースに関するご質問はお気軽にお問い合わせください。担当者が丁寧に対応いたします。
       </p>
 
       <div class="form-box">
@@ -153,44 +120,34 @@
             <label for="name">お名前*</label>
             <input type="text" id="name" name="name" required>
           </div>
-
           <div class="form-group">
             <label for="company">会社名</label>
             <input type="text" id="company" name="company">
           </div>
-
           <div class="form-group">
             <label for="companyHP">会社HP</label>
             <input type="url" id="companyHP" name="companyHP" placeholder="https://example.com">
           </div>
-
           <div class="form-group">
             <label for="email">メールアドレス*</label>
             <input type="email" id="email" name="email" required>
           </div>
-
           <div class="form-group">
             <label for="tel">電話番号</label>
             <input type="tel" id="tel" name="tel">
           </div>
-
           <div class="form-group">
             <label for="message">お問い合わせ内容</label>
             <textarea id="message" name="message" rows="5"></textarea>
           </div>
-
           <div class="form-group">
             <label>
               <input type="checkbox" id="agreement" name="agreement" required>
               UP Global Pressの利用規約とプライバシーポリシーに同意する*
             </label>
           </div>
-
           <div id="formError" class="error-message"></div>
-
           <button type="submit" id="submitBtn">送信</button>
-
-          <!-- 追加の注意文：小さく左寄せ -->
           <div class="disclaimer">
             営業メール関連のお問い合わせはお断りしております。<br>
             お問い合わせの内容によっては、返信に時間を要する場合がございます。あらかじめご了承ください。<br>
@@ -206,19 +163,14 @@
   <div id="footer-placeholder"></div>
 
   <script>
-    // ヘッダー・フッター読み込み
-    function loadHTML(url, elementId) {
-      fetch(url)
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById(elementId).innerHTML = data;
-        })
-        .catch(error => console.error('Error loading ' + url + ':', error));
+    async function loadHTML(url, elementId) {
+      const response = await fetch(url);
+      const data = await response.text();
+      document.getElementById(elementId).innerHTML = data;
     }
     loadHTML('includes/header.html', 'header-placeholder');
     loadHTML('includes/footer.html', 'footer-placeholder');
 
-    // お問い合わせフォームのバリデーション
     document.getElementById("contactForm").addEventListener("submit", function(event) {
       const agreement = document.getElementById("agreement");
       const formError = document.getElementById("formError");
@@ -230,34 +182,31 @@
       formError.textContent = "";
     });
 
-    // 検索機能（各ページ共通の実装例）
-    (function() {
-      function performSearch(inputId) {
-        var input = document.getElementById(inputId);
-        if (input) {
-          var query = input.value.trim();
+    // 各ページ共通の検索機能
+    function setupSearch(inputId, btnId) {
+      const input = document.getElementById(inputId);
+      const btn = document.getElementById(btnId);
+      if (input && btn) {
+        btn.addEventListener("click", () => {
+          const query = input.value.trim();
           if (query) {
             window.location.href = "search.html?query=" + encodeURIComponent(query);
           }
-        }
+        });
+        input.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
+            const query = input.value.trim();
+            if (query) {
+              window.location.href = "search.html?query=" + encodeURIComponent(query);
+            }
+          }
+        });
       }
-      document.getElementById("searchBtn").addEventListener("click", function() {
-        performSearch("searchInput");
-      });
-      document.getElementById("searchInput").addEventListener("keypress", function(e) {
-        if (e.key === "Enter") {
-          performSearch("searchInput");
-        }
-      });
-      document.getElementById("searchBtnMobile").addEventListener("click", function() {
-        performSearch("searchInputMobile");
-      });
-      document.getElementById("searchInputMobile").addEventListener("keypress", function(e) {
-        if (e.key === "Enter") {
-          performSearch("searchInputMobile");
-        }
-      });
-    })();
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      setupSearch("searchInput", "searchBtn");
+      setupSearch("searchInputMobile", "searchBtnMobile");
+    });
   </script>
 </body>
 </html>

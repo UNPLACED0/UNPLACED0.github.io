@@ -81,43 +81,39 @@
   <div id="footer-placeholder"></div>
 
   <script>
-    function loadHTML(url, elementId) {
-      fetch(url)
-        .then(response => response.text())
-        .then(data => { document.getElementById(elementId).innerHTML = data; })
-        .catch(error => console.error('Error loading ' + url + ':', error));
+    async function loadHTML(url, elementId) {
+      const response = await fetch(url);
+      const data = await response.text();
+      document.getElementById(elementId).innerHTML = data;
     }
     loadHTML('includes/header.html', 'header-placeholder');
     loadHTML('includes/footer.html', 'footer-placeholder');
 
-    // 各ページ共通の検索機能
-    (function() {
-      function performSearch(inputId) {
-        var input = document.getElementById(inputId);
-        if (input) {
-          var query = input.value.trim();
+    // 検索機能の設定（共通）
+    function setupSearch(inputId, btnId) {
+      const input = document.getElementById(inputId);
+      const btn = document.getElementById(btnId);
+      if (input && btn) {
+        btn.addEventListener("click", () => {
+          const query = input.value.trim();
           if (query) {
             window.location.href = "search.html?query=" + encodeURIComponent(query);
           }
-        }
+        });
+        input.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
+            const query = input.value.trim();
+            if (query) {
+              window.location.href = "search.html?query=" + encodeURIComponent(query);
+            }
+          }
+        });
       }
-      document.getElementById("searchBtn").addEventListener("click", function() {
-        performSearch("searchInput");
-      });
-      document.getElementById("searchInput").addEventListener("keypress", function(e) {
-        if (e.key === "Enter") {
-          performSearch("searchInput");
-        }
-      });
-      document.getElementById("searchBtnMobile").addEventListener("click", function() {
-        performSearch("searchInputMobile");
-      });
-      document.getElementById("searchInputMobile").addEventListener("keypress", function(e) {
-        if (e.key === "Enter") {
-          performSearch("searchInputMobile");
-        }
-      });
-    })();
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      setupSearch("searchInput", "searchBtn");
+      setupSearch("searchInputMobile", "searchBtnMobile");
+    });
   </script>
 </body>
 </html>

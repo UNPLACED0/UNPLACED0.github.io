@@ -40,33 +40,38 @@
 
   <script src="releases.js"></script>
   <script>
-    // ヘッダー・フッター読み込み
-    function loadHTML(url, elementId) {
-      fetch(url)
-        .then(response => response.text())
-        .then(data => { document.getElementById(elementId).innerHTML = data; })
-        .catch(error => console.error('Error loading ' + url + ':', error));
+    // ヘッダー・フッターの外部読み込み
+    async function loadHTML(url, elementId) {
+      const response = await fetch(url);
+      const data = await response.text();
+      document.getElementById(elementId).innerHTML = data;
     }
     loadHTML('includes/header.html', 'header-placeholder');
     loadHTML('includes/footer.html', 'footer-placeholder');
 
-    document.addEventListener("DOMContentLoaded", function() {
-      function setupSearch(searchInputId, searchBtnId) {
-        const input = document.getElementById(searchInputId);
-        const btn = document.getElementById(searchBtnId);
-        if (input && btn) {
-          btn.addEventListener("click", function() {
+    // 各ページ共通の検索機能
+    function setupSearch(inputId, btnId) {
+      const input = document.getElementById(inputId);
+      const btn = document.getElementById(btnId);
+      if (input && btn) {
+        btn.addEventListener("click", function() {
+          const query = input.value.trim();
+          if (query) {
+            window.location.href = "search.html?query=" + encodeURIComponent(query);
+          }
+        });
+        input.addEventListener("keypress", function(e) {
+          if (e.key === "Enter") {
             const query = input.value.trim();
-            window.location.href = `search.html?query=${encodeURIComponent(query)}`;
-          });
-          input.addEventListener("keypress", function(e) {
-            if (e.key === "Enter") {
-              const query = input.value.trim();
-              window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+            if (query) {
+              window.location.href = "search.html?query=" + encodeURIComponent(query);
             }
-          });
-        }
+          }
+        });
       }
+    }
+    document.addEventListener("DOMContentLoaded", async function() {
+      // ヘッダー・フッター読み込み後に検索機能をバインド
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
 

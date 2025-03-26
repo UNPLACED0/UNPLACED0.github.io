@@ -68,6 +68,32 @@
   </div>
   
   <script>
+    // 各ページ共通の検索機能（CMSログイン画面でもヘッダーに検索バーがある場合）
+    function setupSearch(inputId, btnId) {
+      const input = document.getElementById(inputId);
+      const btn = document.getElementById(btnId);
+      if (input && btn) {
+        btn.addEventListener("click", () => {
+          const query = input.value.trim();
+          if (query) {
+            window.location.href = "search.html?query=" + encodeURIComponent(query);
+          }
+        });
+        input.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
+            const query = input.value.trim();
+            if (query) {
+              window.location.href = "search.html?query=" + encodeURIComponent(query);
+            }
+          }
+        });
+      }
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      setupSearch("searchInput", "searchBtn");
+      setupSearch("searchInputMobile", "searchBtnMobile");
+    });
+
     document.getElementById("loginBtn").addEventListener("click", function() {
       const id = document.getElementById("loginId").value.trim();
       const pw = document.getElementById("loginPassword").value.trim();
