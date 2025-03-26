@@ -1,0 +1,44 @@
+<header>
+  <div class="header-container">
+    <!-- 上段：ロゴ（左）＋右側（翻訳ウィジェット、CMSボタン、必要に応じてログアウトボタン） -->
+    <div class="header-top">
+      <div class="logo">
+        <a href="index.html">UP Global Press</a>
+      </div>
+      <div class="header-top-right">
+        <div class="language-switcher">
+          <!-- Google翻訳ウィジェット用 -->
+          <div id="google_translate_element"></div>
+        </div>
+        <a href="cms.html" class="cms-button">CMS</a>
+        <!-- ログアウトボタン（CMS管理画面用の場合など） -->
+        <!-- <a href="cms_login.html" class="logout-btn" onclick="localStorage.removeItem('cmsRole');">ログアウト</a> -->
+      </div>
+    </div>
+    <!-- 下段：ナビゲーション＆検索バー（企業概要リンクは除外） -->
+    <div class="header-inner">
+      <nav class="main-nav">
+        <a href="index.html">ホーム</a>
+        <a href="categories.html">カテゴリー</a>
+        <a href="release_list.html">プレスリリース一覧</a>
+        <a href="contact.html">お問い合わせ</a>
+      </nav>
+      <div class="search-bar">
+        <input type="text" placeholder="キーワードで検索" id="searchInput" />
+        <button id="searchBtn">検索</button>
+      </div>
+      <input type="checkbox" id="menu-toggle" style="display:none;" />
+      <label for="menu-toggle" class="hamburger">&#9776;</label>
+      <div class="mobile-nav">
+        <a href="index.html">ホーム</a>
+        <a href="categories.html">カテゴリー</a>
+        <a href="release_list.html">プレスリリース一覧</a>
+        <a href="contact.html">お問い合わせ</a>
+        <div class="search-bar">
+          <input type="text" placeholder="キーワードで検索" id="searchInputMobile" />
+          <button id="searchBtnMobile">検索</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
