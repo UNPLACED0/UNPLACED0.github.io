@@ -17,7 +17,6 @@
   </script>
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
   <style>
-    /* お問い合わせフォームのスタイル（前回の例と同様） */
     .contact-section {
       max-width: 700px;
       margin: 60px auto;
@@ -177,14 +176,14 @@
       setupSearch("searchInputMobile", "searchBtnMobile");
     });
 
-    // お問い合わせフォームの送信処理
+    // お問い合わせフォームの送信処理（サーバーレス関数へPOST送信）
     document.getElementById("contactForm").addEventListener("submit", async function(event) {
       event.preventDefault(); // 標準送信を防止
 
       const agreement = document.getElementById("agreement");
       const formError = document.getElementById("formError");
       if (!agreement.checked) {
-        formError.textContent = "利用規約とプライバシーポリシーに同意してください。";
+        formError.innerHTML = "利用規約とプライバシーポリシーに同意してください。";
         return;
       }
       formError.textContent = "";
@@ -200,8 +199,8 @@
       };
 
       try {
-        // サーバーレス関数（send_form.js）へPOST送信
-        const response = await fetch("send_form.js", {
+        // サーバーレス関数 send_form.js へPOST送信（URLは適宜変更）
+        const response = await fetch("/api/send_form", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -210,13 +209,12 @@
         });
         const result = await response.json();
         if (response.ok) {
-          // 送信成功時は thank_you.html へリダイレクト
           window.location.href = "thank_you.html";
         } else {
-          formError.textContent = result.error || "メール送信に失敗しました。";
+          formError.innerHTML = "エラーが発生しました。後ほど再度お試しください。<br><a href='mailto:unplaced.prinfo@gmail.com'>こちらからメールを送信してください</a>";
         }
       } catch (error) {
-        formError.textContent = "エラーが発生しました。後ほど再度お試しください。";
+        formError.innerHTML = "エラーが発生しました。後ほど再度お試しください。<br><a href='mailto:unplaced.prinfo@gmail.com'>こちらからメールを送信してください</a>";
       }
     });
 
