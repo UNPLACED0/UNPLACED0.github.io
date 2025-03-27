@@ -131,6 +131,12 @@
     .add-section-btn:hover {
       background: var(--highlight-color);
     }
+    /* サムネイル用説明文 */
+    .thumbnail-note {
+      font-size: 0.8rem;
+      color: var(--sub-text);
+      margin-top: 4px;
+    }
   </style>
   <!-- GTranslate -->
   <script type="text/javascript">
@@ -222,8 +228,9 @@
         <textarea id="releaseExcerpt" rows="2" placeholder="簡単な概要"></textarea>
       </div>
       <div class="form-group">
-        <label for="releaseImg">画像URL</label>
-        <input type="text" id="releaseImg" placeholder="（サムネイル用）https://..." />
+        <label for="releaseImg">画像URL（サムネイル用）</label>
+        <input type="text" id="releaseImg" placeholder="https://..." />
+        <small class="thumbnail-note">※この画像はサムネイルとして、タイトルの上に配置されます。</small>
       </div>
       <!-- コンテンツセクション追加部分 -->
       <div class="form-group">
