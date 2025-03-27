@@ -16,9 +16,10 @@
     }
   </script>
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
+
   <style>
     .detail-container {
-      max-width: 800px;
+      max-width: 900px;
       margin: 40px auto;
       padding: 20px;
       background: var(--card-bg);
@@ -26,7 +27,7 @@
       box-shadow: 0 4px 12px var(--hover-shadow);
     }
     .release-detail h1 {
-      font-size: 2.8rem;
+      font-size: 2.4rem;
       margin-bottom: 10px;
       color: var(--accent-color);
       text-align: left;
@@ -44,38 +45,71 @@
     .release-detail .content {
       font-size: 1.1rem;
       line-height: 1.8;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       text-align: justify;
     }
+    .release-detail .tags {
+      font-size: 0.9rem;
+      color: var(--sub-text);
+      margin-top: 10px;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: var(--accent-color);
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    .back-link:hover {
+      color: var(--highlight-color);
+    }
+
+    /* 追加情報（sections） */
     .sections-container {
-      margin-top: 40px;
+      max-width: 900px;
+      margin: 20px auto 40px;
+      padding: 0 20px;
     }
     .sections-container h2 {
       font-size: 1.8rem;
       color: var(--accent-color);
       margin-bottom: 20px;
+      text-align: left;
     }
-    .section {
+    .section-card {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
       margin-bottom: 30px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: flex-start;
     }
-    .section:last-child {
-      border-bottom: none;
+    .section-card img {
+      width: 300px; /* 適度な横幅に */
+      max-width: 100%;
+      border-radius: 8px;
+      flex-shrink: 0;
     }
-    .section p {
+    .section-card .section-text {
+      flex: 1 1 auto;
+      min-width: 0; /* テキストが狭くなりすぎないように */
+    }
+    .section-card .section-text p {
       font-size: 1rem;
       line-height: 1.8;
       margin-bottom: 10px;
       text-align: justify;
     }
-    .section img {
-      width: 100%;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
+
+    /* シェアセクション */
     .share-section {
-      margin-top: 30px;
+      max-width: 900px;
+      margin: 0 auto 60px;
       text-align: center;
       border-top: 1px solid var(--border-color);
       padding-top: 20px;
@@ -104,23 +138,13 @@
       background: var(--accent-color);
       color: #fff;
     }
-    .back-link {
-      display: inline-block;
-      margin-top: 20px;
-      text-decoration: none;
-      color: var(--accent-color);
-      font-size: 1rem;
-      transition: color 0.3s ease;
-    }
-    .back-link:hover {
-      color: var(--highlight-color);
-    }
   </style>
 </head>
 <body>
   <!-- ヘッダー読み込み -->
   <div id="header-placeholder"></div>
 
+  <!-- メインコンテンツ -->
   <section class="release-detail">
     <div class="detail-container">
       <h1 id="release-title">プレスリリースタイトル</h1>
@@ -134,9 +158,10 @@
 
   <!-- 追加情報（sections）表示エリア -->
   <section class="sections-container" id="sectionsContainer">
-    <!-- JavaScriptにより各セクションが動的に挿入される -->
+    <!-- JSにより各セクションが動的に挿入される -->
   </section>
 
+  <!-- シェアセクション -->
   <section class="share-section">
     <h3>このプレスリリースをシェア</h3>
     <div class="share-buttons">
@@ -151,6 +176,7 @@
 
   <script src="releases.js"></script>
   <script>
+    // ヘッダー・フッター読み込み
     async function loadHTML(url, elementId) {
       const response = await fetch(url);
       const data = await response.text();
@@ -188,29 +214,32 @@
       const params = new URLSearchParams(window.location.search);
       const id = params.get("id");
 
-      // 該当するリリースデータを取得
+      // releasesDataから該当IDのリリースを取得
       const release = releasesData.find(item => item.id === id);
       if(release) {
         document.getElementById("release-title").textContent = release.title;
         document.getElementById("release-date").textContent = release.date;
         document.getElementById("release-img").src = release.img;
         document.getElementById("release-img").alt = release.title;
-        document.getElementById("release-content").innerHTML = release.excerpt;
+        // ここでは excerpt を「リリース本文」として表示
+        document.getElementById("release-content").textContent = release.excerpt;
         const tagsText = release.tags ? release.tags.join(", ") : "";
         document.getElementById("release-tags").textContent = "タグ: " + tagsText;
 
-        // 追加のセクションがある場合
+        // 追加セクションがあれば表示
         if(release.sections && Array.isArray(release.sections) && release.sections.length > 0) {
           const sectionsContainer = document.getElementById("sectionsContainer");
           sectionsContainer.innerHTML = "<h2>追加情報</h2>";
           release.sections.forEach((sec, index) => {
-            const secDiv = document.createElement("div");
-            secDiv.className = "section";
-            secDiv.innerHTML = `
-              <p>${sec.body}</p>
-              <img src="${sec.img}" alt="追加画像 ${index + 1}">
+            const card = document.createElement("div");
+            card.className = "section-card";
+            card.innerHTML = `
+              <img src="${sec.img}" alt="追加画像 ${index+1}">
+              <div class="section-text">
+                <p>${sec.body}</p>
+              </div>
             `;
-            sectionsContainer.appendChild(secDiv);
+            sectionsContainer.appendChild(card);
           });
         }
 
