@@ -70,7 +70,9 @@
       font-weight: 600;
       margin-bottom: 5px;
     }
-    .form-group input, .form-group textarea {
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
       width: 100%;
       padding: 8px;
       border: 1px solid var(--border-color);
@@ -131,7 +133,15 @@
     .add-section-btn:hover {
       background: var(--highlight-color);
     }
-    /* サムネイル用説明文 */
+    /* タグ入力部分 */
+    .tag-group {
+      margin-bottom: 10px;
+    }
+    .tag-group label {
+      font-weight: 600;
+      margin-bottom: 5px;
+      display: block;
+    }
     .thumbnail-note {
       font-size: 0.8rem;
       color: var(--sub-text);
@@ -246,12 +256,26 @@
         </div>
         <button type="button" class="add-section-btn" id="addSectionBtn">＋ セクション追加</button>
       </div>
-      <div class="form-group">
-        <label for="releaseTags">
-          タグ（カンマ区切り）【必ず「テクノロジー」「ビジネス」「エンターテインメント」「ヘルスケア」「環境」「スタートアップ」「ビューティー」「グルメ」「その他」のいずれか1つを含む必要があります】
+      <!-- タグ入力部分 -->
+      <div class="form-group tag-group">
+        <label for="releaseTagSelect">
+          タグ（必須：下記9カテゴリーのいずれか1つを選択してください）
         </label>
-        <input type="text" id="releaseTags" placeholder="例：テクノロジー,AI,ITソリューション" />
-        <div id="tagError" class="error-message" style="display:none;">必ず9カテゴリーの内1つ以上のタグを含めてください。</div>
+        <select id="releaseTagSelect" required>
+          <option value="">選択してください</option>
+          <option value="テクノロジー">テクノロジー</option>
+          <option value="ビジネス">ビジネス</option>
+          <option value="エンターテインメント">エンターテインメント</option>
+          <option value="ヘルスケア">ヘルスケア</option>
+          <option value="環境">環境</option>
+          <option value="スタートアップ">スタートアップ</option>
+          <option value="ビューティー">ビューティー</option>
+          <option value="グルメ">グルメ</option>
+          <option value="その他">その他</option>
+        </select>
+        <label for="releaseAdditionalTags">追加のタグ（任意、カンマ区切り）</label>
+        <input type="text" id="releaseAdditionalTags" placeholder="例：AI,IoT">
+        <div id="tagError" class="error-message" style="display:none;">必ず上記のいずれか1つを選択してください。</div>
       </div>
       <button class="btn" id="saveBtn">保存</button>
       <button class="btn" id="cancelBtn" style="display:none;">キャンセル</button>
@@ -324,7 +348,8 @@
     const releaseExcerptInput = document.getElementById("releaseExcerpt");
     const releaseImgInput = document.getElementById("releaseImg");
     // 本文は now contentSectionsContainer から取得するので releaseContentInput は削除
-    const releaseTagsInput = document.getElementById("releaseTags");
+    const releaseTagSelect = document.getElementById("releaseTagSelect");
+    const releaseAdditionalTags = document.getElementById("releaseAdditionalTags");
     const tagError = document.getElementById("tagError");
     const saveBtn = document.getElementById("saveBtn");
     const cancelBtn = document.getElementById("cancelBtn");
@@ -389,6 +414,21 @@
     }
 
     saveBtn.addEventListener("click", () => {
+      // タグプルダウンが未選択なら保存できない
+      const selectedTag = releaseTagSelect.value.trim();
+      if (selectedTag === "") {
+        tagError.style.display = "block";
+        return;
+      } else {
+        tagError.style.display = "none";
+      }
+      // 追加タグは任意
+      let additional = releaseAdditionalTags.value.trim();
+      let tagsArray = [selectedTag];
+      if(additional !== ""){
+        let additionalTags = additional.split(",").map(s => s.trim()).filter(Boolean);
+        tagsArray = tagsArray.concat(additionalTags);
+      }
       const newRelease = {
         id: releaseIdInput.value.trim(),
         title: releaseTitleInput.value.trim(),
@@ -397,16 +437,10 @@
         img: releaseImgInput.value.trim(),
         link: "",
         sections: getSectionsData(),
-        tags: parseTags(releaseTagsInput.value)
+        tags: tagsArray
       };
       newRelease.link = `detail.html?id=${newRelease.id}`;
-      const hasRequired = newRelease.tags.some(tag => REQUIRED_TAGS.includes(tag));
-      if (!hasRequired) {
-        tagError.style.display = "block";
-        return;
-      } else {
-        tagError.style.display = "none";
-      }
+  
       if (!newRelease.id || !newRelease.title) {
         alert("IDとタイトルは必須です。");
         return;
@@ -419,29 +453,22 @@
       clearForm();
       renderTable();
     });
-
+  
     cancelBtn.addEventListener("click", () => {
       clearForm();
     });
-
+  
     generateJsonBtn.addEventListener("click", () => {
       let outputData;
       if (role === "editor") {
-        // editor の場合は新規作成分のみ
         outputData = cmsReleasesData.slice(initialCount);
       } else {
         outputData = cmsReleasesData;
       }
-      const currentTags = parseTags(releaseTagsInput.value);
-      const hasReq = currentTags.some(tag => REQUIRED_TAGS.includes(tag));
-      if (!hasReq) {
-        alert("必ず9カテゴリーの内1つ以上のタグを含めてください。");
-        return;
-      }
       const jsonStr = JSON.stringify(outputData, null, 2);
       jsonOutput.value = `var releasesData = ${jsonStr};`;
     });
-
+  
     window.editRelease = function(index) {
       editIndex = index;
       const rel = cmsReleasesData[index];
@@ -465,7 +492,6 @@
           contentSectionsContainer.appendChild(sectionDiv);
         });
       } else {
-        // なければ1セットを作成
         const sectionDiv = document.createElement("div");
         sectionDiv.className = "content-section";
         sectionDiv.innerHTML = `
@@ -476,12 +502,20 @@
         `;
         contentSectionsContainer.appendChild(sectionDiv);
       }
+      // タグ部分：プルダウンの値と追加タグを設定
+      if (rel.tags && Array.isArray(rel.tags) && rel.tags.length > 0) {
+        releaseTagSelect.value = rel.tags[0] || "";
+        releaseAdditionalTags.value = rel.tags.slice(1).join(", ");
+      } else {
+        releaseTagSelect.value = "";
+        releaseAdditionalTags.value = "";
+      }
       formTitle.textContent = "プレスリリースを編集";
       saveBtn.textContent = "更新";
       cancelBtn.style.display = "inline-block";
       document.getElementById("formContainer").scrollIntoView({ behavior: "smooth" });
     };
-
+  
     function getNextId() {
       let maxId = 0;
       cmsReleasesData.forEach(item => {
@@ -492,7 +526,7 @@
       });
       return maxId + 1;
     }
-
+  
     function clearForm() {
       editIndex = null;
       releaseIdInput.value = getNextId();
@@ -500,7 +534,6 @@
       releaseDateInput.value = "";
       releaseExcerptInput.value = "";
       releaseImgInput.value = "";
-      // クリア：コンテンツセクションは初期1セットに戻す
       contentSectionsContainer.innerHTML = `
         <div class="content-section">
           <label>本文 1</label>
@@ -509,18 +542,14 @@
           <input type="text" class="section-img" placeholder="画像URLを入力">
         </div>
       `;
-      releaseTagsInput.value = "";
+      releaseTagSelect.value = "";
+      releaseAdditionalTags.value = "";
       formTitle.textContent = "新規プレスリリースを追加";
       saveBtn.textContent = "保存";
       cancelBtn.style.display = "none";
       tagError.style.display = "none";
     }
-
-    function parseTags(tagStr) {
-      if (!tagStr.trim()) return [];
-      return tagStr.split(",").map(s => s.trim()).filter(Boolean);
-    }
-
+  
     document.addEventListener("DOMContentLoaded", function() {
       renderTable();
       clearForm();
