@@ -25,7 +25,7 @@
       border-radius: 10px;
       box-shadow: 0 4px 12px var(--hover-shadow);
     }
-    /* 画像を先頭に配置 */
+    /* 最初の画像をタイトル前に表示 */
     .release-img-top {
       width: 100%;
       border-radius: 10px;
@@ -64,37 +64,28 @@
     .back-link:hover {
       color: var(--highlight-color);
     }
+    /* 追加情報（sections）を同じ枠内に表示（シンプルな区切り） */
     .sections-container {
-      margin-top: 20px;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
     }
-    .section-card {
-      background: #fff;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      align-items: flex-start;
+    .section-item {
+      margin-bottom: 20px;
     }
-    .section-card img {
-      width: 300px;
-      max-width: 100%;
-      border-radius: 8px;
-      flex-shrink: 0;
-    }
-    .section-text {
-      flex: 1 1 auto;
-      min-width: 0;
-    }
-    .section-text p {
+    .section-item p {
       font-size: 1rem;
       line-height: 1.8;
       margin-bottom: 10px;
       text-align: justify;
     }
+    .section-item img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    /* シェアセクション */
     .share-section {
       margin-top: 30px;
       text-align: center;
@@ -130,23 +121,25 @@
 <body>
   <!-- ヘッダー読み込み -->
   <div id="header-placeholder"></div>
-
+  
+  <!-- メイン記事枠 -->
   <section class="release-detail">
     <div class="detail-container">
-      <!-- 画像を最初に表示 -->
+      <!-- 最初の画像 -->
       <img id="release-img" class="release-img-top" src="" alt="プレスリリース画像">
       <h1 id="release-title">プレスリリースタイトル</h1>
       <p class="date" id="release-date">公開日</p>
       <div class="content" id="release-content"></div>
       <p class="tags" id="release-tags"></p>
-
-      <!-- 追加情報を同じ枠内に表示 -->
+      
+      <!-- 追加情報を同じ枠内に -->
       <div class="sections-container" id="sectionsContainer"></div>
-
+      
       <a href="release_list.html" class="back-link">&laquo; 戻る</a>
     </div>
   </section>
-
+  
+  <!-- シェアセクション -->
   <section class="share-section">
     <h3>このプレスリリースをシェア</h3>
     <div class="share-buttons">
@@ -155,10 +148,10 @@
       <a href="#" target="_blank" id="liShare" class="share-button">LinkedIn</a>
     </div>
   </section>
-
+  
   <!-- フッター読み込み -->
   <div id="footer-placeholder"></div>
-
+  
   <script src="releases.js"></script>
   <script>
     async function loadHTML(url, elementId) {
@@ -168,7 +161,7 @@
     }
     loadHTML('includes/header.html', 'header-placeholder');
     loadHTML('includes/footer.html', 'footer-placeholder');
-
+  
     function setupSearch(inputId, btnId) {
       const input = document.getElementById(inputId);
       const btn = document.getElementById(btnId);
@@ -189,43 +182,40 @@
         });
       }
     }
-
+  
     document.addEventListener("DOMContentLoaded", function() {
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
-
+  
       // URLパラメータからIDを取得
       const params = new URLSearchParams(window.location.search);
       const id = params.get("id");
-
-      // リリースデータから該当するIDのデータを取得
+  
+      // 該当するリリースデータを取得
       const release = releasesData.find(item => item.id === id);
       if (release) {
         document.getElementById("release-title").textContent = release.title;
         document.getElementById("release-date").textContent = release.date;
-        // 画像はすでに上部に配置
         document.getElementById("release-img").src = release.img;
         document.getElementById("release-img").alt = release.title;
         document.getElementById("release-content").textContent = release.excerpt;
         const tagsText = release.tags ? release.tags.join(", ") : "";
         document.getElementById("release-tags").textContent = "タグ: " + tagsText;
-
-        // 追加セクションが存在する場合
+  
+        // 追加情報がある場合
         if (release.sections && Array.isArray(release.sections) && release.sections.length > 0) {
-          const sectionsContainer = document.getElementById("sectionsContainer");
+          const container = document.getElementById("sectionsContainer");
           release.sections.forEach((sec, index) => {
-            const card = document.createElement("div");
-            card.className = "section-card";
-            card.innerHTML = `
-              <img src="${sec.img}" alt="追加画像${index + 1}">
-              <div class="section-text">
-                <p>${sec.body}</p>
-              </div>
+            const sectionDiv = document.createElement("div");
+            sectionDiv.className = "section-item";
+            sectionDiv.innerHTML = `
+              <p>${sec.body}</p>
+              <img src="${sec.img}" alt="追加画像 ${index + 1}">
             `;
-            sectionsContainer.appendChild(card);
+            container.appendChild(sectionDiv);
           });
         }
-
+  
         // シェアボタン設定
         const currentUrl = encodeURIComponent(window.location.href);
         const shareText = encodeURIComponent(release.title);
