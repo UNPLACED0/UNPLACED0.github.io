@@ -48,7 +48,18 @@
       margin-bottom: 20px;
       text-align: justify;
     }
-    /* 追加情報（sections）はそのまま detail-container 内に配置 */
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: var(--accent-color);
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    .back-link:hover {
+      color: var(--highlight-color);
+    }
+    /* 追加情報（sections）を同じ枠内に表示 */
     .sections-container {
       margin-top: 20px;
       padding-top: 20px;
@@ -69,7 +80,7 @@
       border-radius: 8px;
       margin-bottom: 10px;
     }
-    /* シェアセクション：上部に十分な余白を確保 */
+    /* シェアセクション */
     .share-section {
       max-width: 900px;
       margin: 60px auto 20px;
@@ -101,7 +112,7 @@
       background: var(--accent-color);
       color: #fff;
     }
-    /* タグをシェアセクションの下に配置 */
+    /* タグはシェアセクションの下に配置 */
     .tags-container {
       max-width: 900px;
       margin: 20px auto;
@@ -112,18 +123,6 @@
     .tags-container p {
       margin: 0;
     }
-    /* 戻るリンク */
-    .back-link {
-      display: inline-block;
-      margin-top: 20px;
-      text-decoration: none;
-      color: var(--accent-color);
-      font-size: 1rem;
-      transition: color 0.3s ease;
-    }
-    .back-link:hover {
-      color: var(--highlight-color);
-    }
   </style>
 </head>
 <body>
@@ -133,7 +132,7 @@
   <!-- メイン記事枠 -->
   <section class="release-detail">
     <div class="detail-container">
-      <!-- 画像を最初に表示 -->
+      <!-- 最初の画像 -->
       <img id="release-img" class="release-img-top" src="" alt="プレスリリース画像">
       <h1 id="release-title">プレスリリースタイトル</h1>
       <p class="date" id="release-date">公開日</p>
@@ -192,15 +191,16 @@
         });
       }
     }
+  
     document.addEventListener("DOMContentLoaded", function() {
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
-
-      // URLパラメータからID取得
+  
+      // URLパラメータからIDを取得
       const params = new URLSearchParams(window.location.search);
       const id = params.get("id");
-
-      // 該当リリースデータ取得
+  
+      // リリースデータから該当IDを取得
       const release = releasesData.find(item => item.id === id);
       if (release) {
         document.getElementById("release-title").textContent = release.title;
@@ -208,21 +208,24 @@
         document.getElementById("release-img").src = release.img;
         document.getElementById("release-img").alt = release.title;
         document.getElementById("release-content").textContent = release.excerpt;
-        
-        // 追加情報（sections）の表示
+  
+        // 追加情報（sections）の表示（画像が空の場合はスキップ）
         if (release.sections && Array.isArray(release.sections) && release.sections.length > 0) {
           const sectionsContainer = document.getElementById("sectionsContainer");
           release.sections.forEach((sec, index) => {
             const sectionDiv = document.createElement("div");
             sectionDiv.className = "section-item";
-            sectionDiv.innerHTML = `
-              <img src="${sec.img}" alt="追加画像 ${index + 1}">
-              <p>${sec.body}</p>
-            `;
+            let contentHtml = "";
+            if (sec.img && sec.img.trim() !== "") {
+              contentHtml += `<img src="${sec.img}" alt="追加画像 ${index + 1}">`;
+            }
+            contentHtml += `<p>${sec.body}</p>`;
+            sectionDiv.innerHTML = contentHtml;
             sectionsContainer.appendChild(sectionDiv);
           });
         }
-        // タグを最下部に表示
+  
+        // タグ表示（最下部）
         const tagsContainer = document.getElementById("tagsContainer");
         if (release.tags && release.tags.length > 0) {
           tagsContainer.innerHTML = `<p>タグ: ${release.tags.join(", ")}</p>`;
