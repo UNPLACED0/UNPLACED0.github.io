@@ -25,7 +25,7 @@
       border-radius: 10px;
       box-shadow: 0 4px 12px var(--hover-shadow);
     }
-    /* 最初の画像をタイトル前に表示 */
+    /* 最初の画像をタイトルの前に表示 */
     .release-img-top {
       width: 100%;
       border-radius: 10px;
@@ -48,25 +48,9 @@
       margin-bottom: 20px;
       text-align: justify;
     }
-    .release-detail .tags {
-      font-size: 0.9rem;
-      color: var(--sub-text);
-      margin-top: 10px;
-    }
-    .back-link {
-      display: inline-block;
-      margin-top: 20px;
-      text-decoration: none;
-      color: var(--accent-color);
-      font-size: 1rem;
-      transition: color 0.3s ease;
-    }
-    .back-link:hover {
-      color: var(--highlight-color);
-    }
-    /* 追加情報（sections）を同じ枠内に表示（シンプルな区切り） */
+    /* 追加情報（sections）はそのまま detail-container 内に配置 */
     .sections-container {
-      margin-top: 30px;
+      margin-top: 20px;
       padding-top: 20px;
       border-top: 1px solid var(--border-color);
     }
@@ -85,12 +69,13 @@
       border-radius: 8px;
       margin-bottom: 10px;
     }
-    /* シェアセクション */
+    /* シェアセクション：上部に十分な余白を確保 */
     .share-section {
-      margin-top: 30px;
+      max-width: 900px;
+      margin: 60px auto 20px;
       text-align: center;
       border-top: 1px solid var(--border-color);
-      padding-top: 20px;
+      padding-top: 40px;
     }
     .share-section h3 {
       font-size: 1.8rem;
@@ -116,6 +101,29 @@
       background: var(--accent-color);
       color: #fff;
     }
+    /* タグをシェアセクションの下に配置 */
+    .tags-container {
+      max-width: 900px;
+      margin: 20px auto;
+      text-align: left;
+      font-size: 0.9rem;
+      color: var(--sub-text);
+    }
+    .tags-container p {
+      margin: 0;
+    }
+    /* 戻るリンク */
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: var(--accent-color);
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    .back-link:hover {
+      color: var(--highlight-color);
+    }
   </style>
 </head>
 <body>
@@ -125,27 +133,29 @@
   <!-- メイン記事枠 -->
   <section class="release-detail">
     <div class="detail-container">
-      <!-- 最初の画像 -->
+      <!-- 画像を最初に表示 -->
       <img id="release-img" class="release-img-top" src="" alt="プレスリリース画像">
       <h1 id="release-title">プレスリリースタイトル</h1>
       <p class="date" id="release-date">公開日</p>
       <div class="content" id="release-content"></div>
-      <p class="tags" id="release-tags"></p>
       
-      <!-- 追加情報を同じ枠内に -->
+      <!-- 追加情報（sections） -->
       <div class="sections-container" id="sectionsContainer"></div>
       
+      <!-- シェアセクション -->
+      <section class="share-section">
+        <h3>このプレスリリースをシェア</h3>
+        <div class="share-buttons">
+          <a href="#" target="_blank" id="fbShare" class="share-button">Facebook</a>
+          <a href="#" target="_blank" id="twShare" class="share-button">Twitter</a>
+          <a href="#" target="_blank" id="liShare" class="share-button">LinkedIn</a>
+        </div>
+      </section>
+      
+      <!-- タグを最下部に表示 -->
+      <div class="tags-container" id="tagsContainer"></div>
+      
       <a href="release_list.html" class="back-link">&laquo; 戻る</a>
-    </div>
-  </section>
-  
-  <!-- シェアセクション -->
-  <section class="share-section">
-    <h3>このプレスリリースをシェア</h3>
-    <div class="share-buttons">
-      <a href="#" target="_blank" id="fbShare" class="share-button">Facebook</a>
-      <a href="#" target="_blank" id="twShare" class="share-button">Twitter</a>
-      <a href="#" target="_blank" id="liShare" class="share-button">LinkedIn</a>
     </div>
   </section>
   
@@ -161,7 +171,7 @@
     }
     loadHTML('includes/header.html', 'header-placeholder');
     loadHTML('includes/footer.html', 'footer-placeholder');
-  
+
     function setupSearch(inputId, btnId) {
       const input = document.getElementById(inputId);
       const btn = document.getElementById(btnId);
@@ -182,16 +192,15 @@
         });
       }
     }
-  
     document.addEventListener("DOMContentLoaded", function() {
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
-  
-      // URLパラメータからIDを取得
+
+      // URLパラメータからID取得
       const params = new URLSearchParams(window.location.search);
       const id = params.get("id");
-  
-      // 該当するリリースデータを取得
+
+      // 該当リリースデータ取得
       const release = releasesData.find(item => item.id === id);
       if (release) {
         document.getElementById("release-title").textContent = release.title;
@@ -199,24 +208,27 @@
         document.getElementById("release-img").src = release.img;
         document.getElementById("release-img").alt = release.title;
         document.getElementById("release-content").textContent = release.excerpt;
-        const tagsText = release.tags ? release.tags.join(", ") : "";
-        document.getElementById("release-tags").textContent = "タグ: " + tagsText;
-  
-        // 追加情報がある場合
+        
+        // 追加情報（sections）の表示
         if (release.sections && Array.isArray(release.sections) && release.sections.length > 0) {
-          const container = document.getElementById("sectionsContainer");
+          const sectionsContainer = document.getElementById("sectionsContainer");
           release.sections.forEach((sec, index) => {
             const sectionDiv = document.createElement("div");
             sectionDiv.className = "section-item";
             sectionDiv.innerHTML = `
-              <p>${sec.body}</p>
               <img src="${sec.img}" alt="追加画像 ${index + 1}">
+              <p>${sec.body}</p>
             `;
-            container.appendChild(sectionDiv);
+            sectionsContainer.appendChild(sectionDiv);
           });
         }
+        // タグを最下部に表示
+        const tagsContainer = document.getElementById("tagsContainer");
+        if (release.tags && release.tags.length > 0) {
+          tagsContainer.innerHTML = `<p>タグ: ${release.tags.join(", ")}</p>`;
+        }
   
-        // シェアボタン設定
+        // シェアボタンのリンク設定
         const currentUrl = encodeURIComponent(window.location.href);
         const shareText = encodeURIComponent(release.title);
         document.getElementById("fbShare").href = `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`;
