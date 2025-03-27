@@ -35,6 +35,87 @@
       font-size: 3rem;
       margin-bottom: 20px;
     }
+    /* 高度なフィルタリングパネル */
+    .advanced-filters {
+      max-width: 1200px;
+      margin: 20px auto 40px auto;
+      padding: 20px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .advanced-filters h2 {
+      font-size: 1.8rem;
+      color: var(--accent-color);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .filter-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .filter-group, .date-range-group {
+      flex: 1 1 300px;
+      background: var(--secondary-bg);
+      padding: 10px;
+      border-radius: 6px;
+    }
+    .filter-group label.filter-title,
+    .date-range-group label.filter-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--accent-color);
+      display: block;
+    }
+    .filter-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .filter-options label {
+      padding: 6px 10px;
+      border-radius: 20px;
+      background: #f0f0f0;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .filter-options input[type="checkbox"] {
+      display: none;
+    }
+    .filter-options input[type="checkbox"]:checked + span {
+      background: var(--accent-color);
+      color: #fff;
+    }
+    .date-range {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .date-range input[type="date"] {
+      padding: 6px 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    #applyFilters {
+      display: block;
+      margin: 20px auto 0;
+      padding: 10px 20px;
+      background: var(--accent-color);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    #applyFilters:hover {
+      background: var(--highlight-color);
+    }
     /* 検索結果表示 */
     .results-container {
       max-width: 1200px;
@@ -104,9 +185,67 @@
     </div>
   </section>
 
+  <!-- 高度なフィルタリングパネル -->
+  <section class="advanced-filters">
+    <div class="filter-container">
+      <!-- カテゴリフィルタ -->
+      <div class="filter-group">
+        <label class="filter-title">カテゴリー</label>
+        <div class="filter-options">
+          <label>
+            <input type="checkbox" name="filter" value="テクノロジー">
+            <span>テクノロジー</span>
+          </label>
+          <label>
+            <input type="checkbox" name="filter" value="ビジネス">
+            <span>ビジネス</span>
+          </label>
+          <label>
+            <input type="checkbox" name="filter" value="エンターテインメント">
+            <span>エンターテインメント</span>
+          </label>
+          <label>
+            <input type="checkbox" name="filter" value="ヘルスケア">
+            <span>ヘルスケア</span>
+          </label>
+          <label>
+            <input type="checkbox" name="filter" value="環境">
+            <span>環境</span>
+          </label>
+          <label>
+            <input type="checkbox" name="filter" value="スタートアップ">
+            <span>スタートアップ</span>
+          </label>
+          <label>
+            <input type="checkbox" name="filter" value="ビューティー">
+            <span>ビューティー</span>
+          </label>
+          <label>
+            <input type="checkbox" name="filter" value="グルメ">
+            <span>グルメ</span>
+          </label>
+          <label>
+            <input type="checkbox" name="filter" value="その他">
+            <span>その他</span>
+          </label>
+        </div>
+      </div>
+      <!-- 日付範囲フィルタ -->
+      <div class="date-range-group">
+        <label class="filter-title" for="startDate">日付範囲</label>
+        <div class="date-range">
+          <input type="date" id="startDate" name="startDate">
+          <span>～</span>
+          <input type="date" id="endDate" name="endDate">
+        </div>
+      </div>
+    </div>
+    <button type="button" id="applyFilters">フィルタ適用</button>
+  </section>
+
   <!-- 検索結果表示エリア -->
   <section class="results-container" id="resultsContainer">
-    <!-- JavaScript により結果が挿入される -->
+    <!-- 結果は JavaScript で挿入 -->
   </section>
 
   <!-- フッター読み込み -->
@@ -114,7 +253,7 @@
 
   <script src="releases.js"></script>
   <script>
-    // ヘッダー、フッターの読み込み
+    // ヘッダー・フッター読み込み
     async function loadHTML(url, elementId) {
       const response = await fetch(url);
       const data = await response.text();
@@ -123,7 +262,7 @@
     loadHTML('includes/header.html', 'header-placeholder');
     loadHTML('includes/footer.html', 'footer-placeholder');
 
-    // 共通の検索機能設定
+    // 検索機能設定
     function setupSearch(inputId, btnId) {
       const input = document.getElementById(inputId);
       const btn = document.getElementById(btnId);
@@ -147,27 +286,88 @@
     document.addEventListener("DOMContentLoaded", function() {
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
+    });
 
-      // URLパラメータから検索キーワードを取得
+    // 高度なフィルタリング処理
+    document.getElementById("applyFilters").addEventListener("click", function() {
       const params = new URLSearchParams(window.location.search);
-      const query = params.get("query") ? params.get("query").trim() : "";
-      document.getElementById("searchSummary").innerHTML = "キーワード：" + (query || "(なし)");
-
-      const resultsContainer = document.getElementById("resultsContainer");
-      // releasesData は releases.js で定義されていると仮定
+      const keyword = params.get("query") ? params.get("query").toLowerCase() : "";
+      const checkedFilters = Array.from(document.querySelectorAll('input[name="filter"]:checked')).map(el => el.value);
+      const startDate = document.getElementById("startDate").value;
+      const endDate = document.getElementById("endDate").value;
+  
       const filteredResults = releasesData.filter(item => {
-        const lowerQuery = query.toLowerCase();
-        return item.title.toLowerCase().includes(lowerQuery) ||
-               item.excerpt.toLowerCase().includes(lowerQuery) ||
-               (item.content && item.content.toLowerCase().includes(lowerQuery));
+        const title = item.title.toLowerCase();
+        const excerpt = item.excerpt.toLowerCase();
+        const content = item.content ? item.content.toLowerCase() : "";
+        const matchesKeyword = title.includes(keyword) || excerpt.includes(keyword) || content.includes(keyword);
+  
+        let matchesCategory = true;
+        if (checkedFilters.length > 0) {
+          if (!item.tags || !item.tags.some(tag => checkedFilters.includes(tag))) {
+            matchesCategory = false;
+          }
+        }
+  
+        let matchesDate = true;
+        if (startDate) {
+          if (new Date(item.date) < new Date(startDate)) {
+            matchesDate = false;
+          }
+        }
+        if (endDate) {
+          if (new Date(item.date) > new Date(endDate)) {
+            matchesDate = false;
+          }
+        }
+  
+        return matchesKeyword && matchesCategory && matchesDate;
       });
-      
+  
+      const resultsContainer = document.getElementById("resultsContainer");
+      resultsContainer.innerHTML = "";
+  
       if (filteredResults.length === 0) {
-        resultsContainer.innerHTML = `<p class="no-results">「${query}」に該当するプレスリリースは見つかりませんでした。</p>`;
+        resultsContainer.innerHTML = `<p class="no-results">「${keyword}」に該当するプレスリリースは見つかりませんでした。</p>`;
       } else {
-        // 最新順にソート
         filteredResults.sort((a, b) => new Date(b.date) - new Date(a.date));
         filteredResults.forEach(release => {
+          const card = document.createElement("div");
+          card.className = "result-card";
+          card.innerHTML = `
+            <a href="detail.html?id=${release.id}">
+              <img src="${release.img}" alt="${release.title}">
+              <div class="result-info">
+                <h2>${release.title}</h2>
+                <p class="date">${release.date}</p>
+                <p class="excerpt">${release.excerpt}</p>
+              </div>
+            </a>
+          `;
+          resultsContainer.appendChild(card);
+        });
+      }
+    });
+  
+    // 初期検索結果表示（URLパラメータからキーワード取得）
+    document.addEventListener("DOMContentLoaded", function() {
+      const params = new URLSearchParams(window.location.search);
+      const keyword = params.get("query") ? params.get("query").toLowerCase() : "";
+      document.getElementById("searchSummary").innerHTML = "キーワード：" + (keyword || "(なし)");
+  
+      const resultsContainer = document.getElementById("resultsContainer");
+      const initialResults = releasesData.filter(item => {
+        const title = item.title.toLowerCase();
+        const excerpt = item.excerpt.toLowerCase();
+        const content = item.content ? item.content.toLowerCase() : "";
+        return title.includes(keyword) || excerpt.includes(keyword) || content.includes(keyword);
+      });
+  
+      if (initialResults.length === 0) {
+        resultsContainer.innerHTML = `<p class="no-results">「${keyword}」に該当するプレスリリースは見つかりませんでした。</p>`;
+      } else {
+        initialResults.sort((a, b) => new Date(b.date) - new Date(a.date));
+        initialResults.forEach(release => {
           const card = document.createElement("div");
           card.className = "result-card";
           card.innerHTML = `
