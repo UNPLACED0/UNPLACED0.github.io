@@ -25,7 +25,7 @@
       border-radius: 10px;
       box-shadow: 0 4px 12px var(--hover-shadow);
     }
-    /* 最初の画像をタイトルの前に表示 */
+    /* 1枚目の画像をタイトル前に配置 */
     .release-img-top {
       width: 100%;
       border-radius: 10px;
@@ -48,18 +48,7 @@
       margin-bottom: 20px;
       text-align: justify;
     }
-    .back-link {
-      display: inline-block;
-      margin-top: 20px;
-      text-decoration: none;
-      color: var(--accent-color);
-      font-size: 1rem;
-      transition: color 0.3s ease;
-    }
-    .back-link:hover {
-      color: var(--highlight-color);
-    }
-    /* 追加情報（sections）を同じ枠内に表示 */
+    /* 追加情報（sections） */
     .sections-container {
       margin-top: 20px;
       padding-top: 20px;
@@ -112,7 +101,7 @@
       background: var(--accent-color);
       color: #fff;
     }
-    /* タグはシェアセクションの下に配置 */
+    /* タグを最下部に配置 */
     .tags-container {
       max-width: 900px;
       margin: 20px auto;
@@ -123,6 +112,17 @@
     .tags-container p {
       margin: 0;
     }
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: var(--accent-color);
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    .back-link:hover {
+      color: var(--highlight-color);
+    }
   </style>
 </head>
 <body>
@@ -132,7 +132,7 @@
   <!-- メイン記事枠 -->
   <section class="release-detail">
     <div class="detail-container">
-      <!-- 最初の画像 -->
+      <!-- 画像をタイトルの前に配置 -->
       <img id="release-img" class="release-img-top" src="" alt="プレスリリース画像">
       <h1 id="release-title">プレスリリースタイトル</h1>
       <p class="date" id="release-date">公開日</p>
@@ -151,7 +151,7 @@
         </div>
       </section>
       
-      <!-- タグを最下部に表示 -->
+      <!-- タグ表示 -->
       <div class="tags-container" id="tagsContainer"></div>
       
       <a href="release_list.html" class="back-link">&laquo; 戻る</a>
@@ -191,16 +191,15 @@
         });
       }
     }
-  
     document.addEventListener("DOMContentLoaded", function() {
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
   
-      // URLパラメータからIDを取得
+      // URLパラメータからID取得
       const params = new URLSearchParams(window.location.search);
       const id = params.get("id");
   
-      // リリースデータから該当IDを取得
+      // リリースデータから該当するIDのデータを取得
       const release = releasesData.find(item => item.id === id);
       if (release) {
         document.getElementById("release-title").textContent = release.title;
@@ -209,7 +208,7 @@
         document.getElementById("release-img").alt = release.title;
         document.getElementById("release-content").textContent = release.excerpt;
   
-        // 追加情報（sections）の表示（画像が空の場合はスキップ）
+        // 追加情報（sections）の表示（画像が空の場合はテキストのみ表示）
         if (release.sections && Array.isArray(release.sections) && release.sections.length > 0) {
           const sectionsContainer = document.getElementById("sectionsContainer");
           release.sections.forEach((sec, index) => {
@@ -225,13 +224,13 @@
           });
         }
   
-        // タグ表示（最下部）
+        // タグ表示
         const tagsContainer = document.getElementById("tagsContainer");
         if (release.tags && release.tags.length > 0) {
           tagsContainer.innerHTML = `<p>タグ: ${release.tags.join(", ")}</p>`;
         }
   
-        // シェアボタンのリンク設定
+        // シェアボタン設定
         const currentUrl = encodeURIComponent(window.location.href);
         const shareText = encodeURIComponent(release.title);
         document.getElementById("fbShare").href = `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`;

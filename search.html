@@ -1,38 +1,112 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>検索結果 - UP Global Press</title>
-  <link rel="stylesheet" href="styles.css" />
-
-  <!-- GTranslateウィジェット初期化 -->
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({
-        pageLanguage: 'ja',
-        includedLanguages: 'ja,en,bn',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-      }, 'google_translate_element');
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ヒーローセクション */
+    .hero {
+      position: relative;
+      height: 40vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: url('https://picsum.photos/1200/600?blur=3') no-repeat center center/cover;
+      background-attachment: fixed;
     }
-  </script>
-  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,34,68,0.8);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: #fff;
+    }
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    /* 検索結果表示 */
+    .results-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    .result-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .result-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px var(--hover-shadow);
+    }
+    .result-card a {
+      display: block;
+      text-decoration: none;
+      color: var(--text-color);
+    }
+    .result-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .result-info {
+      padding: 20px;
+    }
+    .result-info h2 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+    .result-info .date {
+      font-size: 0.9rem;
+      color: var(--sub-text);
+      margin-bottom: 10px;
+    }
+    .result-info .excerpt {
+      font-size: 1rem;
+      color: var(--text-color);
+      font-weight: 300;
+    }
+    .no-results {
+      text-align: center;
+      font-size: 1.2rem;
+      color: var(--sub-text);
+      margin: 40px;
+    }
+  </style>
 </head>
 <body>
   <!-- ヘッダー読み込み -->
   <div id="header-placeholder"></div>
-  
+
   <!-- ヒーローセクション -->
   <section class="hero">
     <div class="hero-content">
       <h1>検索結果</h1>
-      <p id="searchSummary">キーワード：<span id="searchQuery"></span></p>
+      <p id="searchSummary">キーワード：</p>
     </div>
   </section>
-  
+
   <!-- 検索結果表示エリア -->
-  <section class="releases">
-    <!-- JSで検索結果が動的に挿入される -->
+  <section class="results-container" id="resultsContainer">
+    <!-- JavaScript により結果が挿入される -->
   </section>
 
   <!-- フッター読み込み -->
@@ -40,12 +114,16 @@
 
   <script src="releases.js"></script>
   <script>
+    // ヘッダー、フッターの読み込み
     async function loadHTML(url, elementId) {
       const response = await fetch(url);
       const data = await response.text();
       document.getElementById(elementId).innerHTML = data;
     }
+    loadHTML('includes/header.html', 'header-placeholder');
+    loadHTML('includes/footer.html', 'footer-placeholder');
 
+    // 共通の検索機能設定
     function setupSearch(inputId, btnId) {
       const input = document.getElementById(inputId);
       const btn = document.getElementById(btnId);
@@ -66,53 +144,44 @@
         });
       }
     }
-
-    document.addEventListener("DOMContentLoaded", async () => {
-      // ヘッダー・フッター読み込み
-      await loadHTML('includes/header.html', 'header-placeholder');
-      await loadHTML('includes/footer.html', 'footer-placeholder');
-
-      // 検索機能バインド
+    document.addEventListener("DOMContentLoaded", function() {
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
 
-      // URLからクエリを取得
-      const params = new URLSearchParams(location.search);
+      // URLパラメータから検索キーワードを取得
+      const params = new URLSearchParams(window.location.search);
       const query = params.get("query") ? params.get("query").trim() : "";
-      document.getElementById("searchQuery").textContent = query || "(なし)";
+      document.getElementById("searchSummary").innerHTML = "キーワード：" + (query || "(なし)");
 
-      // 検索結果の表示
-      if (typeof releasesData !== "undefined") {
-        const container = document.querySelector(".releases");
-        container.innerHTML = "";
+      const resultsContainer = document.getElementById("resultsContainer");
+      // releasesData は releases.js で定義されていると仮定
+      const filteredResults = releasesData.filter(item => {
         const lowerQuery = query.toLowerCase();
-        let results = releasesData.filter(item => {
-          const title = item.title.toLowerCase();
-          const excerpt = item.excerpt.toLowerCase();
-          const content = item.content.toLowerCase();
-          return (title.includes(lowerQuery) || excerpt.includes(lowerQuery) || content.includes(lowerQuery));
+        return item.title.toLowerCase().includes(lowerQuery) ||
+               item.excerpt.toLowerCase().includes(lowerQuery) ||
+               (item.content && item.content.toLowerCase().includes(lowerQuery));
+      });
+      
+      if (filteredResults.length === 0) {
+        resultsContainer.innerHTML = `<p class="no-results">「${query}」に該当するプレスリリースは見つかりませんでした。</p>`;
+      } else {
+        // 最新順にソート
+        filteredResults.sort((a, b) => new Date(b.date) - new Date(a.date));
+        filteredResults.forEach(release => {
+          const card = document.createElement("div");
+          card.className = "result-card";
+          card.innerHTML = `
+            <a href="detail.html?id=${release.id}">
+              <img src="${release.img}" alt="${release.title}">
+              <div class="result-info">
+                <h2>${release.title}</h2>
+                <p class="date">${release.date}</p>
+                <p class="excerpt">${release.excerpt}</p>
+              </div>
+            </a>
+          `;
+          resultsContainer.appendChild(card);
         });
-        if (results.length === 0) {
-          container.innerHTML = `<p>「${query}」に該当するプレスリリースは見つかりませんでした。</p>`;
-        } else {
-          results.forEach(release => {
-            const card = document.createElement("div");
-            card.className = "release-card";
-            const tagsText = release.tags ? release.tags.join(", ") : "";
-            card.innerHTML = `
-              <a href="${release.link}">
-                <img src="${release.img}" alt="${release.title}">
-                <div class="release-info">
-                  <h2>${release.title}</h2>
-                  <p class="date">${release.date}</p>
-                  <p class="excerpt">${release.excerpt}</p>
-                  <p class="tags">タグ: ${tagsText}</p>
-                </div>
-              </a>
-            `;
-            container.appendChild(card);
-          });
-        }
       }
     });
   </script>
