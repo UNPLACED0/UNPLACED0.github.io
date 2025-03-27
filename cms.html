@@ -227,8 +227,8 @@
 
   <main class="cms-container">
     <h1>プレスリリース管理</h1>
-    <!-- CMS内検索 -->
-    <div class="cms-search">
+    <!-- CMS内検索（管理者のみ表示） -->
+    <div class="cms-search" id="cmsSearchContainer">
       <input type="text" id="cmsSearchInput" placeholder="管理内検索">
       <button id="cmsSearchBtn">検索</button>
     </div>
@@ -367,6 +367,24 @@
     if (role === "admin") {
       document.getElementById("adminSection").style.display = "block";
     }
+    // CMS内検索機能（管理者のみ）
+    if (role === "admin") {
+      document.getElementById("cmsSearchBtn").addEventListener("click", function() {
+        const query = document.getElementById("cmsSearchInput").value.trim().toLowerCase();
+        const rows = document.querySelectorAll("#releasesTable tbody tr");
+        rows.forEach(row => {
+          const title = row.children[1].textContent.toLowerCase();
+          if (title.includes(query)) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      });
+    } else {
+      document.getElementById("cmsSearchContainer").style.display = "none";
+    }
+
     // 初期のデータ件数を記録（新規作成分と判別するため）
     const initialCount = releasesData.length;
 
@@ -453,7 +471,7 @@
       }
       let additional = releaseAdditionalTags.value.trim();
       let tagsArray = [selectedTag];
-      if(additional !== ""){
+      if (additional !== "") {
         let additionalTags = additional.split(",").map(s => s.trim()).filter(Boolean);
         tagsArray = tagsArray.concat(additionalTags);
       }
@@ -468,7 +486,7 @@
         tags: tagsArray
       };
       newRelease.link = `detail.html?id=${newRelease.id}`;
-
+  
       if (!newRelease.id || !newRelease.title) {
         alert("IDとタイトルは必須です。");
         return;
@@ -481,11 +499,11 @@
       clearForm();
       renderTable();
     });
-
+  
     cancelBtn.addEventListener("click", () => {
       clearForm();
     });
-
+  
     generateJsonBtn.addEventListener("click", () => {
       let outputData;
       if (role === "editor") {
@@ -496,7 +514,7 @@
       const jsonStr = JSON.stringify(outputData, null, 2);
       jsonOutput.value = `var releasesData = ${jsonStr};`;
     });
-
+  
     window.editRelease = function(index) {
       editIndex = index;
       const rel = cmsReleasesData[index];
@@ -541,7 +559,7 @@
       cancelBtn.style.display = "inline-block";
       document.getElementById("formContainer").scrollIntoView({ behavior: "smooth" });
     };
-
+  
     function getNextId() {
       let maxId = 0;
       cmsReleasesData.forEach(item => {
@@ -552,7 +570,7 @@
       });
       return maxId + 1;
     }
-
+  
     function clearForm() {
       editIndex = null;
       releaseIdInput.value = getNextId();
@@ -575,39 +593,7 @@
       cancelBtn.style.display = "none";
       tagError.style.display = "none";
     }
-
-    function parseTags(tagStr) {
-      if (!tagStr.trim()) return [];
-      return tagStr.split(",").map(s => s.trim()).filter(Boolean);
-    }
-
-    // CMS内検索：テーブルフィルタリング
-    document.getElementById("cmsSearchBtn").addEventListener("click", function() {
-      const query = document.getElementById("cmsSearchInput").value.trim().toLowerCase();
-      const rows = document.querySelectorAll("#releasesTable tbody tr");
-      rows.forEach(row => {
-        const title = row.children[1].textContent.toLowerCase();
-        if (title.includes(query)) {
-          row.style.display = "";
-        } else {
-          row.style.display = "none";
-        }
-      });
-    });
-
-    // 最小化ボタン：getComputedStyleでチェック
-    document.getElementById("toggleTableBtn").addEventListener("click", function() {
-      const table = document.getElementById("releasesTable");
-      const currentDisplay = window.getComputedStyle(table).display;
-      if (currentDisplay === "none") {
-        table.style.display = "table";
-        this.textContent = "最小化";
-      } else {
-        table.style.display = "none";
-        this.textContent = "展開";
-      }
-    });
-
+  
     document.addEventListener("DOMContentLoaded", function() {
       renderTable();
       clearForm();
