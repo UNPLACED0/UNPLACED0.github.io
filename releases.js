@@ -8,7 +8,7 @@ var releasesData = [
     "link": "detail.html?id=1",
     "sections": [
       {
-        "body": "<h2>技術の特徴</h2><p><b>「X-Next」</b>は徹底した省電力設計と高性能チップセットの両立を実現するため、内部構造の放熱効率やバッテリー素材を見直しています。詳細は <a href='https://www.google.com' target='_blank'>公式サイト</a> をご覧ください。</p>"
+        "body": "<h2>技術の特徴</h2><p><b>「X-Next」</b>は徹底した省電力設計と高性能チップセットの両立を実現するため、内部構造の放熱効率やバッテリー素材を見直しています。<br><u>重要なポイント:</u></p><ol><li>高精度センサー</li><li>AI学習機能</li><li>革新的なUI</li></ol><p>詳細は <a href='https://www.google.com' target='_blank'>公式サイト</a> をご覧ください。</p><h3>市場へのインパクト</h3><p>この製品は業界に新たな基準を打ち立てると期待されています。</p>"
       }
     ],
     "tags": [
@@ -26,11 +26,11 @@ var releasesData = [
     "link": "detail.html?id=2",
     "sections": [
       {
-        "body": "<h2>事業戦略</h2><p>同社は海外市場向けに人材紹介事業を強化し、国内企業とのマッチングを通じて労働力不足に対応しています。詳細は <a href='https://www.google.com' target='_blank'>公式サイト</a> をご確認ください.",
+        "body": "<h2>事業戦略</h2><p><b>強化ポイント:</b> 海外市場向けに人材紹介事業を拡大し、国内企業との連携を強化しています。<br>主な特徴:</p><ul><li><u>迅速なマッチング</u></li><li>多言語対応</li><li>効率的な育成プログラム</li></ul><p>詳細は <a href='https://www.google.com' target='_blank'>公式サイト</a> をご確認ください。</p>",
         "img": "https://picsum.photos/400/200?random=102"
       },
       {
-        "body": "<h2>社内体制の強化</h2><p>また、ITインフラ刷新とリモートワーク環境の整備により、グローバル展開がさらに推進されています。</p>",
+        "body": "<h2>社内体制の強化</h2><p>ITインフラの刷新とリモートワーク環境の整備が、<b>業務効率</b>向上に大きく貢献しています。<br>主な取り組み:</p><ol><li>クラウドツールの導入</li><li>リアルタイム情報共有システム</li></ol><p>今後の展開にご注目ください。</p>",
         "img": "https://picsum.photos/400/200?random=104"
       }
     ],
@@ -49,13 +49,13 @@ var releasesData = [
     "link": "detail.html?id=3",
     "sections": [
       {
-        "body": "<h2>制作のポイント</h2><p>最新のVFX、CG技術、そしてVR・ARの連動など、多角的な映像表現に挑戦しています。詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>"
+        "body": "<h2>制作のポイント</h2><p>最新のVFX、CG技術に加え、<b>VR・AR連動</b>による没入型体験を追求しています。<br>主な取り組み:</p><ol><li>最先端技術の採用</li><li>国際制作陣の参加</li></ol><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>"
       },
       {
-        "body": "<h2>期待される効果</h2><p>国際映画祭での高評価が、今回のプロジェクトへの期待を一層高めています。</p>"
+        "body": "<h2>期待される効果</h2><p><u>国際映画祭での評価</u>がプロジェクトへの期待をさらに高めています。</p>"
       },
       {
-        "body": "<h2>市場へのインパクト</h2><p>制作費や参加俳優の具体的な情報は今後の発表に期待されます。</p>"
+        "body": "<h2>市場へのインパクト</h2><p>具体的な出演陣や制作費については、今後の発表に期待が集まります。</p>"
       }
     ],
     "tags": [
@@ -73,7 +73,7 @@ var releasesData = [
     "link": "detail.html?id=4",
     "sections": [
       {
-        "body": "<h2>治療薬の特徴</h2><p>「BP-Cure」は持続型放出メカニズムにより、急激な血圧変動を抑制します。詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>"
+        "body": "<h2>治療薬の特徴</h2><p><b>BP-Cure</b>は独自の持続型放出メカニズムにより、急激な血圧変動を抑えます。<br>主要な特徴:</p><ul><li>低副作用設計</li><li><u>高い安定性</u></li></ul><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>"
       }
     ],
     "tags": [
@@ -91,10 +91,10 @@ var releasesData = [
     "link": "detail.html?id=5",
     "sections": [
       {
-        "body": "<h2>システム概要</h2><p>本システムは、太陽光パネルと風力タービンの発電量をAIが常時モニタリングし、効率低下時に最適な対策を講じます。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>"
+        "body": "<h2>システム概要</h2><p>本システムは、太陽光パネルと風力タービンの発電量を常時モニタリングし、最適な対策を自動実施します。<br>機能一覧:</p><ol><li>リアルタイム監視</li><li>AI解析</li></ol><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>"
       },
       {
-        "body": "<h2>効果と将来性</h2><p>地域コミュニティとの連携により、安定した電力供給と環境保護を同時に実現します。</p>"
+        "body": "<h2>効果と将来性</h2><p>地域コミュニティとの連携により、持続可能な電力供給が実現されます。<br>期待される効果:</p><ul><li><u>環境保護</u></li><li>経済効果の向上</li></ul>"
       }
     ],
     "tags": [
@@ -112,13 +112,13 @@ var releasesData = [
     "link": "detail.html?id=6",
     "sections": [
       {
-        "body": "<h2>プログラム内容</h2><p>事業コンセプトの検証、プロトタイプ開発、顧客獲得戦略など、起業家支援の各段階を体系化しています。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>"
+        "body": "<h2>プログラム内容</h2><p>LaunchXでは、事業コンセプトの検証、プロトタイプ開発、ピッチイベントを通じた支援を行います。<br>サポート内容:</p><ul><li><b>市場調査</b></li><li><u>技術支援</u></li><li>資金調達支援</li></ul><p>詳細は <a href='https://www.google.com' target='_blank'>公式サイト</a> をご覧ください。</p>"
       },
       {
-        "body": "<h2>支援体制</h2><p>各種メンターによる定期フィードバックが、事業成功への重要な要素となっています。</p>"
+        "body": "<h2>支援体制</h2><p>各種メンターと業界専門家による定期フィードバックが、成功へのカギとなっています。</p>"
       },
       {
-        "body": "<h2>成果事例</h2><p>既に複数のスタートアップが成果を上げ、今後の成長が期待されています。</p>"
+        "body": "<h2>成果事例</h2><p>既に複数のスタートアップが成果を上げ、今後の成長が期待されています。<br>主なポイント:</p><ol><li>迅速な市場投入</li><li>持続可能なビジネスモデル</li></ol>"
       }
     ],
     "tags": [
@@ -131,12 +131,12 @@ var releasesData = [
     "id": "7",
     "title": "CosmoBeauty株式会社 オーガニックスキンケアライン PureGlow 発売",
     "date": "2025-05-07",
-    "excerpt": "CosmoBeauty株式会社は、研究技術を集約した新スキンケアブランド「PureGlow」をリリースし、敏感肌や乾燥肌に優しい処方が話題となっています。",
+    "excerpt": "CosmoBeauty株式会社は、研究技術を結集した新スキンケアブランド「PureGlow」をリリースし、敏感肌や乾燥肌に優しい処方が話題となっています。",
     "img": "https://picsum.photos/600/300?random=7",
     "link": "detail.html?id=7",
     "sections": [
       {
-        "body": "<h2>製品の特徴</h2><p>PureGlowシリーズは、化学合成成分を排除し、オーガニック認証を受けた素材を使用。詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>"
+        "body": "<h2>製品の特徴</h2><p><b>PureGlow</b>は、化学合成成分を徹底的に排除し、天然成分のみで作られています。<br>メリット:</p><ul><li>低刺激性</li><li>高保湿効果</li><li><u>環境配慮型パッケージ</u></li></ul><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>"
       }
     ],
     "tags": [
@@ -149,15 +149,18 @@ var releasesData = [
     "id": "8",
     "title": "Gourmet Delights株式会社 高級ダイニング Epicurean オープン",
     "date": "2025-05-08",
-    "excerpt": "Gourmet Delights株式会社が新たな高級ダイニング「Epicurean」を都内でオープン。革新的な料理技術と洗練された内装が、グルメ層から高い評価を受けています。",
+    "excerpt": "Gourmet Delights株式会社が新たな高級ダイニング「Epicurean」を都内でオープンし、革新的な料理と洗練された内装で注目されています。",
     "img": "https://picsum.photos/600/300?random=8",
     "link": "detail.html?id=8",
     "sections": [
       {
-        "body": "<h2>コンセプト</h2><p>「世界の食文化を一皿に凝縮する」をテーマに、独自の料理と空間デザインを融合。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>"
+        "body": "<h2>コンセプト</h2><p>「世界の食文化を一皿に凝縮する」をテーマに、<b>独創的な料理</b>と革新的なデザインが融合。<br>主なポイント:</p><ol><li>高級食材の使用</li><li>洗練されたサービス</li></ol><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>"
       },
       {
-        "body": "<h2>内装・サービス</h2><p>重厚な大理石と洗練された照明により、上質なダイニング体験を提供します。</p>"
+        "body": "<h2>内装・サービス</h2><p>重厚な大理石と柔らかな照明が、<u>上質なダイニング体験</u>を提供します。<br>注目点:</p><ul><li>プライベート空間の確保</li><li>厳選ワインの提供</li></ul>"
+      },
+      {
+        "body": "<h2>追加の魅力</h2><p>現地生産者の情熱を反映した食材選びが、料理に独自性と深みを与えます。</p>"
       }
     ],
     "tags": [
@@ -170,12 +173,12 @@ var releasesData = [
     "id": "9",
     "title": "Miscellaneous Inc. 異業種連携による新規事業プロジェクト開始",
     "date": "2025-05-09",
-    "excerpt": "Miscellaneous Inc.は、異業種企業の連携による新規事業プロジェクトを発表。市場に新たな価値を提供するための試みです。",
+    "excerpt": "Miscellaneous Inc.は、異業種企業の連携による新規事業プロジェクトを発表し、市場に新たな価値を提供することを目指します。",
     "img": "https://picsum.photos/600/300?random=9",
     "link": "detail.html?id=9",
     "sections": [
       {
-        "body": "<h2>プロジェクト概要</h2><p>各業界の強みを融合し、在庫管理や需要予測の最適化を目指すシステムです。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>"
+        "body": "<h2>プロジェクト概要</h2><p>各業界の強みを融合し、在庫管理や需要予測の最適化を実現するシステムを構築します。<br>詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>"
       }
     ],
     "tags": [
@@ -188,12 +191,12 @@ var releasesData = [
     "id": "10",
     "title": "FutureTech株式会社 次世代AI搭載ロボット RoboX 発表",
     "date": "2025-05-10",
-    "excerpt": "FutureTech株式会社は最新の自律制御技術とAIを融合した産業ロボット「RoboX」を公開。製造業やサービス業での実用化が期待されています。",
+    "excerpt": "FutureTech株式会社は最新の自律制御技術とAIを融合した産業ロボット「RoboX」を公開し、製造業やサービス業での実用化が期待されています。",
     "img": "https://picsum.photos/600/300?random=10",
     "link": "detail.html?id=10",
     "sections": [
       {
-        "body": "<h2>技術概要</h2><p>RoboXは空間認識センサーとAI制御を搭載し、動的な経路修正が可能です。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>"
+        "body": "<h2>技術概要</h2><p>RoboXは空間認識センサーと<strong>高度なAI制御</strong>により、動的な経路修正が可能です。<br>主要な特徴:</p><ol><li>精密な自律走行</li><li>柔軟な動作調整</li></ol><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>"
       }
     ],
     "tags": [
@@ -211,11 +214,11 @@ var releasesData = [
     "link": "detail.html?id=11",
     "sections": [
       {
-        "body": "<h2>成長戦略</h2><p>同社はグローバル拠点の整備や戦略的M&Aを通じ、持続可能な成長基盤を構築しています。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>",
+        "body": "<h2>成長戦略</h2><p>同社はグローバル拠点の整備や戦略的M&Aにより、事業基盤を強化しています。<br>戦略の要点:</p><ol><li>海外市場の積極的開拓</li><li>戦略的パートナーシップの構築</li></ol><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>",
         "img": "https://picsum.photos/400/200?random=121"
       },
       {
-        "body": "<h2>株主還元策</h2><p>増配や株式分割など、積極的な株主還元策が評価されています。</p>",
+        "body": "<h2>株主還元策</h2><p>増配や株式分割などの施策が、投資家から高く評価されています。</p>",
         "img": "https://picsum.photos/400/200?random=122"
       }
     ],
@@ -234,11 +237,11 @@ var releasesData = [
     "link": "detail.html?id=12",
     "sections": [
       {
-        "body": "<h2>連携内容</h2><p>クラウドホスティングの高い可用性を背景に、AI解析やビッグデータ管理ツールを組み合わせる構想です。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。",
+        "body": "<h2>連携内容</h2><p>クラウドホスティングの高可用性を背景に、<b>AI解析</b>やビッグデータ管理ツールを統合するプロジェクトです。<br>主な取り組み:</p><ul><li><u>データ統合</u></li><li>セキュリティ強化</li></ul><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>",
         "img": "https://picsum.photos/400/200?random=124"
       },
       {
-        "body": "<h2>グローバル展開</h2><p>国内外市場向けの取り組みにより、さらなる成長が期待されます。</p>",
+        "body": "<h2>グローバル展開</h2><p>国内外市場への進出を積極的に進め、さらなる成長を目指します。<br>詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>",
         "img": "https://picsum.photos/400/200?random=123"
       }
     ],
@@ -252,12 +255,12 @@ var releasesData = [
     "id": "13",
     "title": "CineMagic株式会社 国際映画祭で短編映画上映イベント開催",
     "date": "2025-05-13",
-    "excerpt": "CineMagic株式会社は、国際映画祭で評価を得た短編映画を集めた上映イベントを開催し、新進気鋭の監督や映像作家の多様な表現を国内に届けると発表しました。",
+    "excerpt": "CineMagic株式会社は、国際映画祭で高評価を得た短編映画を集めた上映イベントを開催し、新進気鋭の監督や映像作家の表現を国内に届けると発表しました。",
     "img": "https://picsum.photos/600/300?random=13",
     "link": "detail.html?id=13",
     "sections": [
       {
-        "body": "<h2>イベント内容</h2><p>各ジャンルの短編映画上映と、監督とのトークセッションが予定されています。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>"
+        "body": "<h2>イベント内容</h2><p>各国の短編映画上映と、監督とのトークセッションを実施。<br>注目点:</p><ul><li><b>国際映画文化の発信</b></li><li><u>交流促進プログラム</u></li></ul><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>"
       }
     ],
     "tags": [
@@ -270,16 +273,16 @@ var releasesData = [
     "id": "14",
     "title": "HealthCare Innovations株式会社 再生医療技術 新治療法を発表",
     "date": "2025-05-14",
-    "excerpt": "HealthCare Innovations株式会社は、先端再生医療技術を応用した新治療法を発表しました。国内外の医療専門家から注目されています。",
+    "excerpt": "HealthCare Innovations株式会社は、先端再生医療技術を応用した新治療法を発表し、国内外の医療専門家から注目されています。",
     "img": "https://picsum.photos/600/300?random=14",
     "link": "detail.html?id=14",
     "sections": [
       {
-        "body": "<h2>治療法の特徴</h2><p>患者自身の細胞を採取し、ラボで培養・増殖させて患部に移植する革新的なプロセスです。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。",
+        "body": "<h2>治療法の特徴</h2><p>患者自身の細胞を採取し、専門ラボで培養・増殖させて患部に移植する画期的なプロセスです。<br>主なメリット:</p><ol><li>免疫拒絶リスクの低減</li><li>持続的な治療効果</li></ol><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>",
         "img": "https://picsum.photos/400/200?random=127"
       },
       {
-        "body": "<h2>将来の展望</h2><p>慢性疾患への応用も期待され、国際共同研究を進める方針です。</p>",
+        "body": "<h2>将来の展望</h2><p>慢性疾患への応用拡大と国際共同研究が進められ、さらなる効果が期待されます。</p>",
         "img": "https://picsum.photos/400/200?random=128"
       }
     ],
@@ -298,15 +301,15 @@ var releasesData = [
     "link": "detail.html?id=15",
     "sections": [
       {
-        "body": "<h2>プロジェクト概要</h2><p>太陽光や風力などクリーンエネルギーの大規模導入と省エネ施策の融合が柱となっています。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください.",
+        "body": "<h2>プロジェクト概要</h2><p>クリーンエネルギーの大規模導入と省エネ施策の融合が本プロジェクトの柱です。<br>主な取り組み:</p><ol><li>太陽光発電の最適化</li><li>風力タービン連携</li></ol><p>詳細は <a href='https://www.google.com' target='_blank'>公式サイト</a> をご覧ください。</p>",
         "img": "https://picsum.photos/400/200?random=129"
       },
       {
-        "body": "<h2>経済・環境への効果</h2><p>地域コミュニティと連携し、持続可能な電力供給と環境保護を実現する狙いです.</p>",
+        "body": "<h2>経済・環境への効果</h2><p>地域コミュニティとの連携で、持続可能な電力供給と環境保護が実現されます。<br>主な効果:</p><ul><li><u>環境保護</u></li><li>経済成長</li></ul>",
         "img": "https://picsum.photos/400/200?random=130"
       },
       {
-        "body": "<h2>資金調達の展望</h2><p>グリーンボンドを活用した新たな資金調達スキームが検討されています.</p>",
+        "body": "<h2>資金調達の展望</h2><p>グリーンボンドを活用した資金調達スキームが、今後のプロジェクト推進に寄与します。</p>",
         "img": "https://picsum.photos/400/200?random=131"
       }
     ],
@@ -320,12 +323,12 @@ var releasesData = [
     "id": "16",
     "title": "InnoX株式会社 次世代起業家支援プログラム Ignite 開始",
     "date": "2025-05-16",
-    "excerpt": "InnoX株式会社は、新たなアクセラレーションプログラム「Ignite」をローンチし、起業家支援に向けた包括的なサポート体制を整えました。",
+    "excerpt": "InnoX株式会社は、新たなアクセラレーションプログラム「Ignite」をローンチし、起業家支援の包括的な体制を整えました。",
     "img": "https://picsum.photos/600/300?random=16",
     "link": "detail.html?id=16",
     "sections": [
       {
-        "body": "<h2>プログラム概要</h2><p>事業アイデアの検証、プロトタイプ開発、ピッチイベントなどを通じ、起業家の成長を支援します。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>"
+        "body": "<h2>プログラム概要</h2><p>事業アイデアの検証、プロトタイプ開発、ピッチイベントを通じて、起業家を多角的に支援します。<br>支援内容の例:</p><ul><li><b>個別コンサルティング</b></li><li><u>定期メンタリング</u></li><li>資金調達支援</li></ul><p>詳細は <a href='https://www.google.com' target='_blank'>公式サイト</a> をご覧ください。</p>"
       }
     ],
     "tags": [
@@ -343,11 +346,10 @@ var releasesData = [
     "link": "detail.html?id=17",
     "sections": [
       {
-        "body": "<h2>製品の特徴</h2><p>天然成分を厳選し、肌への負担を抑えながら高い保湿力を実現しています。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。",
-        "img": "https://picsum.photos/400/200?random=133"
+        "body": "<h2>製品の特徴</h2><p><b>RadiantSkin</b>は、化学合成成分を徹底的に排除し、肌への負担を軽減する処方が魅力です。<br>主なメリット:</p><ol><li>低刺激性</li><li>高保湿効果</li></ol><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>"
       },
       {
-        "body": "<h2>グローバル展開</h2><p>今後は海外認証機関との提携強化でグローバル市場への展開を図ります。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>",
+        "body": "<h2>グローバル展開</h2><p>今後は海外認証機関との提携を強化し、国際市場への進出を図ります。<br>詳しくは <a href='https://www.google.com' target='_blank'>こちら</a>。</p>",
         "img": "https://picsum.photos/400/200?random=134"
       }
     ],
@@ -366,16 +368,14 @@ var releasesData = [
     "link": "detail.html?id=18",
     "sections": [
       {
-        "body": "<h2>コンセプト</h2><p>「世界の食文化を一皿に凝縮する」をテーマに、独自の料理と空間デザインを融合させています。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>",
+        "body": "<h2>コンセプト</h2><p>「世界の食文化を一皿に凝縮する」をテーマに、<b>独創的な料理</b>と革新的な空間デザインが融合しています。<br>主なポイント:</p><ol><li>高級食材の厳選</li><li>洗練されたサービス</li></ol><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>",
         "img": "https://picsum.photos/400/200?random=135"
       },
       {
-        "body": "<h2>内装・サービス</h2><p>重厚な大理石と洗練された照明が、上質なダイニング体験を提供します.</p>",
-        "img": "https://picsum.photos/400/200?random=136"
+        "body": "<h2>内装・サービス</h2><p>重厚な大理石と柔らかな照明が、<u>上質なダイニング体験</u>を演出します。<br>注目ポイント:</p><ul><li>プライベート空間の確保</li><li>厳選ワインの提供</li></ul>"
       },
       {
-        "body": "<h2>追加の魅力</h2><p>現地生産者の情熱を反映した食材選びが、料理に深みを与えています.</p>",
-        "img": "https://picsum.photos/400/200?random=137"
+        "body": "<h2>追加の魅力</h2><p>現地生産者との連携により、料理に独自性と深みを与えています。</p>"
       }
     ],
     "tags": [
@@ -393,7 +393,7 @@ var releasesData = [
     "link": "detail.html?id=19",
     "sections": [
       {
-        "body": "<h2>プラットフォームの特徴</h2><p>共通データ基盤により、各企業が情報をリアルタイムで共有し最適化を図ります。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>",
+        "body": "<h2>プラットフォームの特徴</h2><p>共通データ基盤により、企業間で情報がリアルタイムに共有され、効率的な業務運営を実現します。<br>主な機能:</p><ul><li><b>リアルタイム共有</b></li><li><u>安全なAPI連携</u></li></ul><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>",
         "img": "https://picsum.photos/400/200?random=138"
       }
     ],
@@ -406,22 +406,21 @@ var releasesData = [
   {
     "id": "20",
     "title": "Global Innovators株式会社 世界技術賞受賞 その革新力を証明",
-    "date": "2025-05-20",
-    "excerpt": "Global Innovators株式会社は、先端センサーシステムやAI解析技術で世界技術賞を受賞し、その革新力が評価されました。",
-    "img": "https://picsum.photos/600/300?random=20",
+    "date": "2025-05-30",
+    "excerpt": "Global Innovators株式会社は、先端センサーシステムやAI解析技術により世界技術賞を受賞し、その革新力が証明されました。",
+    "img": "https://picsum.photos/600/300?random=30",
     "link": "detail.html?id=20",
     "sections": [
       {
-        "body": "<h2>受賞技術</h2><p>自己学習型アルゴリズムと大規模解析プラットフォームの融合が評価されました。 詳細は <a href='https://www.google.com' target='_blank'>公式情報</a> をご覧ください.",
-        "img": "https://picsum.photos/400/200?random=139"
+        "body": "<h2>受賞技術</h2><p>自己学習型アルゴリズムと大規模解析プラットフォームの融合が高く評価されました。<br>詳細は <a href='https://www.google.com' target='_blank'>公式情報</a> をご覧ください。</p>",
+        "img": "https://picsum.photos/400/200?random=159"
       },
       {
         "body": "<h2>今後の展望</h2><p>さらなる共同研究と国際提携により、市場での優位性を確固たるものにします。</p>",
-        "img": "https://picsum.photos/400/200?random=140"
+        "img": "https://picsum.photos/400/200?random=160"
       },
       {
-        "body": "<h2>追加情報</h2><p>各国での展示会や講演が予定され、知名度向上が期待されます。</p>",
-        "img": "https://picsum.photos/400/200?random=161"
+        "body": "<h2>追加情報</h2><p>各国展示会や講演会への参加で、ブランドの知名度向上が期待されます。</p>"
       }
     ],
     "tags": [
@@ -434,20 +433,20 @@ var releasesData = [
     "id": "21",
     "title": "NextGen Robotics株式会社 自律ロボット AutoMate 発表",
     "date": "2025-05-21",
-    "excerpt": "NextGen Robotics株式会社は、新型自律ロボット「AutoMate」を発表。産業現場だけでなく、公共施設などでも幅広く活用が期待されています。",
+    "excerpt": "NextGen Robotics株式会社は、新型自律ロボット「AutoMate」を発表し、産業現場だけでなく公共施設でも幅広く活用されることが期待されています。",
     "img": "https://picsum.photos/600/300?random=21",
     "link": "detail.html?id=21",
     "sections": [
       {
-        "body": "<h2>技術概要</h2><p>AutoMateはSLAM技術を採用し、GPSの届かない環境でも正確な自律走行を実現します。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>",
+        "body": "<h2>技術概要</h2><p>AutoMateは、<b>SLAM技術</b>を採用し、GPSの届かない環境下でも正確な自律走行を実現します。<br>特徴:</p><ol><li>高精度センサー</li><li>環境認識機能</li></ol><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>",
         "img": "https://picsum.photos/400/200?random=141"
       },
       {
-        "body": "<h2>運用モデル</h2><p>リースや定額サブスクリプションを通じた導入が検討されています。</p>",
+        "body": "<h2>運用モデル</h2><p>リースや定額サブスクリプションによる導入が検討されています。</p>",
         "img": "https://picsum.photos/400/200?random=142"
       },
       {
-        "body": "<h2>市場への影響</h2><p>業界内での普及が進むことで、DXによる業務改善が期待されます.</p>",
+        "body": "<h2>市場への影響</h2><p>自律ロボット普及による業務効率化とDX推進が期待されます。</p>",
         "img": "https://picsum.photos/400/200?random=143"
       }
     ],
@@ -461,16 +460,16 @@ var releasesData = [
     "id": "22",
     "title": "MarketForce株式会社 2025年度 業績過去最高更新",
     "date": "2025-05-22",
-    "excerpt": "MarketForce株式会社は、2025年度において過去最高の売上高と利益率を更新し、堅調な収益基盤を築いたと発表しました。",
+    "excerpt": "MarketForce株式会社は2025年度において過去最高の売上高と利益率を更新し、堅調な収益基盤を築いたと発表しました。",
     "img": "https://picsum.photos/600/300?random=22",
     "link": "detail.html?id=22",
     "sections": [
       {
-        "body": "<h2>業績向上の要因</h2><p>AIとビッグデータ解析を活用したコンサルティングサービスが、企業の成長に大きく貢献しています。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>",
+        "body": "<h2>業績向上の要因</h2><p>AIとビッグデータ解析を活用したサービスが、企業成長に大きく貢献しています。<br>主なポイント:</p><ul><li><b>リアルタイム分析</b></li><li><u>市場予測</u></li></ul><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>",
         "img": "https://picsum.photos/400/200?random=144"
       },
       {
-        "body": "<h2>今後の展望</h2><p>欧米市場への進出と、さらなるグローバル展開が計画されています。</p>",
+        "body": "<h2>今後の展望</h2><p>欧米市場への進出とグローバル展開が、今後の成長を支えます。</p>",
         "img": "https://picsum.photos/400/200?random=145"
       }
     ],
@@ -484,16 +483,16 @@ var releasesData = [
     "id": "23",
     "title": "TechFusion株式会社 AIとビッグデータで新サービス開発",
     "date": "2025-05-23",
-    "excerpt": "TechFusion株式会社は、AI技術とビッグデータ解析を融合した新サービスを開発し、企業のDX推進を後押しするプラットフォームを提供します。",
+    "excerpt": "TechFusion株式会社は、AI技術とビッグデータ解析を融合した新サービスを開発し、企業のDX推進を強力に後押しするプラットフォームを提供します。",
     "img": "https://picsum.photos/600/300?random=23",
     "link": "detail.html?id=23",
     "sections": [
       {
-        "body": "<h2>サービス概要</h2><p>大規模データの解析と機械学習により、各業界向けの最適なソリューションを提供。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>",
+        "body": "<h2>サービス概要</h2><p>大規模データの解析と機械学習により、各業界向けの最適なソリューションを提供します。<br>主な機能:</p><ol><li>リアルタイム処理</li><li>自動予測モデル</li></ol><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>",
         "img": "https://picsum.photos/400/200?random=146"
       },
       {
-        "body": "<h2>セキュリティ対策</h2><p>個人情報保護と高度なセキュリティが施されています。</p>",
+        "body": "<h2>セキュリティ対策</h2><p>高度なセキュリティ技術により、個人情報保護が徹底されています。</p>",
         "img": "https://picsum.photos/400/200?random=147"
       }
     ],
@@ -507,20 +506,20 @@ var releasesData = [
     "id": "24",
     "title": "MediaWave株式会社 国際映画祭で短編映画上映イベント開催",
     "date": "2025-05-24",
-    "excerpt": "MediaWave株式会社は、国際映画祭で高評価を得た短編映画の上映イベントを開催し、映画文化の多様性と活性化を目指します。",
+    "excerpt": "MediaWave株式会社は、国際映画祭で高評価を得た短編映画の上映イベントを開催し、映画文化の活性化を目指します。",
     "img": "https://picsum.photos/600/300?random=24",
     "link": "detail.html?id=24",
     "sections": [
       {
-        "body": "<h2>イベント詳細</h2><p>各国の短編映画上映と、監督とのトークセッションが予定されています。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>",
+        "body": "<h2>イベント詳細</h2><p>各国の短編映画上映と、監督とのトークセッションが予定されています。<br>注目ポイント:</p><ul><li><u>国際交流</u></li><li>文化発信</li></ul><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>",
         "img": "https://picsum.photos/400/200?random=148"
       },
       {
-        "body": "<h2>参加者の評価</h2><p>来場者からは高い評価が寄せられており、映画文化の発展に貢献します。</p>",
+        "body": "<h2>参加者の評価</h2><p>来場者からは非常に高い評価が寄せられ、映画文化の発展に寄与しています。</p>",
         "img": "https://picsum.photos/400/200?random=149"
       },
       {
-        "body": "<h2>今後の展開</h2><p>オンライン配信や評価システムの導入で、さらなる国際交流が期待されます.</p>",
+        "body": "<h2>今後の展開</h2><p>オンライン配信や評価システムの導入により、国際交流がさらに促進される見込みです。</p>",
         "img": "https://picsum.photos/400/200?random=150"
       }
     ],
@@ -539,11 +538,11 @@ var releasesData = [
     "link": "detail.html?id=25",
     "sections": [
       {
-        "body": "<h2>治療の特徴</h2><p>GlucoBalanceは血糖値を緩やかにコントロールする設計で、急激な低血糖リスクを軽減します。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>",
+        "body": "<h2>治療の特徴</h2><p>GlucoBalanceは、血糖値の急激な変動を抑制するために設計されています。<br>主な特徴:</p><ol><li>緩やかなコントロール</li><li><b>高い安全性</b></li></ol><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>",
         "img": "https://picsum.photos/400/200?random=151"
       },
       {
-        "body": "<h2>医療現場での評価</h2><p>オンラインサポートや啓発セミナーを通じ、医師や患者から高い評価を得ています。</p>",
+        "body": "<h2>医療現場での評価</h2><p>オンラインサポートと啓発セミナーが、医師や患者から高い評価を得ています。</p>",
         "img": "https://picsum.photos/400/200?random=152"
       }
     ],
@@ -562,11 +561,10 @@ var releasesData = [
     "link": "detail.html?id=26",
     "sections": [
       {
-        "body": "<h2>システム概要</h2><p>自律航行ボートとドローンを活用し、プラスチックゴミを効率的に検出・回収します。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>"
+        "body": "<h2>システム概要</h2><p>自律航行ボートとドローンを組み合わせ、海上でプラスチックゴミを効率的に検出・回収します。<br>詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>"
       },
       {
-        "body": "<h2>リサイクルプロセス</h2><p>回収後は種類別に選別・圧縮され、再資源化へとつながります。 詳細はそのまま。</p>",
-        "img": "https://picsum.photos/400/200?random=153"
+        "body": "<h2>リサイクルプロセス</h2><p>回収されたプラスチックは、種類別に選別・圧縮され、再資源化へとつながります。<br><u>リサイクルの流れ:</u></p><ol><li>選別</li><li>圧縮</li><li>輸送</li></ol>"
       }
     ],
     "tags": [
@@ -584,14 +582,14 @@ var releasesData = [
     "link": "detail.html?id=27",
     "sections": [
       {
-        "body": "<h2>プログラム概要</h2><p>事業アイデアの検証、プロトタイプ開発、ピッチイベントなど、起業家支援の各段階を体系的にサポートします。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>"
+        "body": "<h2>プログラム概要</h2><p>事業アイデアの検証、プロトタイプ開発、ピッチイベントなどを通じ、起業家を包括的に支援します。<br>サポート内容:</p><ul><li><b>個別コンサルティング</b></li><li><u>定期メンタリング</u></li><li>資金調達支援</li></ul><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>"
       },
       {
-        "body": "<h2>支援体制</h2><p>専門コンサルタントや業界エキスパートによる定期的なメンタリングが特徴です.</p>",
+        "body": "<h2>支援体制</h2><p>多様な業界の専門家が、起業家の成長を直接サポートします。</p>",
         "img": "https://picsum.photos/400/200?random=154"
       },
       {
-        "body": "<h2>参加者の反応</h2><p>多くの起業家から期待の声が上がっており、国内外で注目されています。</p>",
+        "body": "<h2>参加者の反応</h2><p>国内外から多くの起業家が参加を希望しており、期待が高まっています。</p>",
         "img": "https://picsum.photos/400/200?random=155"
       }
     ],
@@ -610,7 +608,7 @@ var releasesData = [
     "link": "detail.html?id=28",
     "sections": [
       {
-        "body": "<h2>製品特徴</h2><p>豊富なカラーバリエーションと自然な仕上がりを実現する処方が魅力です。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。",
+        "body": "<h2>製品の特徴</h2><p>RadiantSkinは、<b>豊富なカラーバリエーション</b>と自然な仕上がりを実現するために開発されました。<br>主な特徴:</p><ol><li>自然なカバー力</li><li>長時間持続</li></ol><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください。</p>",
         "img": "https://picsum.photos/400/200?random=156"
       }
     ],
@@ -624,16 +622,16 @@ var releasesData = [
     "id": "29",
     "title": "FoodFusion株式会社 国際グルメフェス TasteX Global 開催",
     "date": "2025-05-29",
-    "excerpt": "FoodFusion株式会社が主催する国際グルメフェス「TasteX Global」が開催され、世界中の料理や食文化を一堂に体験できるイベントとして大盛況となりました。",
+    "excerpt": "FoodFusion株式会社が主催する国際グルメフェス「TasteX Global」が開催され、世界中の料理や食文化を一堂に体験できるイベントとして大盛況でした。",
     "img": "https://picsum.photos/600/300?random=29",
     "link": "detail.html?id=29",
     "sections": [
       {
-        "body": "<h2>フェスの特徴</h2><p>アジア、欧米、中東など各地域の伝統料理が楽しめる点が最大の魅力です。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a> をご覧ください.",
+        "body": "<h2>フェスの特徴</h2><p>アジア、欧米、中東など各地域の伝統料理が楽しめるイベントです。<br>主なポイント:</p><ul><li><u>多文化交流</u></li><li>ライブクッキングセッション</li></ul><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>",
         "img": "https://picsum.photos/400/200?random=157"
       },
       {
-        "body": "<h2>文化交流</h2><p>ライブクッキングやトークセッションを通じて、国際的な食文化交流を促進します.</p>",
+        "body": "<h2>文化交流</h2><p>各国シェフによるトークセッションで、国際的な食文化交流が促進されます。</p>",
         "img": "https://picsum.photos/400/200?random=158"
       }
     ],
@@ -652,15 +650,15 @@ var releasesData = [
     "link": "detail.html?id=30",
     "sections": [
       {
-        "body": "<h2>受賞技術</h2><p>自己学習型アルゴリズムと大規模解析プラットフォームの融合が評価されました。 詳細は <a href='https://www.google.com' target='_blank'>公式情報</a> をご覧ください.",
+        "body": "<h2>受賞技術</h2><p>自己学習型アルゴリズムと大規模解析プラットフォームの融合が高く評価されました。<br>詳細は <a href='https://www.google.com' target='_blank'>公式情報</a> をご覧ください。</p>",
         "img": "https://picsum.photos/400/200?random=159"
       },
       {
-        "body": "<h2>今後の展望</h2><p>さらなる共同研究と国際提携により、市場での優位性を確立します。</p>",
+        "body": "<h2>今後の展望</h2><p>共同研究と国際提携により、さらなる市場拡大が期待されます。</p>",
         "img": "https://picsum.photos/400/200?random=160"
       },
       {
-        "body": "<h2>追加情報</h2><p>各国での展示会参加や講演が予定されています。</p>"
+        "body": "<h2>追加情報</h2><p>各国での展示会や講演会への参加が予定され、ブランド知名度の向上に寄与します。</p>"
       }
     ],
     "tags": [
@@ -678,7 +676,7 @@ var releasesData = [
     "link": "detail.html?id=31",
     "sections": [
       {
-        "body": "<h2>大会の特徴</h2><p>バスケットボール、陸上、バレーボールなど、多様な競技種目が用意され、初心者から上級者まで参加可能です。 詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>"
+        "body": "<h2>大会の特徴</h2><p>バスケットボール、陸上、バレーボールなど、多様な競技種目が用意されています。<br><u>特徴:</u></p><ol><li>初心者から上級者まで参加可能</li><li>多文化交流の促進</li></ol><p>詳細は <a href='https://www.google.com' target='_blank'>こちら</a>。</p>"
       }
     ],
     "tags": [
@@ -697,18 +695,14 @@ var releasesData = [
     "link": "detail.html?id=32",
     "sections": [
       {
-        "body": "<h2>主な特徴</h2><p>NovaWatchは最新のAIアルゴリズムと高精度センサーを搭載し、リアルタイムの健康モニタリングを可能にします。心拍数、血中酸素、睡眠パターンなどを解析し、<b>パーソナライズされた健康アドバイス</b>を提供します。<br><u>特筆すべきポイント:</u></p><ol><li>リアルタイムモニタリング機能</li><li>高精度センサー搭載</li><li>カスタマイズ可能なユーザーインターフェイス</li></ol><h2>カスタマイズ性とデザイン</h2><p>直感的な操作性と豊富なウォッチフェイス、ストラップオプションにより、ユーザーは自分好みにカスタマイズ可能です。<br>対応する機能の一部:</p><ul><li>多彩なカラーバリエーション</li><li>防水・耐衝撃設計</li><li>スマート通知機能</li></ul><p><img src=\"data:image/jpeg;base64,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61zdj+xd8CNNuUuIPhH4QEqHKl9JicA/RgRQB/PF4G+G/ir4m63FpHhLw9qXiPUpCALfTbZ5mGe7bQdo9zgV+qX7D/8AwSnHgnVdP8c/GaK1vdVtmWew8Kxss0FvIOQ904ysjA8iNcqDyS3QfpBoHhnR/CliLLRNJsdHsx0t7C2SCMf8BQAVpAYoAMUtFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAH/9k=\"></p>",
-        "img": "https://picsum.photos/400/200?random=6"
-      },
-      {
-        "body": "<h2>革新的な機能</h2><p>最新のセキュリティ技術と長寿命バッテリーにより、安心して日常的に利用できる設計となっています。<br>詳細は <a href=\"https://www.google.com\" target=\"_blank\">こちら</a> からご確認いただけます。</p>"
+        "body": "<h2>主な特徴</h2><p>NovaWatchは最新のAIアルゴリズムと高精度センサーを搭載し、リアルタイムの健康モニタリングを可能にします。心拍数、血中酸素、睡眠パターンなどを解析し、<b>パーソナライズされた健康アドバイス</b>を提供します。<br><u>特筆すべきポイント:</u></p><ol><li>リアルタイムモニタリング機能</li><li>高精度センサー搭載</li><li>カスタマイズ可能なUI</li></ol><h2>カスタマイズ性とデザイン</h2><p>直感的な操作性と豊富なウォッチフェイス、ストラップオプションにより、ユーザーは自分好みにカスタマイズ可能です。<br>対応機能の一例:</p><ul><li>多彩なカラーバリエーション</li><li>防水・耐衝撃設計</li><li>スマート通知機能</li></ul><p><img src=\"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCACVAlgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9k=\" alt='NovaWatch'></p><h2>革新的な機能</h2><p>最新のセキュリティ技術と長寿命バッテリーにより、安心して日常的に利用できる設計となっています。<br>詳細は <a href=\"https://www.google.com\" target=\"_blank\">こちら</a> からご確認いただけます。</p>"
       }
     ],
     "tags": [
-    "テクノロジー",
-    "健康",
-    "ウェアラブル",
-    "AI"
+      "テクノロジー",
+      "健康",
+      "ウェアラブル",
+      "AI"
     ]
   }
 ];
