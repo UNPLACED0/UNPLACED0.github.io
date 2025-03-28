@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CMS管理画面 - UP Global Press (Quill, 複数セクション)</title>
+  <title>CMS管理画面 - UP Global Press</title>
   <link rel="stylesheet" href="styles.css">
 
   <style>
@@ -253,7 +253,7 @@
   </header>
 
   <main class="cms-container">
-    <h1>プレスリリース管理（Quill + 複数セクション）</h1>
+    <h1>プレスリリース管理</h1>
 
     <!-- CMS内検索（管理者のみ表示） -->
     <div class="cms-search" id="cmsSearchContainer">
@@ -325,12 +325,16 @@
         </select>
         <label for="releaseAdditionalTags">追加のタグ（任意、カンマ区切り）</label>
         <input type="text" id="releaseAdditionalTags" placeholder="例：AI,IoT">
+	<small class="thumbnail-note">※1～5個程度つけることを推奨します</small>
+
         <div id="tagError" class="error-message" style="display:none;">必ず上記のいずれか1つを選択してください。</div>
       </div>
 
       <!-- コンテンツセクション追加部分 -->
       <div class="form-group">
-        <label>コンテンツセクション（Quillエディタ + 画像URL） 最大3セット</label>
+        <label>コンテンツセクション 最大3セット</label>
+	<small class="thumbnail-note">※1セットのみで記事を完成させることも可能です。</small>
+
         <div id="contentSectionsContainer"></div>
         <button type="button" class="add-section-btn" id="addSectionBtn">＋ セクション追加</button>
       </div>
