@@ -42,12 +42,12 @@
       color: var(--sub-text);
       margin-bottom: 20px;
     }
+    /* ↓ excerptの文字サイズをわずかに拡大（1.05rem） */
     .release-detail .content {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       line-height: 1.8;
       margin-bottom: 20px;
       text-align: justify;
-      /* excerptはテキストのみ扱いなので特にinnerHTMLは使わずtextContentで表示 */
     }
     /* 追加情報（sections） */
     .sections-container {
@@ -58,9 +58,9 @@
     .section-item {
       margin-bottom: 20px;
     }
-    /* Quill が生成したHTMLをそのまま反映させるブロック */
+    /* Quill で生成された本文を表示する領域のフォントサイズを拡大（1.05rem） */
     .section-body {
-      font-size: 1rem;
+      font-size: 1.05rem;
       line-height: 1.8;
       text-align: justify;
     }
@@ -125,7 +125,7 @@
       color: var(--highlight-color);
     }
 
-    /* Quill由来の見出し・リストなどに対して、最低限の余白を追加 */
+    /* Quill での見出し・リストなどに対して最低限の余白を付与 */
     .section-body h2 {
       font-size: 1.4rem;
       margin: 1em 0 0.5em;
