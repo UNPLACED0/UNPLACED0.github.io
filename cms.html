@@ -10,40 +10,45 @@
     .cms-container {
       max-width: 1200px;
       margin: 40px auto;
-      padding: 20px;
+      padding: 20px 30px;
       background: #fff;
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      font-family: 'Poppins', sans-serif;
     }
     .cms-container h1 {
       text-align: center;
       margin-bottom: 20px;
       color: var(--accent-color);
+      font-size: 1.8rem;
     }
     .toggle-btn {
       display: inline-block;
       margin-bottom: 10px;
-      padding: 6px 12px;
+      padding: 10px 16px;
       background: var(--accent-color);
       color: #fff;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.2s;
+      font-size: 1rem;
     }
     .toggle-btn:hover {
       background: var(--highlight-color);
+      transform: translateY(-2px);
     }
     .releases-table {
       width: 100%;
       border-collapse: collapse;
       margin-bottom: 30px;
     }
-    .releases-table th, .releases-table td {
+    .releases-table th,
+    .releases-table td {
       border: 1px solid var(--border-color);
-      padding: 8px;
-      font-size: 0.9rem;
+      padding: 10px;
+      font-size: 1.1rem;
       text-align: left;
     }
     .releases-table th {
@@ -51,20 +56,21 @@
     }
     .btn {
       display: inline-block;
-      padding: 6px 12px;
-      border-radius: 4px;
+      padding: 8px 14px;
+      border-radius: 6px;
       background: var(--accent-color);
       color: #fff;
       text-decoration: none;
       cursor: pointer;
       border: none;
       transition: background 0.3s;
+      font-size: 1rem;
     }
     .btn:hover {
       background: var(--highlight-color);
     }
     .form-group {
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
     .form-group label {
       display: block;
@@ -75,22 +81,22 @@
     .form-group textarea,
     .form-group select {
       width: 100%;
-      padding: 8px;
+      padding: 10px;
       border: 1px solid var(--border-color);
       border-radius: 4px;
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
     .json-output {
       width: 100%;
-      height: 200px;
-      font-size: 0.8rem;
-      padding: 8px;
+      height: 220px;
+      font-size: 0.9rem;
+      padding: 10px;
       margin-top: 10px;
       border: 1px solid var(--border-color);
       border-radius: 4px;
     }
     .logout-btn {
-      padding: 6px 12px;
+      padding: 8px 14px;
       background: transparent;
       color: var(--accent-color);
       text-decoration: none;
@@ -117,6 +123,7 @@
       margin-bottom: 10px;
       border-radius: 4px;
       position: relative;
+      background: #fafafa;
     }
     .content-section .remove-section-btn {
       position: absolute;
@@ -131,21 +138,19 @@
     .content-section .remove-section-btn:hover {
       background: #999;
     }
-
     .quill-container {
       border: 1px solid var(--border-color);
       border-radius: 4px;
       margin-bottom: 10px;
       min-height: 150px;
     }
-
     .add-section-btn {
       display: inline-block;
-      padding: 6px 12px;
+      padding: 8px 14px;
       background: var(--accent-color);
       color: #fff;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
       transition: background 0.3s;
       margin-top: 10px;
@@ -164,7 +169,7 @@
       display: block;
     }
     .thumbnail-note {
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       color: var(--sub-text);
       margin-top: 4px;
     }
@@ -178,13 +183,13 @@
     }
     .cms-search input {
       flex: 1;
-      padding: 6px 10px;
+      padding: 8px 12px;
       border: 1px solid var(--border-color);
       border-radius: 4px;
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
     .cms-search button {
-      padding: 6px 12px;
+      padding: 8px 14px;
       background: var(--accent-color);
       color: #fff;
       border: none;
@@ -261,7 +266,8 @@
       <button id="cmsSearchBtn">検索</button>
     </div>
 
-    <div id="adminSection" style="display:none;">
+    <div id="adminSection" style="display:block;">
+      <!-- トグルボタン：クリックでテーブルを最小化/最大化 -->
       <button class="toggle-btn" id="toggleTableBtn">最小化</button>
       <table class="releases-table" id="releasesTable">
         <thead>
@@ -325,16 +331,14 @@
         </select>
         <label for="releaseAdditionalTags">追加のタグ（任意、カンマ区切り）</label>
         <input type="text" id="releaseAdditionalTags" placeholder="例：AI,IoT">
-	<small class="thumbnail-note">※1～5個程度つけることを推奨します</small>
-
+        <small class="thumbnail-note">※1～5個程度つけることを推奨します</small>
         <div id="tagError" class="error-message" style="display:none;">必ず上記のいずれか1つを選択してください。</div>
       </div>
 
       <!-- コンテンツセクション追加部分 -->
       <div class="form-group">
         <label>コンテンツセクション 最大3セット</label>
-	<small class="thumbnail-note">※1セットのみで記事を完成させることも可能です。</small>
-
+        <small class="thumbnail-note">※1セットのみで記事を完成させることも可能です。</small>
         <div id="contentSectionsContainer"></div>
         <button type="button" class="add-section-btn" id="addSectionBtn">＋ セクション追加</button>
       </div>
@@ -447,7 +451,6 @@
       removeBtn.className = "remove-section-btn";
       removeBtn.textContent = "×";
       removeBtn.addEventListener("click", () => {
-        // 削除時にエディタのインスタンスも取り除く
         const idx = sectionEditors.findIndex(se => se.sectionIndex === sectionIndex);
         if (idx !== -1) {
           sectionEditors.splice(idx, 1);
@@ -512,24 +515,17 @@
 
     // 全セクションのデータを取得
     function getSectionsData() {
-      // sectionEditorsの順番通りにデータを作る
-      const result = sectionEditors.map(se => {
+      return sectionEditors.map(se => {
         const html = se.quillEditor.root.innerHTML.trim();
         const img = se.imgInput.value.trim();
-        return {
-          body: html,
-          img: img
-        };
+        return { body: html, img: img };
       });
-      return result;
     }
 
     // セクションを一括生成（編集モードで呼び出し）
     function loadSectionsData(sections) {
-      // 既存の要素クリア
       contentSectionsContainer.innerHTML = "";
       sectionEditors = [];
-
       sections.forEach((sec, idx) => {
         createSectionEditor(idx, sec.body || "", sec.img || "");
       });
@@ -556,10 +552,23 @@
     }
 
     // -----------------------
+    // トグル機能（最小化/最大化）
+    // -----------------------
+    document.getElementById("toggleTableBtn").addEventListener("click", function() {
+      const tableElem = document.getElementById("releasesTable");
+      if (tableElem.style.display === "none") {
+        tableElem.style.display = "table";
+        this.textContent = "最小化";
+      } else {
+        tableElem.style.display = "none";
+        this.textContent = "最大化";
+      }
+    });
+
+    // -----------------------
     // 保存
     // -----------------------
     saveBtn.addEventListener("click", () => {
-      // タグ必須チェック
       const selectedTag = releaseTagSelect.value.trim();
       if (selectedTag === "") {
         tagError.style.display = "block";
@@ -567,14 +576,12 @@
       } else {
         tagError.style.display = "none";
       }
-
       let additional = releaseAdditionalTags.value.trim();
       let tagsArray = [selectedTag];
       if (additional !== "") {
         let additionalTags = additional.split(",").map(s => s.trim()).filter(Boolean);
         tagsArray = tagsArray.concat(additionalTags);
       }
-
       const newRelease = {
         id: releaseIdInput.value.trim(),
         title: releaseTitleInput.value.trim(),
@@ -591,7 +598,6 @@
         alert("IDとタイトルは必須です。");
         return;
       }
-
       if (editIndex === null) {
         cmsReleasesData.push(newRelease);
       } else {
@@ -612,12 +618,7 @@
     // JSON生成
     // -----------------------
     generateJsonBtn.addEventListener("click", () => {
-      let outputData;
-      if (role === "editor") {
-        outputData = cmsReleasesData.slice(initialCount);
-      } else {
-        outputData = cmsReleasesData;
-      }
+      let outputData = (role === "editor") ? cmsReleasesData.slice(initialCount) : cmsReleasesData;
       const jsonStr = JSON.stringify(outputData, null, 2);
       jsonOutput.value = `var releasesData = ${jsonStr};`;
     });
@@ -628,13 +629,11 @@
     window.editRelease = function(index) {
       editIndex = index;
       const rel = cmsReleasesData[index];
-
       releaseIdInput.value = rel.id;
       releaseTitleInput.value = rel.title;
       releaseDateInput.value = rel.date;
       releaseExcerptInput.value = rel.excerpt;
       releaseImgInput.value = rel.img;
-
       if (rel.tags && Array.isArray(rel.tags) && rel.tags.length > 0) {
         releaseTagSelect.value = rel.tags[0] || "";
         releaseAdditionalTags.value = rel.tags.slice(1).join(", ");
@@ -642,14 +641,11 @@
         releaseTagSelect.value = "";
         releaseAdditionalTags.value = "";
       }
-
-      // セクションの再描画
       if (rel.sections && Array.isArray(rel.sections)) {
         loadSectionsData(rel.sections);
       } else {
-        loadSectionsData([]); // 空
+        loadSectionsData([]);
       }
-
       formTitle.textContent = "プレスリリースを編集";
       saveBtn.textContent = "更新";
       cancelBtn.style.display = "inline-block";
@@ -680,13 +676,9 @@
       releaseTagSelect.value = "";
       releaseAdditionalTags.value = "";
       tagError.style.display = "none";
-
-      // セクション初期化
       contentSectionsContainer.innerHTML = "";
       sectionEditors = [];
-      // 1つめのセクションを自動で作る
       createSectionEditor(0);
-
       formTitle.textContent = "新規プレスリリースを追加";
       saveBtn.textContent = "保存";
       cancelBtn.style.display = "none";
@@ -709,11 +701,7 @@
         const rows = document.querySelectorAll("#releasesTable tbody tr");
         rows.forEach(row => {
           const title = row.children[1].textContent.toLowerCase();
-          if (title.includes(query)) {
-            row.style.display = "";
-          } else {
-            row.style.display = "none";
-          }
+          row.style.display = title.includes(query) ? "" : "none";
         });
       });
     }
