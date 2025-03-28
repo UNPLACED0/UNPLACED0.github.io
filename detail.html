@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="ja">
 <head>
   <meta charset="UTF-8"/>
@@ -56,12 +56,6 @@
     }
     .section-item {
       margin-bottom: 20px;
-    }
-    .section-item p {
-      font-size: 1rem;
-      line-height: 1.8;
-      margin-bottom: 10px;
-      text-align: justify;
     }
     .section-item img {
       width: 100%;
@@ -136,6 +130,7 @@
       <img id="release-img" class="release-img-top" src="" alt="プレスリリース画像">
       <h1 id="release-title">プレスリリースタイトル</h1>
       <p class="date" id="release-date">公開日</p>
+      <!-- CMSで保存されたHTML形式の本文をそのままレンダリング -->
       <div class="content" id="release-content"></div>
       
       <!-- 追加情報（sections） -->
@@ -206,9 +201,10 @@
         document.getElementById("release-date").textContent = release.date;
         document.getElementById("release-img").src = release.img;
         document.getElementById("release-img").alt = release.title;
-        document.getElementById("release-content").textContent = release.excerpt;
+        // HTML形式の本文としてレンダリング
+        document.getElementById("release-content").innerHTML = release.excerpt;
   
-        // 追加情報（sections）の表示（画像が空の場合はテキストのみ表示）
+        // 追加情報（sections）の表示（画像があれば表示し、本文はHTML形式でレンダリング）
         if (release.sections && Array.isArray(release.sections) && release.sections.length > 0) {
           const sectionsContainer = document.getElementById("sectionsContainer");
           release.sections.forEach((sec, index) => {
@@ -218,7 +214,7 @@
             if (sec.img && sec.img.trim() !== "") {
               contentHtml += `<img src="${sec.img}" alt="追加画像 ${index + 1}">`;
             }
-            contentHtml += `<p>${sec.body}</p>`;
+            contentHtml += sec.body; // セクションの本文は既にHTML形式
             sectionDiv.innerHTML = contentHtml;
             sectionsContainer.appendChild(sectionDiv);
           });
