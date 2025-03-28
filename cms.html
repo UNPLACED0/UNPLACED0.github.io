@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CMS管理画面 - UP Global Press</title>
+  <title>CMS管理画面 (CKEditor版) - UP Global Press</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     .cms-container {
@@ -185,23 +185,8 @@
     }
   </script>
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
-  <!-- TinyMCE の読み込み（CDN経由） -->
-  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-  <script>
-    tinymce.init({
-      selector: '#cmsEditor',
-      plugins: 'link lists table image code',
-      toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
-      menubar: false,
-      height: 500,
-      content_style: "body { font-family: 'Poppins', sans-serif; font-size:14px }",
-      // カスタムスタイル：H2とBタグ
-      style_formats: [
-          { title: '見出し2', block: 'h2' },
-          { title: '太字', inline: 'b' }
-      ]
-    });
-  </script>
+  <!-- CKEditor 4（CDN版） -->
+  <script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
 </head>
 <body>
   <!-- ヘッダー読み込み（CMSは独立したヘッダー） -->
@@ -243,7 +228,7 @@
   </header>
 
   <main class="cms-container">
-    <h1>プレスリリース管理</h1>
+    <h1>プレスリリース管理 (CKEditor 版)</h1>
     <!-- CMS内検索（管理者のみ表示） -->
     <div class="cms-search" id="cmsSearchContainer">
       <input type="text" id="cmsSearchInput" placeholder="管理内検索">
@@ -294,10 +279,9 @@
       <div class="form-group">
         <label>コンテンツセクション（本文と画像、最大3セット）</label>
         <div id="contentSectionsContainer">
-          <!-- 初期は1セット。セクション内は元の文章をそのまま残し、必要な箇所にのみ見出し（<h2>）やリンク（<a>）タグを追加できるように -->
           <div class="content-section">
             <label>本文 1</label>
-            <!-- ※ここではシンプルなテキストエリアですが、必要に応じてTinyMCEなどのエディタを導入してもよい -->
+            <!-- CKEditor を使うなら、後で動的に置き換えることも可能です -->
             <textarea class="section-body" placeholder="本文を入力"></textarea>
             <label>画像 URL 1</label>
             <input type="text" class="section-img" placeholder="画像URLを入力">
@@ -330,9 +314,9 @@
       <button class="btn" id="cancelBtn" style="display:none;">キャンセル</button>
     </div>
 
-    <!-- CMS用記事本文リッチエディタ（追加装飾機能付き） -->
+    <!-- CKEditor で編集するためのフィールド -->
     <div class="form-group">
-      <label for="cmsEditor">記事本文（リッチエディタ）</label>
+      <label for="cmsEditor">記事本文（CKEditor）</label>
       <textarea id="cmsEditor">
 <h2>サンプル見出し</h2>
 <p>ここに<b>太字</b>や<a href="https://www.google.com" target="_blank">ハイパーリンク</a>を含む本文を入力してください。<br>
@@ -358,10 +342,9 @@
       const data = await response.text();
       document.getElementById(elementId).innerHTML = data;
     }
-    // CMSはヘッダーはインラインなのでフッターのみ読み込み
     loadHTML('includes/footer.html', 'footer-placeholder');
 
-    // 検索機能設定
+    // 検索機能
     function setupSearch(inputId, btnId) {
       const input = document.getElementById(inputId);
       const btn = document.getElementById(btnId);
@@ -387,6 +370,11 @@
       setupSearch("searchInputMobile", "searchBtnMobile");
     });
 
+    // CKEditor の初期化
+    document.addEventListener("DOMContentLoaded", function() {
+      CKEDITOR.replace('cmsEditor');
+    });
+
     // CMS管理画面用：roleに応じたJSON出力
     const role = localStorage.getItem("cmsRole");
     if (!role) {
@@ -394,22 +382,11 @@
     }
     if (role === "admin") {
       document.getElementById("adminSection").style.display = "block";
-    }
-    // CMS内検索機能（管理者のみ）
-    if (role === "admin") {
-      document.getElementById("cmsSearchBtn").addEventListener("click", function() {
-        const query = document.getElementById("cmsSearchInput").value.trim().toLowerCase();
-        const rows = document.querySelectorAll("#releasesTable tbody tr");
-        rows.forEach(row => {
-          const title = row.children[1].textContent.toLowerCase();
-          row.style.display = title.includes(query) ? "" : "none";
-        });
-      });
     } else {
       document.getElementById("cmsSearchContainer").style.display = "none";
     }
 
-    // 初期のデータ件数（新規作成分と判別するため）
+    // 初期データ
     const initialCount = releasesData.length;
     let cmsReleasesData = JSON.parse(JSON.stringify(releasesData || []));
     const releasesTableBody = document.querySelector("#releasesTable tbody");
@@ -426,12 +403,15 @@
     const cancelBtn = document.getElementById("cancelBtn");
     const generateJsonBtn = document.getElementById("generateJsonBtn");
     const jsonOutput = document.getElementById("jsonOutput");
-    const REQUIRED_TAGS = ["テクノロジー", "ビジネス", "エンターテインメント", "ヘルスケア", "環境", "スタートアップ", "ビューティー", "グルメ", "その他"];
     let editIndex = null;
+    const REQUIRED_TAGS = [
+      "テクノロジー", "ビジネス", "エンターテインメント", "ヘルスケア", "環境",
+      "スタートアップ", "ビューティー", "グルメ", "その他"
+    ];
 
-    // コンテンツセクションの追加処理
     const contentSectionsContainer = document.getElementById("contentSectionsContainer");
     const addSectionBtn = document.getElementById("addSectionBtn");
+
     addSectionBtn.addEventListener("click", () => {
       const currentSections = contentSectionsContainer.querySelectorAll(".content-section");
       if (currentSections.length >= 3) {
