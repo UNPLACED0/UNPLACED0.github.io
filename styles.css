@@ -1,18 +1,64 @@
 /* Google Fonts: Poppins と Noto Sans Bengali */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Noto+Sans+Bengali:wght@400;700&display=swap');
 
+/* 初期値は青テーマ（デフォルト） */
 :root {
-  --primary-bg: #121212;          /* ダーク背景 */
-  --secondary-bg: #1f1f1f;          /* やや明るいダーク */
-  --accent-color: #00eaff;          /* ネオンブルー */
-  --highlight-color: #00ffff;       /* 明るいシアン */
-  --text-color: #f5f5f5;            /* 明るいテキスト */
+  --primary-bg: #ffffff;
+  --secondary-bg: #e8faff;
+  --accent-color: #007bff;
+  --highlight-color: #0056b3;
+  --text-color: #333333;
+  --sub-text: #777777;
+  --card-bg: #ffffff;
+  --border-color: #e0e0e0;
+  --hover-shadow: rgba(0, 0, 0, 0.15);
+  --hero-bg-overlay: rgba(0,123,255,0.8);
+}
+
+/* テーマ切替用クラス */
+/* 青テーマ（default） */
+.theme-blue {
+  --primary-bg: #ffffff;
+  --secondary-bg: #e8faff;
+  --accent-color: #007bff;
+  --highlight-color: #0056b3;
+  --text-color: #333333;
+  --sub-text: #777777;
+  --card-bg: #ffffff;
+  --border-color: #e0e0e0;
+  --hover-shadow: rgba(0, 0, 0, 0.15);
+  --hero-bg-overlay: rgba(0,123,255,0.8);
+}
+
+/* 緑テーマ */
+.theme-green {
+  --primary-bg: #ffffff;
+  --secondary-bg: #e8f5e9;
+  --accent-color: #006a4e;
+  --highlight-color: #008f68;
+  --text-color: #333333;
+  --sub-text: #777777;
+  --card-bg: #ffffff;
+  --border-color: #e0e0e0;
+  --hover-shadow: rgba(0, 0, 0, 0.15);
+  --hero-bg-overlay: rgba(0,106,78,0.8);
+}
+
+/* ネオンテーマ */
+.theme-neon {
+  --primary-bg: #121212;
+  --secondary-bg: #1f1f1f;
+  --accent-color: #00eaff;
+  --highlight-color: #00ffff;
+  --text-color: #f5f5f5;
   --sub-text: #cccccc;
-  --card-bg: #1e1e1e;              /* カード用背景 */
+  --card-bg: #1e1e1e;
   --border-color: #333333;
-  --hover-shadow: 0 0 15px rgba(0,234,255,0.6);  /* ネオンブルーのグロー */
+  --hover-shadow: 0 0 15px rgba(0,234,255,0.6);
   --hero-bg-overlay: rgba(0,234,255,0.3);
 }
+
+/* 以下、既存のスタイルは変数を利用して記述 */
 
 * {
   margin: 0;

@@ -107,7 +107,7 @@
       await loadHTML('includes/header.html', 'header-placeholder');
       await loadHTML('includes/footer.html', 'footer-placeholder');
 
-      // ヘッダーが挿入されたので、検索バーの要素を取得してイベントをバインド
+      // 検索バーのイベントバインド
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
 
@@ -138,6 +138,22 @@
           });
         }
       }
+    });
+  </script>
+  <!-- テーマ切り替え用セレクトボックス -->
+  <div id="themeSelectorContainer" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: var(--secondary-bg); padding: 8px; border-radius: 4px;">
+    <select id="themeSelector">
+      <option value="blue">Blue</option>
+      <option value="green">Green</option>
+      <option value="neon">Neon</option>
+    </select>
+  </div>
+  <script>
+    document.getElementById('themeSelector').addEventListener('change', function(){
+      var theme = this.value; // "blue", "green", "neon"
+      // 既存のテーマクラスをすべて削除して新しいテーマクラスを追加
+      document.documentElement.classList.remove('theme-blue','theme-green','theme-neon');
+      document.documentElement.classList.add('theme-' + theme);
     });
   </script>
 </body>
