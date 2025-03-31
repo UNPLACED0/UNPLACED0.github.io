@@ -471,48 +471,58 @@ html::before {
   pointer-events: none;
   z-index: -9999;
   background:
-    /* 既存のバブル設定 */
+    /* 小～中サイズのバブル */
     radial-gradient(circle, rgba(0,150,255,0.5) 20%, transparent 20%) 10% 80% / 50px 50px no-repeat,
     radial-gradient(circle, rgba(0,150,255,0.4) 15%, transparent 15%) 70% 60% / 40px 40px no-repeat,
     radial-gradient(circle, rgba(0,150,255,0.6) 25%, transparent 25%) 30% 40% / 60px 60px no-repeat,
     radial-gradient(circle, rgba(0,150,255,0.3) 30%, transparent 30%) 50% 20% / 80px 80px no-repeat,
     radial-gradient(circle, rgba(0,150,255,0.7) 35%, transparent 35%) 80% 10% / 100px 100px no-repeat,
-    /* 左右端に追加 */
+    /* 左右端のバブル */
     radial-gradient(circle, rgba(0,150,255,0.4) 25%, transparent 25%) 0% 50% / 80px 80px no-repeat,
-    radial-gradient(circle, rgba(0,150,255,0.4) 25%, transparent 25%) 100% 50% / 80px 80px no-repeat;
+    radial-gradient(circle, rgba(0,150,255,0.4) 25%, transparent 25%) 100% 50% / 80px 80px no-repeat,
+    /* 追加：大きなバブル */
+    radial-gradient(circle, rgba(0,150,255,0.3) 40%, transparent 40%) 25% 10% / 120px 120px no-repeat,
+    radial-gradient(circle, rgba(0,150,255,0.3) 40%, transparent 40%) 75% 90% / 150px 150px no-repeat;
   animation: bubbleAnimation 15s linear infinite;
 }
 
 @keyframes bubbleAnimation {
   0% {
     background-position: 
-      10% 80%,   /* 1番目 */
-      70% 60%,   /* 2番目 */
-      30% 40%,   /* 3番目 */
-      50% 20%,   /* 4番目 */
-      80% 10%,   /* 5番目 */
-      0% 50%,    /* 左端 */
-      100% 50%;  /* 右端 */
+      10% 80%,   /* バブル1 */
+      70% 60%,   /* バブル2 */
+      30% 40%,   /* バブル3 */
+      50% 20%,   /* バブル4 */
+      80% 10%,   /* バブル5 */
+      0% 50%,    /* 左端バブル */
+      100% 50%,  /* 右端バブル */
+      25% 10%,   /* 大きいバブル1 */
+      75% 90%;   /* 大きいバブル2 */
   }
   50% {
     background-position: 
-      20% 50%,   /* 1番目 */
-      60% 30%,   /* 2番目 */
-      40% 70%,   /* 3番目 */
-      60% 30%,   /* 4番目 */
-      90% 20%,   /* 5番目 */
-      0% 40%,    /* 左端 */
-      100% 60%;  /* 右端 */
+      20% 50%,   /* バブル1 */
+      60% 30%,   /* バブル2 */
+      40% 70%,   /* バブル3 */
+      60% 30%,   /* バブル4 */
+      90% 20%,   /* バブル5 */
+      0% 40%,    /* 左端バブル */
+      100% 60%,  /* 右端バブル */
+      35% 20%,   /* 大きいバブル1 */
+      85% 80%;   /* 大きいバブル2 */
   }
   100% {
     background-position: 
-      10% 80%,   /* 1番目 */
-      70% 60%,   /* 2番目 */
-      30% 40%,   /* 3番目 */
-      50% 20%,   /* 4番目 */
-      80% 10%,   /* 5番目 */
-      0% 50%,    /* 左端 */
-      100% 50%;  /* 右端 */
+      10% 80%,   /* バブル1 */
+      70% 60%,   /* バブル2 */
+      30% 40%,   /* バブル3 */
+      50% 20%,   /* バブル4 */
+      80% 10%,   /* バブル5 */
+      0% 50%,    /* 左端バブル */
+      100% 50%,  /* 右端バブル */
+      25% 10%,   /* 大きいバブル1 */
+      75% 90%;   /* 大きいバブル2 */
   }
 }
+
 
