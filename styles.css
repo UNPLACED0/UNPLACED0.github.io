@@ -2,16 +2,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Noto+Sans+Bengali:wght@400;700&display=swap');
 
 :root {
-  --primary-bg: #ffffff;
-  --secondary-bg: #f2f2f2;
-  --accent-color: #002244;
-  --highlight-color: #0055aa;
+  --primary-bg: #ffffff;          /* 背景は白 */
+  --secondary-bg: #e8f5e9;          /* ライトグリーン（薄い） */
+  --accent-color: #006a4e;          /* 深いグリーン */
+  --highlight-color: #008f68;       /* 明るめのグリーン */
   --text-color: #333333;
   --sub-text: #777777;
   --card-bg: #ffffff;
   --border-color: #e0e0e0;
   --hover-shadow: rgba(0, 0, 0, 0.15);
-  --hero-bg-overlay: rgba(0, 34, 68, 0.8);
+  --hero-bg-overlay: rgba(0,106,78,0.8); /* アクセントカラーをベースに */
 }
 
 * {
@@ -195,7 +195,7 @@ header {
   top: 0; left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, var(--hero-bg-overlay) 0%, rgba(0,34,68,0.6) 100%);
+  background: linear-gradient(180deg, var(--hero-bg-overlay) 0%, rgba(0,106,78,0.6) 100%);
   z-index: 1;
 }
 .hero-content {
@@ -461,6 +461,11 @@ footer {
 }
 
 /* 全ページ背景にバブルを表示するための設定（html::beforeを使用） */
+html {
+  position: relative;
+  z-index: 0;
+}
+
 html::before {
   content: "";
   position: fixed;
@@ -472,17 +477,17 @@ html::before {
   z-index: -9999;
   background:
     /* 小～中サイズのバブル */
-    radial-gradient(circle, rgba(0,150,255,0.5) 20%, transparent 20%) 10% 80% / 50px 50px no-repeat,
-    radial-gradient(circle, rgba(0,150,255,0.4) 15%, transparent 15%) 70% 60% / 40px 40px no-repeat,
-    radial-gradient(circle, rgba(0,150,255,0.6) 25%, transparent 25%) 30% 40% / 60px 60px no-repeat,
-    radial-gradient(circle, rgba(0,150,255,0.3) 30%, transparent 30%) 50% 20% / 80px 80px no-repeat,
-    radial-gradient(circle, rgba(0,150,255,0.7) 35%, transparent 35%) 80% 10% / 100px 100px no-repeat,
+    radial-gradient(circle, rgba(0,150,100,0.5) 20%, transparent 20%) 10% 80% / 50px 50px no-repeat,
+    radial-gradient(circle, rgba(0,150,100,0.4) 15%, transparent 15%) 70% 60% / 40px 40px no-repeat,
+    radial-gradient(circle, rgba(0,150,100,0.6) 25%, transparent 25%) 30% 40% / 60px 60px no-repeat,
+    radial-gradient(circle, rgba(0,150,100,0.3) 30%, transparent 30%) 50% 20% / 80px 80px no-repeat,
+    radial-gradient(circle, rgba(0,150,100,0.7) 35%, transparent 35%) 80% 10% / 100px 100px no-repeat,
     /* 左右端のバブル */
-    radial-gradient(circle, rgba(0,150,255,0.4) 25%, transparent 25%) 0% 50% / 80px 80px no-repeat,
-    radial-gradient(circle, rgba(0,150,255,0.4) 25%, transparent 25%) 100% 50% / 80px 80px no-repeat,
-    /* 追加：大きなバブル */
-    radial-gradient(circle, rgba(0,150,255,0.3) 40%, transparent 40%) 25% 10% / 120px 120px no-repeat,
-    radial-gradient(circle, rgba(0,150,255,0.3) 40%, transparent 40%) 75% 90% / 150px 150px no-repeat;
+    radial-gradient(circle, rgba(0,150,100,0.4) 25%, transparent 25%) 0% 50% / 80px 80px no-repeat,
+    radial-gradient(circle, rgba(0,150,100,0.4) 25%, transparent 25%) 100% 50% / 80px 80px no-repeat,
+    /* 大きなバブル */
+    radial-gradient(circle, rgba(0,150,100,0.3) 40%, transparent 40%) 25% 10% / 120px 120px no-repeat,
+    radial-gradient(circle, rgba(0,150,100,0.3) 40%, transparent 40%) 75% 90% / 150px 150px no-repeat;
   animation: bubbleAnimation 15s linear infinite;
 }
 
@@ -524,5 +529,3 @@ html::before {
       75% 90%;   /* 大きいバブル2 */
   }
 }
-
-
