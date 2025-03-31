@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UP Global Press - ホーム</title>
   <link rel="stylesheet" href="styles.css" />
+
   <!-- GTranslateウィジェット初期化 -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
@@ -18,16 +19,6 @@
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
 </head>
 <body>
-  <!-- ふわふわ動く背景（バブル要素はCSSで位置・サイズ・アニメーション設定） -->
-  <div class="floating-bg">
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-  </div>
-
   <!-- ヘッダーを外部ファイルから読み込む領域 -->
   <div id="header-placeholder"></div>
 
@@ -60,7 +51,7 @@
         </div>
       </div>
       <div class="service-img">
-        <img src="https://picsum.photos/400/250?random=100" alt="サービス紹介イメージ">
+        <img src="https://picsum.photos/400/250?random=100" alt="サービス紹介イメージ" />
       </div>
     </div>
   </section>
@@ -79,8 +70,8 @@
   <!-- プレスリリースデータ -->
   <script src="releases.js"></script>
   <script>
-    // ヘッダー・フッター読み込み用関数
-    async function loadHTML(url, elementId) {
+    // ヘッダーやフッターを外部ファイルから読み込む関数
+    function loadHTML(url, elementId) {
       return fetch(url)
         .then(response => response.text())
         .then(data => {
@@ -89,36 +80,63 @@
         .catch(error => console.error('Error loading ' + url + ':', error));
     }
 
+    // 検索機能の設定
+    function setupSearch(inputId, btnId) {
+      const input = document.getElementById(inputId);
+      const btn = document.getElementById(btnId);
+      if (input && btn) {
+        btn.addEventListener("click", () => {
+          const query = input.value.trim();
+          if (query) {
+            window.location.href = "search.html?query=" + encodeURIComponent(query);
+          }
+        });
+        input.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
+            const query = input.value.trim();
+            if (query) {
+              window.location.href = "search.html?query=" + encodeURIComponent(query);
+            }
+          }
+        });
+      }
+    }
+
     document.addEventListener("DOMContentLoaded", async () => {
+      // ヘッダー・フッターの読み込みが終わるまで待機
       await loadHTML('includes/header.html', 'header-placeholder');
       await loadHTML('includes/footer.html', 'footer-placeholder');
+
+      // ヘッダーが挿入されたので、検索バーの要素を取得してイベントをバインド
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
 
+      // 最新6件のプレスリリースを表示
       if (typeof releasesData !== "undefined") {
         const container = document.querySelector(".releases");
-        // 念のため releases セクションに position: relative; を付与
-        container.style.position = "relative";
-        container.style.zIndex = "1";
-        releasesData.sort((a, b) => new Date(b.date) - new Date(a.date));
-        const latestSix = releasesData.slice(0, 6);
-        latestSix.forEach(release => {
-          const card = document.createElement("div");
-          card.className = "release-card";
-          const tagsText = release.tags ? release.tags.join(", ") : "";
-          card.innerHTML = `
-            <a href="${release.link}">
-              <img src="${release.img}" alt="${release.title}">
-              <div class="release-info">
-                <h2>${release.title}</h2>
-                <p class="date">${release.date}</p>
-                <p class="excerpt">${release.excerpt}</p>
-                <p class="tags">タグ: ${tagsText}</p>
-              </div>
-            </a>
-          `;
-          container.appendChild(card);
-        });
+        if (container) {
+          // 日付が新しい順にソート
+          releasesData.sort((a, b) => new Date(b.date) - new Date(a.date));
+          // 上位6件を表示
+          const latestSix = releasesData.slice(0, 6);
+          latestSix.forEach(release => {
+            const card = document.createElement("div");
+            card.className = "release-card";
+            const tagsText = release.tags ? release.tags.join(", ") : "";
+            card.innerHTML = `
+              <a href="${release.link}">
+                <img src="${release.img}" alt="${release.title}">
+                <div class="release-info">
+                  <h2>${release.title}</h2>
+                  <p class="date">${release.date}</p>
+                  <p class="excerpt">${release.excerpt}</p>
+                  <p class="tags">タグ: ${tagsText}</p>
+                </div>
+              </a>
+            `;
+            container.appendChild(card);
+          });
+        }
       }
     });
   </script>
