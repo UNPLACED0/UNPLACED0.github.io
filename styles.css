@@ -2,16 +2,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Noto+Sans+Bengali:wght@400;700&display=swap');
 
 :root {
-  --primary-bg: #ffffff;          /* 背景は白 */
-  --secondary-bg: #e8f5e9;          /* ライトグリーン（薄い） */
-  --accent-color: #006a4e;          /* 深いグリーン */
-  --highlight-color: #008f68;       /* 明るめのグリーン */
-  --text-color: #333333;
-  --sub-text: #777777;
-  --card-bg: #ffffff;
-  --border-color: #e0e0e0;
-  --hover-shadow: rgba(0, 0, 0, 0.15);
-  --hero-bg-overlay: rgba(0,106,78,0.8); /* アクセントカラーをベースに */
+  --primary-bg: #121212;          /* ダーク背景 */
+  --secondary-bg: #1f1f1f;          /* やや明るいダーク */
+  --accent-color: #00eaff;          /* ネオンブルー */
+  --highlight-color: #00ffff;       /* 明るいシアン */
+  --text-color: #f5f5f5;            /* 明るいテキスト */
+  --sub-text: #cccccc;
+  --card-bg: #1e1e1e;              /* カード用背景 */
+  --border-color: #333333;
+  --hover-shadow: 0 0 15px rgba(0,234,255,0.6);  /* ネオンブルーのグロー */
+  --hero-bg-overlay: rgba(0,234,255,0.3);
 }
 
 * {
@@ -26,7 +26,7 @@ body {
   color: var(--text-color);
   line-height: 1.6;
   scroll-behavior: smooth;
-  position: relative; /* 擬似要素用 */
+  position: relative;
   z-index: 0;
 }
 
@@ -34,7 +34,7 @@ body {
 header {
   background-color: var(--primary-bg);
   border-bottom: 2px solid var(--border-color);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 .header-container {
   max-width: 1200px;
@@ -69,7 +69,7 @@ header {
 }
 .cms-button:hover {
   background: var(--accent-color);
-  color: #fff;
+  color: var(--primary-bg);
 }
 .logout-btn {
   padding: 6px 12px;
@@ -84,7 +84,7 @@ header {
 }
 .logout-btn:hover {
   background: var(--accent-color);
-  color: #fff;
+  color: var(--primary-bg);
 }
 .language-switcher {
   margin-right: 10px;
@@ -111,7 +111,7 @@ header {
 }
 .main-nav a:hover {
   background: var(--accent-color);
-  color: #fff;
+  color: var(--primary-bg);
 }
 .search-bar {
   display: flex;
@@ -129,7 +129,7 @@ header {
   border: 1px solid var(--border-color);
   border-left: none;
   background: var(--accent-color);
-  color: #fff;
+  color: var(--primary-bg);
   border-radius: 0 20px 20px 0;
   cursor: pointer;
   transition: background 0.3s ease;
@@ -164,7 +164,7 @@ header {
 }
 .mobile-nav a:hover {
   background: var(--accent-color);
-  color: #fff;
+  color: var(--primary-bg);
 }
 .mobile-nav .search-bar {
   display: flex;
@@ -195,7 +195,7 @@ header {
   top: 0; left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, var(--hero-bg-overlay) 0%, rgba(0,106,78,0.6) 100%);
+  background: linear-gradient(180deg, var(--hero-bg-overlay) 0%, rgba(0,234,255,0.2) 100%);
   z-index: 1;
 }
 .hero-content {
@@ -210,14 +210,14 @@ header {
   font-size: 3.5rem;
   font-weight: 900;
   margin-bottom: 20px;
-  color: #fff;
-  text-shadow: 4px 4px 8px rgba(0,0,0,0.9);
+  color: var(--primary-bg);
+  text-shadow: 0 0 10px var(--accent-color);
 }
 .hero-content p {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #fff;
-  text-shadow: 3px 3px 8px rgba(0,0,0,0.9);
+  color: var(--primary-bg);
+  text-shadow: 0 0 8px var(--accent-color);
 }
 @keyframes fadeInUp {
   0% { opacity: 0; transform: translateY(40px); }
@@ -242,7 +242,7 @@ header {
 }
 .release-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 12px 24px var(--hover-shadow);
+  box-shadow: 0 0 15px var(--accent-color);
 }
 .release-card a {
   display: block;
@@ -281,7 +281,7 @@ header {
 
 /* サービス紹介セクション */
 .service-section {
-  background-color: #f9fbfd;
+  background-color: var(--secondary-bg);
   padding: 60px 20px;
   margin: 40px auto 0;
 }
@@ -309,7 +309,7 @@ header {
 .catch-small {
   font-size: 1.2rem;
   font-weight: 500;
-  color: #666;
+  color: var(--sub-text);
   margin-top: 0;
   margin-bottom: 10px;
 }
@@ -320,8 +320,8 @@ header {
   color: var(--text-color);
 }
 .big-gray-btn {
-  background: #777;
-  color: #fff;
+  background: var(--accent-color);
+  color: var(--primary-bg);
   font-weight: bold;
   padding: 16px 32px;
   border-radius: 30px;
@@ -331,7 +331,7 @@ header {
   transition: background 0.3s, transform 0.3s;
 }
 .big-gray-btn:hover {
-  background: #555;
+  background: var(--highlight-color);
   transform: translateY(-2px);
 }
 .service-img {
@@ -343,7 +343,7 @@ header {
 .service-img img {
   max-width: 100%;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 0 15px var(--accent-color);
 }
 .service-bottom {
   max-width: 1200px;
@@ -357,11 +357,11 @@ header {
 }
 .service-bottom-sub {
   font-size: 1rem;
-  color: #444;
+  color: var(--sub-text);
   margin-top: 10px;
 }
 
-/* 通常背景のセクション（サイト情報） */
+/* サイト情報セクション */
 .site-info {
   background: var(--primary-bg);
   padding: 40px 20px;
@@ -392,7 +392,7 @@ footer {
   transition: color 0.3s ease;
 }
 .footer-nav a:hover {
-  color: var(--text-color);
+  color: var(--highlight-color);
 }
 
 /* レスポンシブ */
@@ -460,7 +460,7 @@ footer {
   }
 }
 
-/* 全ページ背景にバブルを表示するための設定（html::beforeを使用） */
+/* 全ページ背景にネオンバブルを表示するための設定（html::beforeを使用） */
 html {
   position: relative;
   z-index: 0;
@@ -476,56 +476,56 @@ html::before {
   pointer-events: none;
   z-index: -9999;
   background:
-    /* 小～中サイズのバブル */
-    radial-gradient(circle, rgba(0,150,100,0.5) 20%, transparent 20%) 10% 80% / 50px 50px no-repeat,
-    radial-gradient(circle, rgba(0,150,100,0.4) 15%, transparent 15%) 70% 60% / 40px 40px no-repeat,
-    radial-gradient(circle, rgba(0,150,100,0.6) 25%, transparent 25%) 30% 40% / 60px 60px no-repeat,
-    radial-gradient(circle, rgba(0,150,100,0.3) 30%, transparent 30%) 50% 20% / 80px 80px no-repeat,
-    radial-gradient(circle, rgba(0,150,100,0.7) 35%, transparent 35%) 80% 10% / 100px 100px no-repeat,
+    /* 小～中サイズのバブル：ネオンピンク */
+    radial-gradient(circle, rgba(255,20,147,0.7) 20%, transparent 20%) 10% 80% / 50px 50px no-repeat,
+    radial-gradient(circle, rgba(255,20,147,0.6) 15%, transparent 15%) 70% 60% / 40px 40px no-repeat,
+    radial-gradient(circle, rgba(255,20,147,0.8) 25%, transparent 25%) 30% 40% / 60px 60px no-repeat,
+    radial-gradient(circle, rgba(255,20,147,0.5) 30%, transparent 30%) 50% 20% / 80px 80px no-repeat,
+    radial-gradient(circle, rgba(255,20,147,0.9) 35%, transparent 35%) 80% 10% / 100px 100px no-repeat,
     /* 左右端のバブル */
-    radial-gradient(circle, rgba(0,150,100,0.4) 25%, transparent 25%) 0% 50% / 80px 80px no-repeat,
-    radial-gradient(circle, rgba(0,150,100,0.4) 25%, transparent 25%) 100% 50% / 80px 80px no-repeat,
+    radial-gradient(circle, rgba(255,20,147,0.6) 25%, transparent 25%) 0% 50% / 80px 80px no-repeat,
+    radial-gradient(circle, rgba(255,20,147,0.6) 25%, transparent 25%) 100% 50% / 80px 80px no-repeat,
     /* 大きなバブル */
-    radial-gradient(circle, rgba(0,150,100,0.3) 40%, transparent 40%) 25% 10% / 120px 120px no-repeat,
-    radial-gradient(circle, rgba(0,150,100,0.3) 40%, transparent 40%) 75% 90% / 150px 150px no-repeat;
+    radial-gradient(circle, rgba(255,20,147,0.5) 40%, transparent 40%) 25% 10% / 120px 120px no-repeat,
+    radial-gradient(circle, rgba(255,20,147,0.5) 40%, transparent 40%) 75% 90% / 150px 150px no-repeat;
   animation: bubbleAnimation 15s linear infinite;
 }
 
 @keyframes bubbleAnimation {
   0% {
     background-position: 
-      10% 80%,   /* バブル1 */
-      70% 60%,   /* バブル2 */
-      30% 40%,   /* バブル3 */
-      50% 20%,   /* バブル4 */
-      80% 10%,   /* バブル5 */
-      0% 50%,    /* 左端バブル */
-      100% 50%,  /* 右端バブル */
-      25% 10%,   /* 大きいバブル1 */
-      75% 90%;   /* 大きいバブル2 */
+      10% 80%,   /* Bubble 1 */
+      70% 60%,   /* Bubble 2 */
+      30% 40%,   /* Bubble 3 */
+      50% 20%,   /* Bubble 4 */
+      80% 10%,   /* Bubble 5 */
+      0% 50%,    /* Left Bubble */
+      100% 50%,  /* Right Bubble */
+      25% 10%,   /* Large Bubble 1 */
+      75% 90%;   /* Large Bubble 2 */
   }
   50% {
     background-position: 
-      20% 50%,   /* バブル1 */
-      60% 30%,   /* バブル2 */
-      40% 70%,   /* バブル3 */
-      60% 30%,   /* バブル4 */
-      90% 20%,   /* バブル5 */
-      0% 40%,    /* 左端バブル */
-      100% 60%,  /* 右端バブル */
-      35% 20%,   /* 大きいバブル1 */
-      85% 80%;   /* 大きいバブル2 */
+      20% 50%,   /* Bubble 1 */
+      60% 30%,   /* Bubble 2 */
+      40% 70%,   /* Bubble 3 */
+      60% 30%,   /* Bubble 4 */
+      90% 20%,   /* Bubble 5 */
+      0% 40%,    /* Left Bubble */
+      100% 60%,  /* Right Bubble */
+      35% 20%,   /* Large Bubble 1 */
+      85% 80%;   /* Large Bubble 2 */
   }
   100% {
     background-position: 
-      10% 80%,   /* バブル1 */
-      70% 60%,   /* バブル2 */
-      30% 40%,   /* バブル3 */
-      50% 20%,   /* バブル4 */
-      80% 10%,   /* バブル5 */
-      0% 50%,    /* 左端バブル */
-      100% 50%,  /* 右端バブル */
-      25% 10%,   /* 大きいバブル1 */
-      75% 90%;   /* 大きいバブル2 */
+      10% 80%,   /* Bubble 1 */
+      70% 60%,   /* Bubble 2 */
+      30% 40%,   /* Bubble 3 */
+      50% 20%,   /* Bubble 4 */
+      80% 10%,   /* Bubble 5 */
+      0% 50%,    /* Left Bubble */
+      100% 50%,  /* Right Bubble */
+      25% 10%,   /* Large Bubble 1 */
+      75% 90%;   /* Large Bubble 2 */
   }
 }
