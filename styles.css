@@ -1,7 +1,11 @@
 /* Google Fonts: Poppins と Noto Sans Bengali */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Noto+Sans+Bengali:wght@400;700&display=swap');
 
-/* 初期テーマ（NAVY／ブルー系：デフォルト） */
+/*------------------------------------------*/
+/*          Theme Variables                 */
+/*------------------------------------------*/
+
+/* Default (Navy/Blue) Theme Variables */
 :root {
   --primary-bg: #ffffff;
   --secondary-bg: #f2f2f2;
@@ -13,7 +17,7 @@
   --border-color: #e0e0e0;
   --hover-shadow: rgba(0, 0, 0, 0.15);
   --hero-bg-overlay: rgba(0,34,68,0.8);
-  /* Bubble colors for NAVY theme */
+  /* Bubble Colors for Navy Theme */
   --bubble-color1: rgba(0,34,68,0.7);
   --bubble-color2: rgba(0,34,68,0.6);
   --bubble-color3: rgba(0,34,68,0.8);
@@ -23,7 +27,7 @@
   --bubble-color-large: rgba(0,34,68,0.5);
 }
 
-/* NAVYテーマ（オリジナル） */
+/* Navy Theme (Blue) */
 .theme-blue {
   --primary-bg: #ffffff;
   --secondary-bg: #f2f2f2;
@@ -44,7 +48,7 @@
   --bubble-color-large: rgba(0,34,68,0.5);
 }
 
-/* GREENテーマ */
+/* Green Theme */
 .theme-green {
   --primary-bg: #ffffff;
   --secondary-bg: #e8f5e9;
@@ -65,7 +69,7 @@
   --bubble-color-large: rgba(0,150,100,0.5);
 }
 
-/* NEONテーマ */
+/* Neon Theme */
 .theme-neon {
   --primary-bg: #121212;
   --secondary-bg: #1f1f1f;
@@ -86,7 +90,7 @@
   --bubble-color-large: rgba(255,20,147,0.5);
 }
 
-/* BLACKテーマ */
+/* Black Theme */
 .theme-black {
   --primary-bg: #000000;
   --secondary-bg: #111111;
@@ -107,9 +111,9 @@
   --bubble-color-large: rgba(255,255,255,0.5);
 }
 
-/* ------------------------------------------------- */
-/* 以下、既存のスタイル */
-/* ------------------------------------------------- */
+/*------------------------------------------*/
+/*           Global Styles                  */
+/*------------------------------------------*/
 
 * {
   margin: 0;
@@ -127,33 +131,41 @@ body {
   z-index: 0;
 }
 
-/* ヘッダー */
+/*------------------------------------------*/
+/*                Header                    */
+/*------------------------------------------*/
+
 header {
   background-color: var(--primary-bg);
   border-bottom: 2px solid var(--border-color);
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
+
 .header-container {
   max-width: 1200px;
   margin: 0 auto;
 }
+
 .header-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
 }
+
 .header-top-right {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
+
 .logo a {
   font-size: 2rem;
   font-weight: 700;
   color: var(--accent-color);
   text-decoration: none;
 }
+
 .cms-button {
   padding: 6px 12px;
   background: transparent;
@@ -164,10 +176,12 @@ header {
   font-size: 0.9rem;
   transition: background 0.3s, color 0.3s;
 }
+
 .cms-button:hover {
   background: var(--accent-color);
   color: var(--primary-bg);
 }
+
 .logout-btn {
   padding: 6px 12px;
   background: transparent;
@@ -179,13 +193,16 @@ header {
   transition: background 0.3s, color 0.3s;
   margin-left: 10px;
 }
+
 .logout-btn:hover {
   background: var(--accent-color);
   color: var(--primary-bg);
 }
+
 .language-switcher {
   margin-right: 10px;
 }
+
 .header-inner {
   display: flex;
   align-items: center;
@@ -193,11 +210,13 @@ header {
   gap: 20px;
   justify-content: flex-start;
 }
+
 .main-nav {
   display: flex;
   align-items: center;
   gap: 10px;
 }
+
 .main-nav a {
   background: var(--secondary-bg);
   color: var(--text-color);
@@ -206,21 +225,25 @@ header {
   border-radius: 4px;
   transition: background 0.3s ease;
 }
+
 .main-nav a:hover {
   background: var(--accent-color);
   color: var(--primary-bg);
 }
+
 .search-bar {
   display: flex;
   align-items: center;
   margin-left: auto;
 }
+
 .search-bar input {
   padding: 6px 10px;
   border: 1px solid var(--border-color);
   border-radius: 20px 0 0 20px;
   outline: none;
 }
+
 .search-bar button {
   padding: 6px 14px;
   border: 1px solid var(--border-color);
@@ -231,9 +254,11 @@ header {
   cursor: pointer;
   transition: background 0.3s ease;
 }
+
 .search-bar button:hover {
   background: var(--highlight-color);
 }
+
 .hamburger {
   display: none;
   font-size: 2rem;
@@ -241,6 +266,7 @@ header {
   cursor: pointer;
   margin-left: 10px;
 }
+
 .mobile-nav {
   display: none;
   flex-direction: column;
@@ -251,6 +277,7 @@ header {
   margin-top: 10px;
   width: 100%;
 }
+
 .mobile-nav a {
   padding: 10px;
   text-decoration: none;
@@ -259,10 +286,12 @@ header {
   border-radius: 5px;
   transition: background 0.3s ease;
 }
+
 .mobile-nav a:hover {
   background: var(--accent-color);
   color: var(--primary-bg);
 }
+
 .mobile-nav .search-bar {
   display: flex;
   align-items: center;
@@ -270,13 +299,17 @@ header {
   height: 35px;
   white-space: nowrap;
 }
+
 .mobile-nav .search-bar input,
 .mobile-nav .search-bar button {
   font-size: 0.8rem;
   height: 100%;
 }
 
-/* Heroセクション */
+/*------------------------------------------*/
+/*              Hero Section                */
+/*------------------------------------------*/
+
 .hero {
   position: relative;
   height: 40vh;
@@ -286,15 +319,18 @@ header {
   background: url('https://picsum.photos/1200/600?blur=3') no-repeat center center/cover;
   background-attachment: fixed;
 }
+
 .hero::before {
   content: "";
   position: absolute;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background: linear-gradient(180deg, var(--hero-bg-overlay) 0%, rgba(0,234,255,0.2) 100%);
   z-index: 1;
 }
+
 .hero-content {
   position: relative;
   z-index: 2;
@@ -303,6 +339,7 @@ header {
   padding: 20px;
   animation: fadeInUp 1.5s ease-out;
 }
+
 .hero-content h1 {
   font-size: 3.5rem;
   font-weight: 900;
@@ -310,18 +347,29 @@ header {
   color: var(--primary-bg);
   text-shadow: 0 0 10px var(--accent-color);
 }
+
 .hero-content p {
   font-size: 1.8rem;
   font-weight: 700;
   color: var(--primary-bg);
   text-shadow: 0 0 8px var(--accent-color);
 }
+
 @keyframes fadeInUp {
-  0% { opacity: 0; transform: translateY(40px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Releases Grid */
+/*------------------------------------------*/
+/*            Releases Grid                 */
+/*------------------------------------------*/
+
 .releases {
   max-width: 1200px;
   margin: 40px auto;
@@ -330,6 +378,7 @@ header {
   gap: 30px;
   padding: 0 20px;
 }
+
 .release-card {
   background: var(--card-bg);
   border: 1px solid var(--border-color);
@@ -337,51 +386,63 @@ header {
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .release-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 0 15px var(--accent-color);
 }
+
 .release-card a {
   display: block;
   text-decoration: none;
   color: var(--text-color);
 }
+
 .release-card img {
   width: 100%;
   height: 200px;
   object-fit: cover;
 }
+
 .release-info {
   padding: 20px;
 }
+
 .release-info h2 {
   font-size: 1.4rem;
   margin-bottom: 10px;
   color: var(--accent-color);
   font-weight: 600;
 }
+
 .date {
   font-size: 0.9rem;
   color: var(--sub-text);
   margin-bottom: 10px;
 }
+
 .excerpt {
   font-size: 1rem;
   color: var(--text-color);
   font-weight: 300;
 }
+
 .tags {
   margin-top: 10px;
   font-size: 0.9rem;
   color: var(--sub-text);
 }
 
-/* サービス紹介セクション */
+/*------------------------------------------*/
+/*          Service Section                 */
+/*------------------------------------------*/
+
 .service-section {
   background-color: var(--secondary-bg);
   padding: 60px 20px;
   margin: 40px auto 0;
 }
+
 .service-content {
   max-width: 1200px;
   margin: 0 auto;
@@ -391,18 +452,21 @@ header {
   align-items: center;
   justify-content: center;
 }
+
 .service-text {
   flex: 1 1 400px;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
+
 .catch-large {
   font-size: 2rem;
   font-weight: 800;
   color: var(--accent-color);
   margin-bottom: 0;
 }
+
 .catch-small {
   font-size: 1.2rem;
   font-weight: 500;
@@ -410,12 +474,14 @@ header {
   margin-top: 0;
   margin-bottom: 10px;
 }
+
 .service-text p {
   font-size: 1rem;
   line-height: 1.8;
   text-align: justify;
   color: var(--text-color);
 }
+
 .big-gray-btn {
   background: var(--accent-color);
   color: var(--primary-bg);
@@ -427,86 +493,109 @@ header {
   font-size: 1.1rem;
   transition: background 0.3s, transform 0.3s;
 }
+
 .big-gray-btn:hover {
   background: var(--highlight-color);
   transform: translateY(-2px);
 }
+
 .service-img {
   flex: 1 1 300px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .service-img img {
   max-width: 100%;
   border-radius: 8px;
   box-shadow: 0 0 15px var(--accent-color);
 }
+
 .service-bottom {
   max-width: 1200px;
   margin: 40px auto 0;
   text-align: center;
 }
+
 .service-bottom-title {
   font-size: 2rem;
   font-weight: 700;
   color: var(--accent-color);
 }
+
 .service-bottom-sub {
   font-size: 1rem;
   color: var(--sub-text);
   margin-top: 10px;
 }
 
-/* サイト情報セクション */
+/*------------------------------------------*/
+/*           Site Information               */
+/*------------------------------------------*/
+
 .site-info {
   background: var(--primary-bg);
   padding: 40px 20px;
 }
+
 .site-info .site-info-content {
   max-width: 900px;
   margin: 0 auto;
   text-align: center;
 }
 
-/* Footer */
+/*------------------------------------------*/
+/*                 Footer                   */
+/*------------------------------------------*/
+
 footer {
   background: var(--secondary-bg);
   padding: 20px 0;
   text-align: center;
   border-top: 1px solid var(--border-color);
 }
+
 .footer-inner {
   max-width: 1200px;
   margin: 0 auto;
   color: var(--sub-text);
   font-size: 0.9rem;
 }
+
 .footer-nav a {
   margin: 0 10px;
   color: var(--accent-color);
   text-decoration: none;
   transition: color 0.3s ease;
 }
+
 .footer-nav a:hover {
   color: var(--highlight-color);
 }
 
-/* レスポンシブ */
+/*------------------------------------------*/
+/*               Responsive                 */
+/*------------------------------------------*/
+
 @media (max-width: 600px) {
   .header-top, .header-inner {
     flex-wrap: wrap;
     padding: 10px 20px;
   }
+  
   .logo a {
     font-size: 1.6rem;
   }
+  
   .main-nav {
     display: none;
   }
+  
   .search-bar {
     display: none;
   }
+  
   .hamburger {
     display: block;
     font-size: 2rem;
@@ -514,52 +603,66 @@ footer {
     cursor: pointer;
     margin-left: auto;
   }
+  
   #menu-toggle:checked + .hamburger + .mobile-nav {
     display: flex;
   }
+  
   .hero-content h1 {
     font-size: 2rem;
   }
+  
   .hero-content p {
     font-size: 1rem;
   }
+  
   .releases {
     grid-template-columns: 1fr;
   }
+  
   .release-card img {
     height: 150px;
   }
+  
   .release-info h2 {
     font-size: 1.2rem;
   }
+  
   .date {
     font-size: 0.8rem;
   }
+  
   .excerpt {
     font-size: 0.9rem;
   }
+  
   .tags {
     font-size: 0.8rem;
   }
+  
   .service-content {
     flex-direction: column;
     gap: 20px;
     text-align: center;
   }
+  
   .service-text, .service-img {
     flex: 1 1 auto;
   }
+  
   .catch-large {
     font-size: 1.6rem;
   }
+  
   .catch-small {
     font-size: 1rem;
   }
 }
 
-/* ------------------------------------------------- */
-/* 全ページ背景にバブルを表示する設定（html::beforeを使用） */
-/* バブルの色は各テーマの変数 (--bubble-color*) によって決定 */
+/*------------------------------------------*/
+/*          Bubble Background               */
+/*------------------------------------------*/
+
 html {
   position: relative;
   z-index: 0;
@@ -625,9 +728,10 @@ html::before {
       75% 90%;   /* Large Bubble 2 */
   }
 }
-/* ------------------------------------------------- */
-/* CMS管理画面固有の上書きルール（cms.html 用） */
-/* ------------------------------------------------- */
+
+/*------------------------------------------*/
+/*            CMS Admin Styles              */
+/*------------------------------------------*/
 
 .cms-container {
   max-width: 1200px;
@@ -641,7 +745,6 @@ html::before {
   font-family: 'Poppins', sans-serif;
 }
 
-/* CMS用ボタンの統一 */
 .cms-container .btn,
 .cms-container .cms-button,
 .cms-container .toggle-btn {
@@ -664,7 +767,6 @@ html::before {
   transform: translateY(-2px);
 }
 
-/* CMS用入力フォーム等の統一 */
 .cms-container input,
 .cms-container textarea,
 .cms-container select {
@@ -684,20 +786,19 @@ html::before {
   outline: none;
 }
 
-/* エラーメッセージ */
 .cms-container .error-message {
   color: var(--highlight-color);
   margin-top: 5px;
   font-size: 0.9rem;
 }
 
-/* CMS内検索 */
 .cms-container .cms-search {
   margin-bottom: 20px;
   display: flex;
   gap: 10px;
   align-items: center;
 }
+
 .cms-container .cms-search input {
   flex: 1;
   padding: 8px 12px;
@@ -707,6 +808,7 @@ html::before {
   background-color: var(--secondary-bg);
   color: var(--text-color);
 }
+
 .cms-container .cms-search button {
   padding: 8px 14px;
   background-color: var(--accent-color);
@@ -717,10 +819,12 @@ html::before {
   transition: background 0.3s ease;
   font-size: 1rem;
 }
+
 .cms-container .cms-search button:hover {
   background-color: var(--highlight-color);
 }
-/* 静的ページ専用のスタイル */
+
+/* Static Content */
 .static-content {
   background-color: var(--primary-bg);
   color: var(--text-color);
@@ -737,3 +841,96 @@ html::before {
   text-decoration: underline;
 }
 
+/*------------------------------------------*/
+/*          Contact Page Styles             */
+/*------------------------------------------*/
+
+.contact-section {
+  max-width: 700px;
+  margin: 60px auto;
+  padding: 40px;
+  background: var(--card-bg);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  font-size: 1rem;
+}
+
+.contact-section h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: var(--accent-color);
+}
+
+.contact-section p.intro {
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 30px;
+  color: var(--sub-text);
+}
+
+.form-box {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  background: var(--secondary-bg);
+}
+
+.form-box h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-color);
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  font-size: 1rem;
+  background: var(--secondary-bg);
+  color: var(--text-color);
+  transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--accent-color);
+  outline: none;
+}
+
+.contact-section button {
+  display: inline-block;
+  padding: 14px 24px;
+  background: var(--accent-color);
+  color: var(--primary-bg);
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 10px;
+}
+
+.contact-section button:hover {
+  background: var(--highlight-color);
+}
+
+.error-message {
+  color: var(--highlight-color);
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
