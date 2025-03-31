@@ -131,26 +131,29 @@
           });
         }
       }
-      // テーマの初期設定（localStorageから取得、無ければ blue）
+      
+      // テーマの初期設定（localStorageから取得、なければ blue）
       var savedTheme = localStorage.getItem('theme') || 'blue';
       document.documentElement.classList.add('theme-' + savedTheme);
+      // footer 内のセレクトボックスの値を設定
       document.getElementById('themeSelector').value = savedTheme;
     });
   </script>
 
-  <!-- テーマ切り替え用セレクトボックス（固定配置） -->
-  <div id="themeSelectorContainer" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: var(--secondary-bg); padding: 8px; border-radius: 4px;">
+  <!-- テーマ切替用セレクトボックス（footer内に固定） -->
+  <div id="themeSelectorContainer" style="margin-top: 20px; text-align: center;">
     <select id="themeSelector">
-      <option value="blue">Blue (オリジナル)</option>
-      <option value="green">Green</option>
-      <option value="neon">Neon</option>
+      <option value="blue">NAVY</option>
+      <option value="green">GREEN</option>
+      <option value="neon">NEON</option>
+      <option value="black">BLACK</option>
     </select>
   </div>
   <script>
     document.getElementById('themeSelector').addEventListener('change', function(){
-      var theme = this.value;
+      var theme = this.value; // blue, green, neon, black
       localStorage.setItem('theme', theme);
-      document.documentElement.classList.remove('theme-blue','theme-green','theme-neon');
+      document.documentElement.classList.remove('theme-blue','theme-green','theme-neon','theme-black');
       document.documentElement.classList.add('theme-' + theme);
     });
   </script>

@@ -1,7 +1,7 @@
 /* Google Fonts: Poppins と Noto Sans Bengali */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Noto+Sans+Bengali:wght@400;700&display=swap');
 
-/* 初期テーマ（Blue／デフォルト・ネイビー調） */
+/* 初期テーマ（NAVY／ブルー系：デフォルト） */
 :root {
   --primary-bg: #ffffff;
   --secondary-bg: #f2f2f2;
@@ -13,7 +13,7 @@
   --border-color: #e0e0e0;
   --hover-shadow: rgba(0, 0, 0, 0.15);
   --hero-bg-overlay: rgba(0,34,68,0.8);
-  /* Bubble colors for Blue theme */
+  /* Bubble colors for NAVY theme */
   --bubble-color1: rgba(0,34,68,0.7);
   --bubble-color2: rgba(0,34,68,0.6);
   --bubble-color3: rgba(0,34,68,0.8);
@@ -23,8 +23,7 @@
   --bubble-color-large: rgba(0,34,68,0.5);
 }
 
-/* テーマ切替用クラス */
-/* Blue theme（オリジナル・ネイビー調） */
+/* NAVYテーマ（同じ内容なので .theme-blue と同等） */
 .theme-blue {
   --primary-bg: #ffffff;
   --secondary-bg: #f2f2f2;
@@ -45,7 +44,7 @@
   --bubble-color-large: rgba(0,34,68,0.5);
 }
 
-/* Green theme */
+/* GREENテーマ */
 .theme-green {
   --primary-bg: #ffffff;
   --secondary-bg: #e8f5e9;
@@ -66,7 +65,7 @@
   --bubble-color-large: rgba(0,150,100,0.5);
 }
 
-/* Neon theme */
+/* NEONテーマ */
 .theme-neon {
   --primary-bg: #121212;
   --secondary-bg: #1f1f1f;
@@ -85,6 +84,27 @@
   --bubble-color5: rgba(255,20,147,0.9);
   --bubble-color-side: rgba(255,20,147,0.6);
   --bubble-color-large: rgba(255,20,147,0.5);
+}
+
+/* BLACKテーマ */
+.theme-black {
+  --primary-bg: #000000;
+  --secondary-bg: #111111;
+  --accent-color: #ffffff;
+  --highlight-color: #cccccc;
+  --text-color: #ffffff;
+  --sub-text: #aaaaaa;
+  --card-bg: #1a1a1a;
+  --border-color: #333333;
+  --hover-shadow: 0 0 15px rgba(255,255,255,0.6);
+  --hero-bg-overlay: rgba(255,255,255,0.1);
+  --bubble-color1: rgba(255,255,255,0.7);
+  --bubble-color2: rgba(255,255,255,0.6);
+  --bubble-color3: rgba(255,255,255,0.8);
+  --bubble-color4: rgba(255,255,255,0.5);
+  --bubble-color5: rgba(255,255,255,0.9);
+  --bubble-color-side: rgba(255,255,255,0.6);
+  --bubble-color-large: rgba(255,255,255,0.5);
 }
 
 /* ------------------------------------------------- */
