@@ -26,7 +26,7 @@ body {
   color: var(--text-color);
   line-height: 1.6;
   scroll-behavior: smooth;
-  position: relative; /* pseudo要素用 */
+  position: relative; /* 擬似要素用 */
   z-index: 0;
 }
 
@@ -460,8 +460,13 @@ footer {
   }
 }
 
-/* 全ページ背景にバブルを表示するためのスタイル（body::afterを使用） */
-body::after {
+/* 全ページ背景にバブルを表示するための設定（html::beforeを使用） */
+html {
+  position: relative;
+  z-index: 0;
+}
+
+html::before {
   content: "";
   position: fixed;
   top: 0;
@@ -469,7 +474,7 @@ body::after {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: -1;
+  z-index: -9999;
   background: 
     radial-gradient(circle, rgba(255,255,255,0.3) 20%, transparent 20%) 10% 80% / 50px 50px no-repeat,
     radial-gradient(circle, rgba(255,255,255,0.25) 15%, transparent 15%) 70% 60% / 40px 40px no-repeat,
