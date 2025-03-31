@@ -6,6 +6,13 @@
   <title>UP Global Press - ホーム</title>
   <link rel="stylesheet" href="styles.css" />
 
+  <!-- テーマの即時適用用スクリプト -->
+  <script>
+    // ページ読み込み前に localStorage からテーマを取得し、html 要素にクラスを追加する
+    var savedTheme = localStorage.getItem('theme') || 'blue';
+    document.documentElement.classList.add('theme-' + savedTheme);
+  </script>
+
   <!-- GTranslateウィジェット初期化 -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
@@ -17,14 +24,6 @@
     }
   </script>
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
-
-  <!-- ページ読み込み前に保存テーマを適用 -->
-  <script>
-    (function(){
-      var savedTheme = localStorage.getItem('theme') || 'blue';
-      document.documentElement.classList.add('theme-' + savedTheme);
-    })();
-  </script>
 </head>
 <body>
   <!-- ヘッダー外部読み込み -->
@@ -77,8 +76,8 @@
 
   <!-- プレスリリースデータ -->
   <script src="releases.js"></script>
-  
   <script>
+    // ヘッダー・フッター読み込み用関数
     async function loadHTML(url, elementId) {
       try {
         const response = await fetch(url);
@@ -89,6 +88,7 @@
       }
     }
     
+    // 検索バーイベント設定
     function setupSearch(inputId, btnId) {
       const input = document.getElementById(inputId);
       const btn = document.getElementById(btnId);
@@ -116,7 +116,7 @@
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
       
-      // 最新プレスリリースの挿入処理
+      // 最新6件のプレスリリース表示
       if (typeof releasesData !== "undefined") {
         const container = document.querySelector(".releases");
         if (container) {
@@ -142,20 +142,33 @@
         }
       }
       
-      // footer 内の select（id="themeSelector"）にイベントを設定
-      // ※footer.html 内にすでにセレクトボックスが組み込まれている前提
-      var themeSelector = document.getElementById('themeSelector');
-      if (themeSelector) {
-         // 初期値を localStorage から反映
-         themeSelector.value = localStorage.getItem('theme') || 'blue';
-         themeSelector.addEventListener('change', function(){
-           var theme = this.value; // "blue", "green", "neon", "black"
-           localStorage.setItem('theme', theme);
-           document.documentElement.classList.remove('theme-blue','theme-green','theme-neon','theme-black');
-           document.documentElement.classList.add('theme-' + theme);
-         });
-      } else {
-         console.error("Theme selector not found in footer.");
+      // ヘッダー内の「header-top-right」にテーマセレクターを追加
+      var headerTopRight = document.querySelector(".header-top-right");
+      if(headerTopRight) {
+        var themeContainer = document.createElement("div");
+        themeContainer.id = "themeSelectorContainer";
+        // 右端に配置するためのスタイル（ヘッダー内の余白に合わせる）
+        themeContainer.style.marginLeft = "auto";
+        themeContainer.style.paddingLeft = "10px";
+        themeContainer.innerHTML = `
+          <select id="themeSelector">
+            <option value="blue">NAVY</option>
+            <option value="green">GREEN</option>
+            <option value="neon">NEON</option>
+            <option value="black">BLACK</option>
+          </select>
+        `;
+        headerTopRight.appendChild(themeContainer);
+        
+        // セレクトボックスに保存されたテーマを反映
+        document.getElementById('themeSelector').value = savedTheme;
+        
+        document.getElementById('themeSelector').addEventListener('change', function(){
+          var theme = this.value;
+          localStorage.setItem('theme', theme);
+          document.documentElement.classList.remove('theme-blue','theme-green','theme-neon','theme-black');
+          document.documentElement.classList.add('theme-' + theme);
+        });
       }
     });
   </script>
