@@ -1,7 +1,8 @@
 /* Google Fonts: Poppins と Noto Sans Bengali */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Noto+Sans+Bengali:wght@400;700&display=swap');
 
-/* 初期値は青テーマ（デフォルト） */
+/* 初期テーマ（Blue / オリジナル） */
+/* :root の変数は、青テーマがデフォルトとなります。 */
 :root {
   --primary-bg: #ffffff;
   --secondary-bg: #e8faff;
@@ -13,24 +14,17 @@
   --border-color: #e0e0e0;
   --hover-shadow: rgba(0, 0, 0, 0.15);
   --hero-bg-overlay: rgba(0,123,255,0.8);
+  /* Bubble colors for Blue theme */
+  --bubble-color1: rgba(0,123,255,0.7);
+  --bubble-color2: rgba(0,123,255,0.6);
+  --bubble-color3: rgba(0,123,255,0.8);
+  --bubble-color4: rgba(0,123,255,0.5);
+  --bubble-color5: rgba(0,123,255,0.9);
+  --bubble-color-side: rgba(0,123,255,0.6);
+  --bubble-color-large: rgba(0,123,255,0.5);
 }
 
-/* テーマ切替用クラス */
-/* 青テーマ（default） */
-.theme-blue {
-  --primary-bg: #ffffff;
-  --secondary-bg: #e8faff;
-  --accent-color: #007bff;
-  --highlight-color: #0056b3;
-  --text-color: #333333;
-  --sub-text: #777777;
-  --card-bg: #ffffff;
-  --border-color: #e0e0e0;
-  --hover-shadow: rgba(0, 0, 0, 0.15);
-  --hero-bg-overlay: rgba(0,123,255,0.8);
-}
-
-/* 緑テーマ */
+/* Green theme */
 .theme-green {
   --primary-bg: #ffffff;
   --secondary-bg: #e8f5e9;
@@ -42,9 +36,16 @@
   --border-color: #e0e0e0;
   --hover-shadow: rgba(0, 0, 0, 0.15);
   --hero-bg-overlay: rgba(0,106,78,0.8);
+  --bubble-color1: rgba(0,150,100,0.7);
+  --bubble-color2: rgba(0,150,100,0.6);
+  --bubble-color3: rgba(0,150,100,0.8);
+  --bubble-color4: rgba(0,150,100,0.5);
+  --bubble-color5: rgba(0,150,100,0.9);
+  --bubble-color-side: rgba(0,150,100,0.6);
+  --bubble-color-large: rgba(0,150,100,0.5);
 }
 
-/* ネオンテーマ */
+/* Neon theme */
 .theme-neon {
   --primary-bg: #121212;
   --secondary-bg: #1f1f1f;
@@ -56,9 +57,18 @@
   --border-color: #333333;
   --hover-shadow: 0 0 15px rgba(0,234,255,0.6);
   --hero-bg-overlay: rgba(0,234,255,0.3);
+  --bubble-color1: rgba(255,20,147,0.7);
+  --bubble-color2: rgba(255,20,147,0.6);
+  --bubble-color3: rgba(255,20,147,0.8);
+  --bubble-color4: rgba(255,20,147,0.5);
+  --bubble-color5: rgba(255,20,147,0.9);
+  --bubble-color-side: rgba(255,20,147,0.6);
+  --bubble-color-large: rgba(255,20,147,0.5);
 }
 
-/* 以下、既存のスタイルは変数を利用して記述 */
+/* ------------------------------------------------- */
+/* 以下、既存のスタイル（ヘッダー、ヒーロー、グリッド、サービス、サイト情報、Footer、レスポンシブ対応） */
+/* ------------------------------------------------- */
 
 * {
   margin: 0;
@@ -506,7 +516,9 @@ footer {
   }
 }
 
-/* 全ページ背景にネオンバブルを表示するための設定（html::beforeを使用） */
+/* ------------------------------------------------- */
+/* 全ページ背景にバブルを表示（html::before） */
+/* バブルの色は各テーマの CSS 変数 (--bubble-color*) により決定 */
 html {
   position: relative;
   z-index: 0;
@@ -522,18 +534,15 @@ html::before {
   pointer-events: none;
   z-index: -9999;
   background:
-    /* 小～中サイズのバブル：ネオンピンク */
-    radial-gradient(circle, rgba(255,20,147,0.7) 20%, transparent 20%) 10% 80% / 50px 50px no-repeat,
-    radial-gradient(circle, rgba(255,20,147,0.6) 15%, transparent 15%) 70% 60% / 40px 40px no-repeat,
-    radial-gradient(circle, rgba(255,20,147,0.8) 25%, transparent 25%) 30% 40% / 60px 60px no-repeat,
-    radial-gradient(circle, rgba(255,20,147,0.5) 30%, transparent 30%) 50% 20% / 80px 80px no-repeat,
-    radial-gradient(circle, rgba(255,20,147,0.9) 35%, transparent 35%) 80% 10% / 100px 100px no-repeat,
-    /* 左右端のバブル */
-    radial-gradient(circle, rgba(255,20,147,0.6) 25%, transparent 25%) 0% 50% / 80px 80px no-repeat,
-    radial-gradient(circle, rgba(255,20,147,0.6) 25%, transparent 25%) 100% 50% / 80px 80px no-repeat,
-    /* 大きなバブル */
-    radial-gradient(circle, rgba(255,20,147,0.5) 40%, transparent 40%) 25% 10% / 120px 120px no-repeat,
-    radial-gradient(circle, rgba(255,20,147,0.5) 40%, transparent 40%) 75% 90% / 150px 150px no-repeat;
+    radial-gradient(circle, var(--bubble-color1) 20%, transparent 20%) 10% 80% / 50px 50px no-repeat,
+    radial-gradient(circle, var(--bubble-color2) 15%, transparent 15%) 70% 60% / 40px 40px no-repeat,
+    radial-gradient(circle, var(--bubble-color3) 25%, transparent 25%) 30% 40% / 60px 60px no-repeat,
+    radial-gradient(circle, var(--bubble-color4) 30%, transparent 30%) 50% 20% / 80px 80px no-repeat,
+    radial-gradient(circle, var(--bubble-color5) 35%, transparent 35%) 80% 10% / 100px 100px no-repeat,
+    radial-gradient(circle, var(--bubble-color-side) 25%, transparent 25%) 0% 50% / 80px 80px no-repeat,
+    radial-gradient(circle, var(--bubble-color-side) 25%, transparent 25%) 100% 50% / 80px 80px no-repeat,
+    radial-gradient(circle, var(--bubble-color-large) 40%, transparent 40%) 25% 10% / 120px 120px no-repeat,
+    radial-gradient(circle, var(--bubble-color-large) 40%, transparent 40%) 75% 90% / 150px 150px no-repeat;
   animation: bubbleAnimation 15s linear infinite;
 }
 

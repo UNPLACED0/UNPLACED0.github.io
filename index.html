@@ -19,7 +19,7 @@
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
 </head>
 <body>
-  <!-- ヘッダーを外部ファイルから読み込む領域 -->
+  <!-- ヘッダー外部読み込み -->
   <div id="header-placeholder"></div>
 
   <!-- ヒーローセクション -->
@@ -35,7 +35,7 @@
     <!-- JavaScriptで最新6件を動的に挿入 -->
   </section>
 
-  <!-- サービス紹介セクション（背景色付き） -->
+  <!-- サービス紹介セクション -->
   <section class="service-section">
     <div class="service-content">
       <div class="service-text">
@@ -64,13 +64,13 @@
     </div>
   </section>
 
-  <!-- フッターを外部ファイルから読み込む領域 -->
+  <!-- フッター外部読み込み -->
   <div id="footer-placeholder"></div>
 
   <!-- プレスリリースデータ -->
   <script src="releases.js"></script>
   <script>
-    // ヘッダーやフッターを外部ファイルから読み込む関数
+    // ヘッダー・フッター読み込み用関数
     function loadHTML(url, elementId) {
       return fetch(url)
         .then(response => response.text())
@@ -79,8 +79,7 @@
         })
         .catch(error => console.error('Error loading ' + url + ':', error));
     }
-
-    // 検索機能の設定
+    // 検索バーイベント設定
     function setupSearch(inputId, btnId) {
       const input = document.getElementById(inputId);
       const btn = document.getElementById(btnId);
@@ -101,23 +100,17 @@
         });
       }
     }
-
     document.addEventListener("DOMContentLoaded", async () => {
-      // ヘッダー・フッターの読み込みが終わるまで待機
       await loadHTML('includes/header.html', 'header-placeholder');
       await loadHTML('includes/footer.html', 'footer-placeholder');
-
-      // 検索バーのイベントバインド
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
-
-      // 最新6件のプレスリリースを表示
+      
+      // 最新6件のプレスリリース表示
       if (typeof releasesData !== "undefined") {
         const container = document.querySelector(".releases");
         if (container) {
-          // 日付が新しい順にソート
           releasesData.sort((a, b) => new Date(b.date) - new Date(a.date));
-          // 上位6件を表示
           const latestSix = releasesData.slice(0, 6);
           latestSix.forEach(release => {
             const card = document.createElement("div");
@@ -138,20 +131,25 @@
           });
         }
       }
+      // テーマの初期設定（localStorageから取得、無ければ blue）
+      var savedTheme = localStorage.getItem('theme') || 'blue';
+      document.documentElement.classList.add('theme-' + savedTheme);
+      document.getElementById('themeSelector').value = savedTheme;
     });
   </script>
-  <!-- テーマ切り替え用セレクトボックス -->
+
+  <!-- テーマ切り替え用セレクトボックス（固定配置） -->
   <div id="themeSelectorContainer" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: var(--secondary-bg); padding: 8px; border-radius: 4px;">
     <select id="themeSelector">
-      <option value="blue">Blue</option>
+      <option value="blue">Blue (オリジナル)</option>
       <option value="green">Green</option>
       <option value="neon">Neon</option>
     </select>
   </div>
   <script>
     document.getElementById('themeSelector').addEventListener('change', function(){
-      var theme = this.value; // "blue", "green", "neon"
-      // 既存のテーマクラスをすべて削除して新しいテーマクラスを追加
+      var theme = this.value;
+      localStorage.setItem('theme', theme);
       document.documentElement.classList.remove('theme-blue','theme-green','theme-neon');
       document.documentElement.classList.add('theme-' + theme);
     });
