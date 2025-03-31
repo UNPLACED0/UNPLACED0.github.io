@@ -625,3 +625,99 @@ html::before {
       75% 90%;   /* Large Bubble 2 */
   }
 }
+/* ------------------------------------------------- */
+/* CMS管理画面固有の上書きルール（cms.html 用） */
+/* ------------------------------------------------- */
+
+.cms-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px 30px;
+  background-color: var(--primary-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* CMS用ボタンの統一 */
+.cms-container .btn,
+.cms-container .cms-button,
+.cms-container .toggle-btn {
+  background-color: var(--accent-color);
+  color: var(--primary-bg);
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.cms-container .btn:hover,
+.cms-container .cms-button:hover,
+.cms-container .toggle-btn:hover {
+  background-color: var(--highlight-color);
+  transform: translateY(-2px);
+}
+
+/* CMS用入力フォーム等の統一 */
+.cms-container input,
+.cms-container textarea,
+.cms-container select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: var(--secondary-bg);
+  color: var(--text-color);
+}
+
+.cms-container input:focus,
+.cms-container textarea:focus,
+.cms-container select:focus {
+  border-color: var(--accent-color);
+  outline: none;
+}
+
+/* エラーメッセージ */
+.cms-container .error-message {
+  color: var(--highlight-color);
+  margin-top: 5px;
+  font-size: 0.9rem;
+}
+
+/* CMS内検索 */
+.cms-container .cms-search {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.cms-container .cms-search input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: var(--secondary-bg);
+  color: var(--text-color);
+}
+.cms-container .cms-search button {
+  padding: 8px 14px;
+  background-color: var(--accent-color);
+  color: var(--primary-bg);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 1rem;
+}
+.cms-container .cms-search button:hover {
+  background-color: var(--highlight-color);
+}
+

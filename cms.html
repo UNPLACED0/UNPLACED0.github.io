@@ -12,12 +12,16 @@
   <title>CMS管理画面 - UP Global Press</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* 全体のCMSコンテナ */
+    /* ----------------------------- */
+    /* CMS管理画面専用の上書きルール */
+    /* ----------------------------- */
+    
     .cms-container {
       max-width: 1200px;
       margin: 40px auto;
       padding: 20px 30px;
-      background: #fff;
+      background-color: var(--primary-bg);
+      color: var(--text-color);
       border: 1px solid var(--border-color);
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -29,30 +33,13 @@
       color: var(--accent-color);
       font-size: 1.8rem;
     }
-
-    /* トグルボタン */
-    .toggle-btn {
-      background: linear-gradient(90deg, #007bff, #00aaff);
-      color: #fff;
-      border: none;
-      border-radius: 20px;
-      padding: 10px 20px;
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: background 0.3s ease, transform 0.2s ease;
-      margin-bottom: 15px;
-    }
-    .toggle-btn:hover {
-      background: linear-gradient(90deg, #0056b3, #0088cc);
-      transform: translateY(-2px);
-    }
-
-    /* ボタン共通 */
-    .btn {
-      background: linear-gradient(90deg, #28a745, #5cb85c);
-      color: #fff;
+    
+    /* CMS用ボタンの統一 */
+    .cms-container .btn,
+    .cms-container .cms-button,
+    .cms-container .toggle-btn {
+      background-color: var(--accent-color);
+      color: var(--primary-bg);
       border: none;
       border-radius: 20px;
       padding: 10px 20px;
@@ -62,30 +49,34 @@
       cursor: pointer;
       transition: background 0.3s ease, transform 0.2s ease;
     }
-    .btn:hover {
-      background: linear-gradient(90deg, #218838, #4cae4c);
+    .cms-container .btn:hover,
+    .cms-container .cms-button:hover,
+    .cms-container .toggle-btn:hover {
+      background-color: var(--highlight-color);
       transform: translateY(-2px);
     }
-
+    
     /* フォーム要素 */
-    .form-group {
+    .cms-container .form-group {
       margin-bottom: 15px;
     }
-    .form-group label {
+    .cms-container .form-group label {
       display: block;
       font-weight: 600;
       margin-bottom: 5px;
     }
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
+    .cms-container .form-group input,
+    .cms-container .form-group textarea,
+    .cms-container .form-group select {
       width: 100%;
       padding: 10px;
       border: 1px solid var(--border-color);
       border-radius: 4px;
       font-size: 1rem;
+      background-color: var(--secondary-bg);
+      color: var(--text-color);
     }
-    .json-output {
+    .cms-container .json-output {
       width: 100%;
       height: 220px;
       font-size: 0.9rem;
@@ -93,10 +84,12 @@
       margin-top: 10px;
       border: 1px solid var(--border-color);
       border-radius: 4px;
+      background-color: var(--secondary-bg);
+      color: var(--text-color);
     }
-
+    
     /* ログアウトボタン */
-    .logout-btn {
+    .cms-container .logout-btn {
       padding: 8px 14px;
       background: transparent;
       color: var(--accent-color);
@@ -107,46 +100,80 @@
       transition: background 0.3s, color 0.3s;
       margin-left: 10px;
     }
-    .logout-btn:hover {
+    .cms-container .logout-btn:hover {
       background: var(--accent-color);
-      color: #fff;
+      color: var(--primary-bg);
     }
-    .error-message {
-      color: #d9534f;
+    .cms-container .error-message {
+      color: var(--highlight-color);
       margin-top: 5px;
       font-size: 0.9rem;
     }
-
+    
+    /* CMS内検索 */
+    .cms-container .cms-search {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .cms-container .cms-search input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 1rem;
+      background-color: var(--secondary-bg);
+      color: var(--text-color);
+    }
+    .cms-container .cms-search button {
+      padding: 8px 14px;
+      background-color: var(--accent-color);
+      color: var(--primary-bg);
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-size: 1rem;
+    }
+    .cms-container .cms-search button:hover {
+      background-color: var(--highlight-color);
+    }
+    
     /* コンテンツセクション */
-    .content-section {
+    .cms-container .content-section {
       border: 1px dashed var(--border-color);
       padding: 10px;
       margin-bottom: 10px;
       border-radius: 4px;
       position: relative;
-      background: #fafafa;
+      background-color: var(--secondary-bg);
     }
-    .content-section .remove-section-btn {
+    .cms-container .content-section .remove-section-btn {
       position: absolute;
       top: 10px;
       right: 10px;
       padding: 4px 8px;
-      background: #ccc;
+      background-color: var(--accent-color);
       border: none;
       border-radius: 4px;
       cursor: pointer;
       font-size: 0.9rem;
+      color: var(--primary-bg);
+      transition: background 0.3s ease;
     }
-    .content-section .remove-section-btn:hover {
-      background: #999;
+    .cms-container .content-section .remove-section-btn:hover {
+      background-color: var(--highlight-color);
     }
-    .quill-container {
+    .cms-container .quill-container {
       border: 1px solid var(--border-color);
       border-radius: 4px;
       margin-bottom: 10px;
       min-height: 150px;
+      background-color: var(--primary-bg);
+      color: var(--text-color);
     }
-    .add-section-btn {
+    .cms-container .add-section-btn {
       display: inline-block;
       padding: 8px 14px;
       background: linear-gradient(90deg, #ff6600, #ff8533);
@@ -157,51 +184,34 @@
       transition: background 0.3s ease;
       margin-top: 10px;
     }
-    .add-section-btn:hover {
+    .cms-container .add-section-btn:hover {
       background: linear-gradient(90deg, #e65c00, #ff751a);
     }
-
-    /* タグ入力部分 */
-    .tag-group {
-      margin-bottom: 10px;
+    
+    /* 管理者一覧テーブルのデザイン */
+    .releases-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
     }
-    .tag-group label {
-      font-weight: 600;
-      margin-bottom: 5px;
-      display: block;
-    }
-    .thumbnail-note {
-      font-size: 0.9rem;
-      color: var(--sub-text);
-      margin-top: 4px;
-    }
-
-    /* CMS内検索 */
-    .cms-search {
-      margin-bottom: 20px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-    .cms-search input {
-      flex: 1;
-      padding: 8px 12px;
+    .releases-table th,
+    .releases-table td {
+      padding: 12px 15px;
       border: 1px solid var(--border-color);
-      border-radius: 4px;
-      font-size: 1rem;
+      text-align: left;
     }
-    .cms-search button {
-      padding: 8px 14px;
-      background: linear-gradient(90deg, #6f42c1, #8a4bdb);
-      color: #fff;
-      border: none;
-      border-radius: 20px;
+    .releases-table th {
+      background-color: var(--accent-color);
+      color: var(--primary-bg);
+      font-weight: 600;
+    }
+    .releases-table tbody tr:nth-child(even) {
+      background-color: var(--secondary-bg);
+    }
+    .releases-table tbody tr:hover {
+      background-color: var(--highlight-color);
+      color: var(--primary-bg);
       cursor: pointer;
-      transition: background 0.3s ease;
-      font-size: 1rem;
-    }
-    .cms-search button:hover {
-      background: linear-gradient(90deg, #59359f, #7445b8);
     }
   </style>
 
@@ -245,16 +255,20 @@
           <a href="contact.html">お問い合わせ</a>
         </nav>
         <div class="search-bar">
-          <input type="text" placeholder="キーワードで検索" id="searchInput">
+          <input type="text" placeholder="キーワードで検索" id="searchInput" />
           <button id="searchBtn">検索</button>
         </div>
-        <input type="checkbox" id="menu-toggle" style="display:none;">
+        <input type="checkbox" id="menu-toggle" style="display:none;" />
         <label for="menu-toggle" class="hamburger">&#9776;</label>
         <div class="mobile-nav">
           <a href="index.html">ホーム</a>
           <a href="categories.html">カテゴリー</a>
           <a href="release_list.html">プレスリリース一覧</a>
           <a href="contact.html">お問い合わせ</a>
+          <div class="search-bar">
+            <input type="text" placeholder="キーワードで検索" id="searchInputMobile" />
+            <button id="searchBtnMobile">検索</button>
+          </div>
         </div>
       </div>
     </div>
@@ -264,7 +278,7 @@
     <h1>プレスリリース管理</h1>
     <!-- CMS内検索 -->
     <div class="cms-search" id="cmsSearchContainer">
-      <input type="text" id="cmsSearchInput" placeholder="管理内検索">
+      <input type="text" id="cmsSearchInput" placeholder="管理内検索" />
       <button id="cmsSearchBtn">検索</button>
     </div>
 
@@ -350,7 +364,7 @@
     </div>
   </main>
 
-  <!-- フッター読み込み -->
+  <!-- フッター外部読み込み -->
   <div id="footer-placeholder"></div>
 
   <script src="releases.js"></script>

@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <script>
+    // 保存されたテーマを取得（なければ "blue" をデフォルト）
+    var savedTheme = localStorage.getItem('theme') || 'blue';
+    // html 要素にテーマクラスを追加
+    document.documentElement.classList.add('theme-' + savedTheme);
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UP Global Press 利用規約</title>
