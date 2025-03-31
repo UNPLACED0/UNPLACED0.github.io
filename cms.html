@@ -24,7 +24,7 @@
       color: var(--text-color);
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       font-family: 'Poppins', sans-serif;
     }
     .cms-container h1 {
@@ -173,11 +173,12 @@
       background-color: var(--primary-bg);
       color: var(--text-color);
     }
+    /* 修正：セクション追加ボタンの色を統一 */
     .cms-container .add-section-btn {
       display: inline-block;
       padding: 8px 14px;
-      background: linear-gradient(90deg, #ff6600, #ff8533);
-      color: #fff;
+      background: var(--accent-color);
+      color: var(--primary-bg);
       border: none;
       border-radius: 20px;
       cursor: pointer;
@@ -185,7 +186,7 @@
       margin-top: 10px;
     }
     .cms-container .add-section-btn:hover {
-      background: linear-gradient(90deg, #e65c00, #ff751a);
+      background: var(--highlight-color);
     }
     
     /* 管理者一覧テーブルのデザイン */
@@ -538,7 +539,7 @@
       }
     });
 
-    // 保存
+    // 保存処理
     saveBtn.addEventListener("click", () => {
       const selectedTag = releaseTagSelect.value.trim();
       if (selectedTag === "") {
@@ -580,11 +581,19 @@
     // キャンセル
     cancelBtn.addEventListener("click", () => { clearForm(); });
 
-    // JSON生成
+    // JSON生成＆コピー機能の追加
     generateJsonBtn.addEventListener("click", () => {
       let outputData = (role === "editor") ? cmsReleasesData.slice(initialCount) : cmsReleasesData;
       const jsonStr = JSON.stringify(outputData, null, 2);
       jsonOutput.value = `var releasesData = ${jsonStr};`;
+      // クリップボードへコピー
+      navigator.clipboard.writeText(jsonOutput.value)
+        .then(() => {
+          alert("JSONがクリップボードにコピーされました。");
+        })
+        .catch(err => {
+          alert("クリップボードへのコピーに失敗しました: " + err);
+        });
     });
 
     // 編集モード
