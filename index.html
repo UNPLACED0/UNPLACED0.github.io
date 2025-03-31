@@ -135,26 +135,44 @@
       // テーマの初期設定（localStorageから取得、なければ blue）
       var savedTheme = localStorage.getItem('theme') || 'blue';
       document.documentElement.classList.add('theme-' + savedTheme);
-      // footer 内のセレクトボックスの値を設定
-      document.getElementById('themeSelector').value = savedTheme;
     });
   </script>
 
-  <!-- テーマ切替用セレクトボックス（footer内に固定） -->
-  <div id="themeSelectorContainer" style="margin-top: 20px; text-align: center;">
-    <select id="themeSelector">
-      <option value="blue">NAVY</option>
-      <option value="green">GREEN</option>
-      <option value="neon">NEON</option>
-      <option value="black">BLACK</option>
-    </select>
-  </div>
+  <!-- ヘッダーの右端に配置するテーマ切替用セレクトボックス -->
   <script>
-    document.getElementById('themeSelector').addEventListener('change', function(){
-      var theme = this.value; // blue, green, neon, black
-      localStorage.setItem('theme', theme);
-      document.documentElement.classList.remove('theme-blue','theme-green','theme-neon','theme-black');
-      document.documentElement.classList.add('theme-' + theme);
+    // ヘッダーの読み込み後、テーマセレクターをヘッダー内に追加
+    document.addEventListener("DOMContentLoaded", function(){
+      var header = document.querySelector("header");
+      if(header) {
+        // テーマセレクターコンテナを作成（右端に固定）
+        var themeContainer = document.createElement("div");
+        themeContainer.id = "themeSelectorContainer";
+        themeContainer.style.position = "absolute";
+        themeContainer.style.right = "20px";
+        themeContainer.style.top = "10px";
+        themeContainer.innerHTML = `
+          <select id="themeSelector">
+            <option value="blue">NAVY</option>
+            <option value="green">GREEN</option>
+            <option value="neon">NEON</option>
+            <option value="black">BLACK</option>
+          </select>
+        `;
+        // ヘッダー内に追加（headerは外部ファイルで読み込まれているので、ここでappendChild）
+        header.appendChild(themeContainer);
+        
+        // 初期テーマの値を設定
+        var savedTheme = localStorage.getItem('theme') || 'blue';
+        document.getElementById('themeSelector').value = savedTheme;
+        
+        // テーマ変更時のイベントリスナー
+        document.getElementById('themeSelector').addEventListener('change', function(){
+          var theme = this.value; // blue, green, neon, black
+          localStorage.setItem('theme', theme);
+          document.documentElement.classList.remove('theme-blue','theme-green','theme-neon','theme-black');
+          document.documentElement.classList.add('theme-' + theme);
+        });
+      }
     });
   </script>
 </body>
