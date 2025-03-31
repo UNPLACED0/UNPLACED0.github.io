@@ -1,27 +1,48 @@
 /* Google Fonts: Poppins と Noto Sans Bengali */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Noto+Sans+Bengali:wght@400;700&display=swap');
 
-/* 初期テーマ（Blue / オリジナル） */
-/* :root の変数は、青テーマがデフォルトとなります。 */
+/* 初期テーマ（Blue／デフォルト・ネイビー調） */
 :root {
   --primary-bg: #ffffff;
-  --secondary-bg: #e8faff;
-  --accent-color: #007bff;
-  --highlight-color: #0056b3;
+  --secondary-bg: #f2f2f2;
+  --accent-color: #002244;
+  --highlight-color: #0055aa;
   --text-color: #333333;
   --sub-text: #777777;
   --card-bg: #ffffff;
   --border-color: #e0e0e0;
   --hover-shadow: rgba(0, 0, 0, 0.15);
-  --hero-bg-overlay: rgba(0,123,255,0.8);
+  --hero-bg-overlay: rgba(0,34,68,0.8);
   /* Bubble colors for Blue theme */
-  --bubble-color1: rgba(0,123,255,0.7);
-  --bubble-color2: rgba(0,123,255,0.6);
-  --bubble-color3: rgba(0,123,255,0.8);
-  --bubble-color4: rgba(0,123,255,0.5);
-  --bubble-color5: rgba(0,123,255,0.9);
-  --bubble-color-side: rgba(0,123,255,0.6);
-  --bubble-color-large: rgba(0,123,255,0.5);
+  --bubble-color1: rgba(0,34,68,0.7);
+  --bubble-color2: rgba(0,34,68,0.6);
+  --bubble-color3: rgba(0,34,68,0.8);
+  --bubble-color4: rgba(0,34,68,0.5);
+  --bubble-color5: rgba(0,34,68,0.9);
+  --bubble-color-side: rgba(0,34,68,0.6);
+  --bubble-color-large: rgba(0,34,68,0.5);
+}
+
+/* テーマ切替用クラス */
+/* Blue theme（オリジナル・ネイビー調） */
+.theme-blue {
+  --primary-bg: #ffffff;
+  --secondary-bg: #f2f2f2;
+  --accent-color: #002244;
+  --highlight-color: #0055aa;
+  --text-color: #333333;
+  --sub-text: #777777;
+  --card-bg: #ffffff;
+  --border-color: #e0e0e0;
+  --hover-shadow: rgba(0, 0, 0, 0.15);
+  --hero-bg-overlay: rgba(0,34,68,0.8);
+  --bubble-color1: rgba(0,34,68,0.7);
+  --bubble-color2: rgba(0,34,68,0.6);
+  --bubble-color3: rgba(0,34,68,0.8);
+  --bubble-color4: rgba(0,34,68,0.5);
+  --bubble-color5: rgba(0,34,68,0.9);
+  --bubble-color-side: rgba(0,34,68,0.6);
+  --bubble-color-large: rgba(0,34,68,0.5);
 }
 
 /* Green theme */
@@ -517,8 +538,8 @@ footer {
 }
 
 /* ------------------------------------------------- */
-/* 全ページ背景にバブルを表示（html::before） */
-/* バブルの色は各テーマの CSS 変数 (--bubble-color*) により決定 */
+/* 全ページ背景にバブルを表示する設定（html::beforeを使用） */
+/* バブルの色は各テーマの変数 (--bubble-color*) によって決定 */
 html {
   position: relative;
   z-index: 0;
