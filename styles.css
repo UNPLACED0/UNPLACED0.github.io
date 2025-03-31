@@ -457,3 +457,36 @@ footer {
     font-size: 1rem;
   }
 }
+
+/* 以下、全ページ背景にバブルを表示するためのスタイル */
+body {
+  position: relative;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  background: 
+    radial-gradient(circle, rgba(255,255,255,0.3) 20%, transparent 20%) 10% 80% / 50px 50px no-repeat,
+    radial-gradient(circle, rgba(255,255,255,0.25) 15%, transparent 15%) 70% 60% / 40px 40px no-repeat,
+    radial-gradient(circle, rgba(255,255,255,0.35) 25%, transparent 25%) 30% 40% / 60px 60px no-repeat;
+  animation: bubbleAnimation 15s linear infinite;
+}
+
+@keyframes bubbleAnimation {
+  0% {
+    background-position: 10% 80%, 70% 60%, 30% 40%;
+  }
+  50% {
+    background-position: 20% 50%, 60% 30%, 40% 70%;
+  }
+  100% {
+    background-position: 10% 80%, 70% 60%, 30% 40%;
+  }
+}
