@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UP Global Press - ホーム</title>
   <link rel="stylesheet" href="styles.css" />
-  <!-- Google Translate ウィジェット -->
+  <!-- Google Translate ウィジェット初期化 -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
@@ -18,7 +18,7 @@
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
 </head>
 <body>
-  <!-- ヘッダーの外部読み込み -->
+  <!-- ヘッダーを外部ファイルから読み込む -->
   <div id="header-placeholder"></div>
 
   <!-- ヒーローセクション -->
@@ -31,17 +31,19 @@
 
   <!-- 最新プレスリリース（最新6件） -->
   <section class="releases">
-    <!-- releases.jsのデータから最新6件を動的に挿入 -->
+    <!-- JavaScriptで最新6件を動的に挿入 -->
   </section>
 
-  <!-- サービス紹介セクション（CTAボタン含む） -->
+  <!-- サービス紹介セクション（背景色付き） -->
   <section class="service-section">
     <div class="service-content">
       <div class="service-text">
         <h2 class="catch-large">UP Global Press</h2>
         <h3 class="catch-small">– 世界へあなたのニュースを届けよう！</h3>
         <p>
-          サービスやプレスリリースに関するご質問はお気軽にお問い合わせください。最新情報の発信をサポートします。
+          UP Global Pressにご関心をお持ちいただき、ありがとうございます。<br>
+          サービスやプレスリリースに関するご質問など、お気軽にお問い合わせください。<br>
+          担当者が丁寧に対応いたします。
         </p>
         <div style="text-align: center; margin-top: 20px;">
           <a href="contact.html" class="cta-btn">プレスリリース配信のお問い合わせ</a>
@@ -61,22 +63,26 @@
     </div>
   </section>
 
-  <!-- フッターの外部読み込み -->
+  <!-- フッターを外部ファイルから読み込む -->
   <div id="footer-placeholder"></div>
 
+  <!-- プレスリリースデータ読み込み用スクリプト -->
   <script src="releases.js"></script>
   <script>
-    // 共通コンポーネントの読み込み
-    async function loadHTML(url, elementId) {
-      const response = await fetch(url);
-      const data = await response.text();
-      document.getElementById(elementId).innerHTML = data;
+    // ヘッダー・フッターの動的読み込み
+    function loadHTML(url, elementId) {
+      return fetch(url)
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById(elementId).innerHTML = data;
+        })
+        .catch(error => console.error('Error loading ' + url + ':', error));
     }
     document.addEventListener("DOMContentLoaded", async () => {
       await loadHTML('includes/header.html', 'header-placeholder');
       await loadHTML('includes/footer.html', 'footer-placeholder');
-      setupSearch("searchInput", "searchBtn");
-      setupSearch("searchInputMobile", "searchBtnMobile");
+
+      // 検索機能などの各ページ固有の初期化処理（各ページで実装）
 
       // 最新6件のプレスリリースを表示
       if (typeof releasesData !== "undefined") {
@@ -103,33 +109,14 @@
       }
     });
 
-    function setupSearch(inputId, btnId) {
-      const input = document.getElementById(inputId);
-      const btn = document.getElementById(btnId);
-      if (input && btn) {
-        btn.addEventListener("click", () => {
-          const query = input.value.trim();
-          if (query) {
-            window.location.href = "search.html?query=" + encodeURIComponent(query);
-          }
-        });
-        input.addEventListener("keypress", (e) => {
-          if (e.key === "Enter") {
-            const query = input.value.trim();
-            if (query) {
-              window.location.href = "search.html?query=" + encodeURIComponent(query);
-            }
-          }
-        });
-      }
-    }
-
-    // CTAボタンのクリックフィードバック
+    // CTA ボタンのクリック時フィードバック（動的エフェクト）
     document.addEventListener("DOMContentLoaded", function() {
       document.querySelectorAll('.cta-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function(e) {
           this.style.transform = 'scale(0.98)';
-          setTimeout(() => { this.style.transform = 'scale(1)'; }, 150);
+          setTimeout(() => {
+            this.style.transform = 'scale(1)';
+          }, 150);
         });
       });
     });
