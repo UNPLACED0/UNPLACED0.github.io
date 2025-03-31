@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UP Global Press - ホーム</title>
   <link rel="stylesheet" href="styles.css" />
-
   <!-- Google Translate ウィジェット -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
@@ -19,7 +18,7 @@
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
 </head>
 <body>
-  <!-- ヘッダー読み込み -->
+  <!-- ヘッダーの外部読み込み -->
   <div id="header-placeholder"></div>
 
   <!-- ヒーローセクション -->
@@ -32,17 +31,17 @@
 
   <!-- 最新プレスリリース（最新6件） -->
   <section class="releases">
-    <!-- releases.js のデータから最新6件を動的に挿入 -->
+    <!-- releases.jsのデータから最新6件を動的に挿入 -->
   </section>
 
-  <!-- サービス紹介セクション（CTA ボタン実装） -->
+  <!-- サービス紹介セクション（CTAボタン含む） -->
   <section class="service-section">
     <div class="service-content">
       <div class="service-text">
         <h2 class="catch-large">UP Global Press</h2>
         <h3 class="catch-small">– 世界へあなたのニュースを届けよう！</h3>
         <p>
-          サービスやプレスリリースに関するご質問は、お気軽にお問い合わせください。最新情報の発信をサポートします。
+          サービスやプレスリリースに関するご質問はお気軽にお問い合わせください。最新情報の発信をサポートします。
         </p>
         <div style="text-align: center; margin-top: 20px;">
           <a href="contact.html" class="cta-btn">プレスリリース配信のお問い合わせ</a>
@@ -62,12 +61,12 @@
     </div>
   </section>
 
-  <!-- フッター読み込み -->
+  <!-- フッターの外部読み込み -->
   <div id="footer-placeholder"></div>
 
-  <!-- プレスリリースデータとスクリプト -->
   <script src="releases.js"></script>
   <script>
+    // 共通コンポーネントの読み込み
     async function loadHTML(url, elementId) {
       const response = await fetch(url);
       const data = await response.text();
@@ -125,7 +124,7 @@
       }
     }
 
-    // CTAボタンのクリックエフェクト
+    // CTAボタンのクリックフィードバック
     document.addEventListener("DOMContentLoaded", function() {
       document.querySelectorAll('.cta-btn').forEach(btn => {
         btn.addEventListener('click', function() {
