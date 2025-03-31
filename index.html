@@ -18,7 +18,7 @@
   </script>
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
 
-  <!-- ページ読み込み前に保存テーマを適用（できるだけ早く） -->
+  <!-- ページ読み込み前に保存テーマを適用 -->
   <script>
     (function(){
       var savedTheme = localStorage.getItem('theme') || 'blue';
@@ -115,6 +115,7 @@
     document.addEventListener("DOMContentLoaded", async () => {
       await loadHTML('includes/header.html', 'header-placeholder');
       await loadHTML('includes/footer.html', 'footer-placeholder');
+      
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
       
@@ -143,15 +144,20 @@
           });
         }
       }
+      
+      // テーマの初期設定（localStorageから取得、なければ blue）
+      var savedTheme = localStorage.getItem('theme') || 'blue';
+      document.documentElement.classList.add('theme-' + savedTheme);
     });
   </script>
 
-  <!-- フッター内にテーマ切替用セレクトボックスを追加 -->
+  <!-- footer 内にテーマ切替用セレクトボックスを追加 -->
   <script>
-    // フッターの読み込み完了後に、footer 内にテーマセレクターを追加する
+    // フッター読み込み後、footer-placeholder 内の <footer> 要素を取得
     document.addEventListener("DOMContentLoaded", function(){
-      var footer = document.querySelector("footer");
-      if (footer) {
+      // footer.html の読み込みが完了しているはずなので、#footer-placeholder 内の footer を取得
+      var footer = document.querySelector("#footer-placeholder footer");
+      if(footer) {
         var themeContainer = document.createElement("div");
         themeContainer.id = "themeSelectorContainer";
         themeContainer.style.cssText = "float: right; margin-right: 20px; margin-top: 10px;";
@@ -173,6 +179,8 @@
           document.documentElement.classList.remove('theme-blue','theme-green','theme-neon','theme-black');
           document.documentElement.classList.add('theme-' + theme);
         });
+      } else {
+        console.error("Footer 内の <footer> 要素が見つかりません。");
       }
     });
   </script>
