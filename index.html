@@ -17,6 +17,14 @@
     }
   </script>
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
+
+  <!-- ページ読み込み前に保存テーマを適用（できるだけ早く） -->
+  <script>
+    (function(){
+      var savedTheme = localStorage.getItem('theme') || 'blue';
+      document.documentElement.classList.add('theme-' + savedTheme);
+    })();
+  </script>
 </head>
 <body>
   <!-- ヘッダー外部読み込み -->
@@ -104,11 +112,9 @@
       }
     }
     
-    // DOMContentLoaded 内で header/footer の読み込み完了後にテーマセレクターを追加する
     document.addEventListener("DOMContentLoaded", async () => {
       await loadHTML('includes/header.html', 'header-placeholder');
       await loadHTML('includes/footer.html', 'footer-placeholder');
-      
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
       
@@ -137,18 +143,18 @@
           });
         }
       }
-      
-      // テーマの初期設定（localStorageから取得、なければ blue）
-      var savedTheme = localStorage.getItem('theme') || 'blue';
-      document.documentElement.classList.add('theme-' + savedTheme);
-      
-      // ヘッダー内の右端にある header-top-right にテーマセレクターを追加
-      var headerTopRight = document.querySelector(".header-top-right");
-      if(headerTopRight) {
+    });
+  </script>
+
+  <!-- フッター内にテーマ切替用セレクトボックスを追加 -->
+  <script>
+    // フッターの読み込み完了後に、footer 内にテーマセレクターを追加する
+    document.addEventListener("DOMContentLoaded", function(){
+      var footer = document.querySelector("footer");
+      if (footer) {
         var themeContainer = document.createElement("div");
         themeContainer.id = "themeSelectorContainer";
-        themeContainer.style.marginLeft = "auto";
-        themeContainer.style.paddingLeft = "10px";
+        themeContainer.style.cssText = "float: right; margin-right: 20px; margin-top: 10px;";
         themeContainer.innerHTML = `
           <select id="themeSelector">
             <option value="blue">NAVY</option>
@@ -157,11 +163,10 @@
             <option value="black">BLACK</option>
           </select>
         `;
-        headerTopRight.appendChild(themeContainer);
-        
-        // セレクトボックスに保存テーマを反映
+        footer.appendChild(themeContainer);
+        // セレクトボックスに保存されたテーマの値を反映
+        var savedTheme = localStorage.getItem('theme') || 'blue';
         document.getElementById('themeSelector').value = savedTheme;
-        
         document.getElementById('themeSelector').addEventListener('change', function(){
           var theme = this.value;
           localStorage.setItem('theme', theme);
