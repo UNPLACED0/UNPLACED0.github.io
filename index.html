@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UP Global Press - ホーム</title>
   <link rel="stylesheet" href="styles.css" />
-  <!-- Google Translate ウィジェット初期化 -->
+
+  <!-- GTranslateウィジェット初期化 -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
@@ -18,7 +19,7 @@
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
 </head>
 <body>
-  <!-- ヘッダーを外部ファイルから読み込む -->
+  <!-- ヘッダーを外部ファイルから読み込む領域 -->
   <div id="header-placeholder"></div>
 
   <!-- ヒーローセクション -->
@@ -41,12 +42,12 @@
         <h2 class="catch-large">UP Global Press</h2>
         <h3 class="catch-small">– 世界へあなたのニュースを届けよう！</h3>
         <p>
-          UP Global Pressにご関心をお持ちいただき、ありがとうございます。<br>
+          UP Global Pressにご関心をお持ちいただきまして、ありがとうございます。<br>
           サービスやプレスリリースに関するご質問など、お気軽にお問い合わせください。<br>
           担当者が丁寧に対応いたします。
         </p>
         <div style="text-align: center; margin-top: 20px;">
-          <a href="contact.html" class="cta-btn">プレスリリース配信のお問い合わせ</a>
+          <a href="contact.html" class="big-gray-btn">プレスリリース配信のお問い合わせ</a>
         </div>
       </div>
       <div class="service-img">
@@ -58,18 +59,18 @@
   <!-- サイト情報セクション -->
   <section class="site-info">
     <div class="site-info-content">
-      <h2>UP Global Press</h2>
-      <p>プレスリリース配信ならUP Global Press</p>
+      <h2 style="font-size: 2.5rem; color: var(--accent-color); margin-bottom: 30px;">UP Global Press</h2>
+      <p style="font-size: 1.2rem; color: #333;">プレスリリース配信ならUP Global Press</p>
     </div>
   </section>
 
-  <!-- フッターを外部ファイルから読み込む -->
+  <!-- フッターを外部ファイルから読み込む領域 -->
   <div id="footer-placeholder"></div>
 
-  <!-- プレスリリースデータ読み込み用スクリプト -->
+  <!-- プレスリリースデータ -->
   <script src="releases.js"></script>
   <script>
-    // ヘッダー・フッターの動的読み込み
+    // ヘッダーやフッターを外部ファイルから読み込む関数
     function loadHTML(url, elementId) {
       return fetch(url)
         .then(response => response.text())
@@ -78,47 +79,65 @@
         })
         .catch(error => console.error('Error loading ' + url + ':', error));
     }
+
+    // 検索機能の設定
+    function setupSearch(inputId, btnId) {
+      const input = document.getElementById(inputId);
+      const btn = document.getElementById(btnId);
+      if (input && btn) {
+        btn.addEventListener("click", () => {
+          const query = input.value.trim();
+          if (query) {
+            window.location.href = "search.html?query=" + encodeURIComponent(query);
+          }
+        });
+        input.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
+            const query = input.value.trim();
+            if (query) {
+              window.location.href = "search.html?query=" + encodeURIComponent(query);
+            }
+          }
+        });
+      }
+    }
+
     document.addEventListener("DOMContentLoaded", async () => {
+      // ヘッダー・フッターの読み込みが終わるまで待機
       await loadHTML('includes/header.html', 'header-placeholder');
       await loadHTML('includes/footer.html', 'footer-placeholder');
 
-      // 検索機能などの各ページ固有の初期化処理（各ページで実装）
+      // ヘッダーが挿入されたので、検索バーの要素を取得してイベントをバインド
+      setupSearch("searchInput", "searchBtn");
+      setupSearch("searchInputMobile", "searchBtnMobile");
 
       // 最新6件のプレスリリースを表示
       if (typeof releasesData !== "undefined") {
         const container = document.querySelector(".releases");
-        releasesData.sort((a, b) => new Date(b.date) - new Date(a.date));
-        const latestSix = releasesData.slice(0, 6);
-        latestSix.forEach(release => {
-          const card = document.createElement("div");
-          card.className = "release-card";
-          const tagsText = release.tags ? release.tags.join(", ") : "";
-          card.innerHTML = `
-            <a href="${release.link}">
-              <img src="${release.img}" alt="${release.title}">
-              <div class="release-info">
-                <h2>${release.title}</h2>
-                <p class="date">${release.date}</p>
-                <p class="excerpt">${release.excerpt}</p>
-                <p class="tags">タグ: ${tagsText}</p>
-              </div>
-            </a>
-          `;
-          container.appendChild(card);
-        });
+        if (container) {
+          // 日付が新しい順にソート
+          releasesData.sort((a, b) => new Date(b.date) - new Date(a.date));
+          // 上位6件を表示
+          const latestSix = releasesData.slice(0, 6);
+          latestSix.forEach(release => {
+            const card = document.createElement("div");
+            card.className = "release-card";
+            const tagsText = release.tags ? release.tags.join(", ") : "";
+            card.innerHTML = `
+              <a href="${release.link}">
+                <img src="${release.img}" alt="${release.title}">
+                <div class="release-info">
+                  <h2>${release.title}</h2>
+                  <p class="date">${release.date}</p>
+                  <p class="excerpt">${release.excerpt}</p>
+                  <p class="tags">タグ: ${tagsText}</p>
+                </div>
+              </a>
+            `;
+            container.appendChild(card);
+          });
+        }
       }
-    });
-
-    // CTA ボタンのクリック時フィードバック（動的エフェクト）
-    document.addEventListener("DOMContentLoaded", function() {
-      document.querySelectorAll('.cta-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-          this.style.transform = 'scale(0.98)';
-          setTimeout(() => {
-            this.style.transform = 'scale(1)';
-          }, 150);
-        });
-      });
     });
   </script>
 </body>

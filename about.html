@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>企業概要 - UP Global Press</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css"/>
+  <!-- GTranslateウィジェット初期化 -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
@@ -15,6 +16,44 @@
     }
   </script>
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
+  <style>
+    .about-section {
+      background: linear-gradient(135deg, #ffffff, #f2f2f2);
+      padding: 60px 20px;
+      border-radius: 10px;
+      max-width: 900px;
+      margin: 40px auto;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      font-size: 1rem;
+    }
+    .about-section h1 {
+      font-size: 2.5rem;
+      color: var(--accent-color);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .about-section h2 {
+      font-size: 1.8rem;
+      color: var(--accent-color);
+      margin-top: 30px;
+      margin-bottom: 10px;
+    }
+    .about-section p {
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+    .about-section ul {
+      list-style: disc inside;
+      margin-bottom: 20px;
+    }
+    .about-section ul li {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+  </style>
 </head>
 <body>
   <!-- ヘッダー読み込み -->
@@ -24,23 +63,23 @@
     <section class="about-section">
       <h1>企業概要</h1>
       <p>
-        株式会社UNPLACEDは、UP Global Pressを通じてグローバルな情報発信と信頼性の高いプレスリリースサービスを提供しています。また、バングラディシュ人材の紹介やサステナブル素材のプロダクト販売など、国内外で多角的な事業を展開しています。
+        株式会社UNPLACEDは、UP Global Pressを通じてグローバルな情報発信と信頼性の高いプレスリリースサービスを提供しています。さらに、バングラディシュ人材の紹介や、環境に優しいサステナブル素材を用いたプロダクト販売など、複数の事業を展開し、国内外の市場に革新的な価値を提供しています。
       </p>
       <h2>事業内容</h2>
       <ul>
-        <li><strong>プレスリリース配信:</strong> 最新のニュースや発表情報を迅速かつ正確に配信。</li>
-        <li><strong>人材紹介:</strong> バングラディシュの優秀な人材を日本企業に紹介し、国際的なビジネス交流を促進。</li>
-        <li><strong>サステナブルプロダクト:</strong> 環境に配慮した素材を用いた製品の販売。</li>
+        <li><strong>プレスリリースサイト運営:</strong> 最新ニュースや発表情報を迅速かつ正確に配信。</li>
+        <li><strong>バングラディシュ人材紹介:</strong> バングラディシュの優秀な人材を日本企業に紹介し、ビジネス交流を促進。</li>
+        <li><strong>サステナブル素材プロダクト販売:</strong> 環境に配慮した素材を用いたプロダクトで持続可能な社会に貢献。</li>
       </ul>
       <p>
-        当社は、革新的なビジネスモデルとグローバルな視点で、お客様に新たな価値を提供します。
+        当社は、多角的なビジネス展開と情報発信を通じ、国内外の市場で新たな価値創造に挑戦しています。グローバルな視点での革新と信頼性を追求し、常にお客様の期待に応えるパートナーとして成長を続けます。
       </p>
     </section>
   </main>
-  
+
   <!-- フッター読み込み -->
   <div id="footer-placeholder"></div>
-  
+
   <script>
     async function loadHTML(url, elementId) {
       const response = await fetch(url);
@@ -54,6 +93,27 @@
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
     });
+    
+    function setupSearch(inputId, btnId) {
+      const input = document.getElementById(inputId);
+      const btn = document.getElementById(btnId);
+      if (input && btn) {
+        btn.addEventListener("click", () => {
+          const query = input.value.trim();
+          if (query) {
+            window.location.href = "search.html?query=" + encodeURIComponent(query);
+          }
+        });
+        input.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
+            const query = input.value.trim();
+            if (query) {
+              window.location.href = "search.html?query=" + encodeURIComponent(query);
+            }
+          }
+        });
+      }
+    }
   </script>
 </body>
 </html>

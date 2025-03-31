@@ -14,7 +14,6 @@
   --hero-bg-overlay: rgba(0, 34, 68, 0.8);
 }
 
-/* リセット */
 * {
   margin: 0;
   padding: 0;
@@ -80,6 +79,10 @@ header {
   font-size: 0.9rem;
   transition: background 0.3s, color 0.3s;
   margin-left: 10px;
+}
+.logout-btn:hover {
+  background: var(--accent-color);
+  color: #fff;
 }
 .language-switcher {
   margin-right: 10px;
@@ -314,26 +317,49 @@ header {
   text-align: justify;
   color: var(--text-color);
 }
-/* CTAボタン */
-.cta-btn {
-  display: inline-block;
-  background: var(--accent-color);
+.big-gray-btn {
+  background: #777;
   color: #fff;
+  font-weight: bold;
   padding: 16px 32px;
-  border: none;
   border-radius: 30px;
-  font-size: 1.1rem;
-  font-weight: 700;
   text-decoration: none;
-  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  display: inline-block;
+  font-size: 1.1rem;
+  transition: background 0.3s, transform 0.3s;
 }
-.cta-btn:hover {
-  background: var(--highlight-color);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+.big-gray-btn:hover {
+  background: #555;
+  transform: translateY(-2px);
+}
+.service-img {
+  flex: 1 1 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.service-img img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.service-bottom {
+  max-width: 1200px;
+  margin: 40px auto 0;
+  text-align: center;
+}
+.service-bottom-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+.service-bottom-sub {
+  font-size: 1rem;
+  color: #444;
+  margin-top: 10px;
 }
 
-/* サイト情報セクション */
+/* 通常背景のセクション（サイト情報） */
 .site-info {
   background: var(--primary-bg);
   padding: 40px 20px;
@@ -342,15 +368,6 @@ header {
   max-width: 900px;
   margin: 0 auto;
   text-align: center;
-}
-.site-info h2 {
-  font-size: 2.5rem;
-  color: var(--accent-color);
-  margin-bottom: 30px;
-}
-.site-info p {
-  font-size: 1.2rem;
-  color: #333;
 }
 
 /* Footer */
@@ -376,57 +393,36 @@ footer {
   color: var(--text-color);
 }
 
-/* レスポンシブ対応 */
-
-/* タブレット向け（768px〜1024px） */
-@media (max-width: 1024px) and (min-width: 768px) {
-  body {
-    font-size: 1rem;
+/* レスポンシブ */
+@media (max-width: 600px) {
+  .header-top, .header-inner {
+    flex-wrap: wrap;
+    padding: 10px 20px;
   }
-  .hero-content h1 {
-    font-size: 2.5rem;
-  }
-  .main-nav a {
-    padding: 10px 14px;
-  }
-  .search-bar input {
-    padding: 8px 12px;
-  }
-  .cms-container {
-    padding: 20px;
-  }
-}
-
-/* スマートフォン向け（480px以下） */
-@media (max-width: 480px) {
-  body {
-    font-size: 0.9rem;
-  }
-  .hero-content h1 {
-    font-size: 1.8rem;
-  }
-  .hero-content p {
-    font-size: 1rem;
+  .logo a {
+    font-size: 1.6rem;
   }
   .main-nav {
     display: none;
   }
+  .search-bar {
+    display: none;
+  }
   .hamburger {
     display: block;
+    font-size: 2rem;
+    color: var(--accent-color);
+    cursor: pointer;
+    margin-left: auto;
   }
   #menu-toggle:checked + .hamburger + .mobile-nav {
     display: flex;
   }
-  .mobile-nav {
-    flex-direction: column;
-    gap: 10px;
+  .hero-content h1 {
+    font-size: 2rem;
   }
-  .search-bar input, .search-bar button {
-    font-size: 0.9rem;
-    padding: 6px 10px;
-  }
-  button, .btn, .cta-btn, .cms-button, .logout-btn {
-    padding: 12px 20px;
+  .hero-content p {
+    font-size: 1rem;
   }
   .releases {
     grid-template-columns: 1fr;

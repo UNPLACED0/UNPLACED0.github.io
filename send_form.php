@@ -1,45 +1,73 @@
-<?php
-// send_form.php
+// send_form.js (Netlify Functions などで使用)
+const nodemailer = require("nodemailer");
 
-// POSTメソッドでアクセスされた場合のみ実行
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // フォームの各入力値を取得
-    $name     = $_POST["name"]     ?? "";
-    $company  = $_POST["company"]  ?? "";
-    $companyHP= $_POST["companyHP"]?? "";
-    $email    = $_POST["email"]    ?? "";
-    $tel      = $_POST["tel"]      ?? "";
-    $message  = $_POST["message"]  ?? "";
-    
-    // 必須チェック（例：名前とメールは必須）
-    if (empty($name) || empty($email)) {
-        // 必須が足りない場合、エラー画面やフォームに戻すなどの処理
-        exit("必須項目が入力されていません。");
-    }
+exports.handler = async (event, context) => {
+  // POST メソッド以外は拒否
+  if (event.httpMethod !== "POST") {
+    return {
+      statusCode: 405,
+      body: "Method Not Allowed",
+    };
+  }
 
-    // メール本文を組み立て
-    $body = "お名前: $name\n会社名: $company\n会社HP: $companyHP\nメールアドレス: $email\n電話番号: $tel\n\n【お問い合わせ内容】\n$message\n";
+  let data;
+  try {
+    data = JSON.parse(event.body);
+  } catch (err) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: "無効なJSON形式です。" }),
+    };
+  }
 
-    // 文字化け防止（日本語の場合）
-    mb_language("ja");
-    mb_internal_encoding("UTF-8");
+  // フォームの各項目を取得
+  const { name, company, companyHP, email, tel, message } = data;
 
-    // メール送信（宛先は unplaced.prinfo@gmail.com、件名は仮）
-    $to      = "unplaced.prinfo@gmail.com";
-    $subject = "【UP Global Press】お問い合わせ";
-    $headers = "From: " . mb_encode_mimeheader("UP Global Press") . " <no-reply@example.com>";
+  // 必須項目チェック（例：名前とメールアドレスは必須）
+  if (!name || !email) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: "必須項目（お名前、メールアドレス）が不足しています。" }),
+    };
+  }
 
-    // mail() はサーバー設定によっては送れない場合あり。代替ライブラリ(PHPMailer等)も検討
-    $mailSuccess = mb_send_mail($to, $subject, $body, $headers);
+  // nodemailer のトランスポーターを設定
+  let transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: parseInt(process.env.SMTP_PORT, 10),
+    secure: process.env.SMTP_SECURE === "true", // 465ポートの場合 true、それ以外は false
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  });
 
-    if ($mailSuccess) {
-        // 送信成功時のリダイレクト（thank_you.html など）
-        header("Location: thank_you.html");
-        exit;
-    } else {
-        exit("メール送信に失敗しました。");
-    }
-} else {
-    // GETやその他メソッドでアクセスされた場合
-    exit("直接アクセスは許可されていません。");
-}
+  // メール本文の作成
+  const mailOptions = {
+    from: `"${name}" <${email}>`, // 送信元（ユーザーの名前とメールアドレス）
+    to: "unplaced.prinfo@gmail.com", // 送信先
+    subject: "【UP Global Press】お問い合わせ",
+    text: `お名前: ${name}
+会社名: ${company}
+会社HP: ${companyHP}
+メールアドレス: ${email}
+電話番号: ${tel}
+
+【お問い合わせ内容】
+${message}`,
+  };
+
+  try {
+    // メール送信
+    let info = await transporter.sendMail(mailOptions);
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: "お問い合わせを受け付けました。", info }),
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "メール送信に失敗しました。", details: error.toString() }),
+    };
+  }
+};

@@ -1,6 +1,6 @@
 <header>
   <div class="header-container">
-    <!-- 上段：ロゴ＋右側（翻訳ウィジェット、CMSボタン、ログアウトボタン） -->
+    <!-- 上段：ロゴ（左）＋右側（翻訳ウィジェット、CMSボタン、必要に応じてログアウトボタン） -->
     <div class="header-top">
       <div class="logo">
         <a href="index.html">UP Global Press</a>
@@ -10,7 +10,7 @@
           <div id="google_translate_element"></div>
         </div>
         <a href="cms.html" class="cms-button">CMS</a>
-        <a href="cms_login.html" class="logout-btn" onclick="localStorage.removeItem('cmsRole');">ログアウト</a>
+        <!-- ログアウトボタンは必要に応じて追加可能 -->
       </div>
     </div>
     <!-- 下段：ナビゲーション＆検索バー -->
@@ -21,6 +21,7 @@
         <a href="release_list.html">プレスリリース一覧</a>
         <a href="contact.html">お問い合わせ</a>
       </nav>
+      <!-- 検索バー（検索機能のスクリプトは各ページに実装） -->
       <div class="search-bar">
         <input type="text" placeholder="キーワードで検索" id="searchInput" />
         <button id="searchBtn">検索</button>
@@ -39,4 +40,5 @@
       </div>
     </div>
   </div>
+  <!-- Google翻訳ウィジェット初期化用スクリプトは各ページでも動作するよう読み込み済み -->
 </header>
