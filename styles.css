@@ -720,4 +720,20 @@ html::before {
 .cms-container .cms-search button:hover {
   background-color: var(--highlight-color);
 }
+/* 静的ページ専用のスタイル */
+.static-content {
+  background-color: var(--primary-bg);
+  color: var(--text-color);
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 900px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  line-height: 1.8;
+}
+
+.static-content a {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
 
