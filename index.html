@@ -69,16 +69,19 @@
 
   <!-- プレスリリースデータ -->
   <script src="releases.js"></script>
+  
   <script>
     // ヘッダー・フッター読み込み用関数
-    function loadHTML(url, elementId) {
-      return fetch(url)
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById(elementId).innerHTML = data;
-        })
-        .catch(error => console.error('Error loading ' + url + ':', error));
+    async function loadHTML(url, elementId) {
+      try {
+        const response = await fetch(url);
+        const data = await response.text();
+        document.getElementById(elementId).innerHTML = data;
+      } catch (error) {
+        console.error('Error loading ' + url + ':', error);
+      }
     }
+    
     // 検索バーイベント設定
     function setupSearch(inputId, btnId) {
       const input = document.getElementById(inputId);
@@ -100,13 +103,16 @@
         });
       }
     }
+    
+    // DOMContentLoaded 内で header/footer の読み込み完了後にテーマセレクターを追加する
     document.addEventListener("DOMContentLoaded", async () => {
       await loadHTML('includes/header.html', 'header-placeholder');
       await loadHTML('includes/footer.html', 'footer-placeholder');
+      
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
       
-      // 最新6件のプレスリリース表示
+      // 最新プレスリリースの挿入処理
       if (typeof releasesData !== "undefined") {
         const container = document.querySelector(".releases");
         if (container) {
@@ -135,21 +141,14 @@
       // テーマの初期設定（localStorageから取得、なければ blue）
       var savedTheme = localStorage.getItem('theme') || 'blue';
       document.documentElement.classList.add('theme-' + savedTheme);
-    });
-  </script>
-
-  <!-- ヘッダーの右端に配置するテーマ切替用セレクトボックス -->
-  <script>
-    // ヘッダーの読み込み後、テーマセレクターをヘッダー内に追加
-    document.addEventListener("DOMContentLoaded", function(){
-      var header = document.querySelector("header");
-      if(header) {
-        // テーマセレクターコンテナを作成（右端に固定）
+      
+      // ヘッダー内の右端にある header-top-right にテーマセレクターを追加
+      var headerTopRight = document.querySelector(".header-top-right");
+      if(headerTopRight) {
         var themeContainer = document.createElement("div");
         themeContainer.id = "themeSelectorContainer";
-        themeContainer.style.position = "absolute";
-        themeContainer.style.right = "20px";
-        themeContainer.style.top = "10px";
+        themeContainer.style.marginLeft = "auto";
+        themeContainer.style.paddingLeft = "10px";
         themeContainer.innerHTML = `
           <select id="themeSelector">
             <option value="blue">NAVY</option>
@@ -158,16 +157,13 @@
             <option value="black">BLACK</option>
           </select>
         `;
-        // ヘッダー内に追加（headerは外部ファイルで読み込まれているので、ここでappendChild）
-        header.appendChild(themeContainer);
+        headerTopRight.appendChild(themeContainer);
         
-        // 初期テーマの値を設定
-        var savedTheme = localStorage.getItem('theme') || 'blue';
+        // セレクトボックスに保存テーマを反映
         document.getElementById('themeSelector').value = savedTheme;
         
-        // テーマ変更時のイベントリスナー
         document.getElementById('themeSelector').addEventListener('change', function(){
-          var theme = this.value; // blue, green, neon, black
+          var theme = this.value;
           localStorage.setItem('theme', theme);
           document.documentElement.classList.remove('theme-blue','theme-green','theme-neon','theme-black');
           document.documentElement.classList.add('theme-' + theme);
