@@ -79,7 +79,6 @@
   <script src="releases.js"></script>
   
   <script>
-    // ヘッダー・フッター読み込み用関数
     async function loadHTML(url, elementId) {
       try {
         const response = await fetch(url);
@@ -90,7 +89,6 @@
       }
     }
     
-    // 検索バーイベント設定
     function setupSearch(inputId, btnId) {
       const input = document.getElementById(inputId);
       const btn = document.getElementById(btnId);
@@ -115,7 +113,6 @@
     document.addEventListener("DOMContentLoaded", async () => {
       await loadHTML('includes/header.html', 'header-placeholder');
       await loadHTML('includes/footer.html', 'footer-placeholder');
-      
       setupSearch("searchInput", "searchBtn");
       setupSearch("searchInputMobile", "searchBtnMobile");
       
@@ -145,42 +142,20 @@
         }
       }
       
-      // テーマの初期設定（localStorageから取得、なければ blue）
-      var savedTheme = localStorage.getItem('theme') || 'blue';
-      document.documentElement.classList.add('theme-' + savedTheme);
-    });
-  </script>
-
-  <!-- footer 内にテーマ切替用セレクトボックスを追加 -->
-  <script>
-    // フッター読み込み後、footer-placeholder 内の <footer> 要素を取得
-    document.addEventListener("DOMContentLoaded", function(){
-      // footer.html の読み込みが完了しているはずなので、#footer-placeholder 内の footer を取得
-      var footer = document.querySelector("#footer-placeholder footer");
-      if(footer) {
-        var themeContainer = document.createElement("div");
-        themeContainer.id = "themeSelectorContainer";
-        themeContainer.style.cssText = "float: right; margin-right: 20px; margin-top: 10px;";
-        themeContainer.innerHTML = `
-          <select id="themeSelector">
-            <option value="blue">NAVY</option>
-            <option value="green">GREEN</option>
-            <option value="neon">NEON</option>
-            <option value="black">BLACK</option>
-          </select>
-        `;
-        footer.appendChild(themeContainer);
-        // セレクトボックスに保存されたテーマの値を反映
-        var savedTheme = localStorage.getItem('theme') || 'blue';
-        document.getElementById('themeSelector').value = savedTheme;
-        document.getElementById('themeSelector').addEventListener('change', function(){
-          var theme = this.value;
-          localStorage.setItem('theme', theme);
-          document.documentElement.classList.remove('theme-blue','theme-green','theme-neon','theme-black');
-          document.documentElement.classList.add('theme-' + theme);
-        });
+      // footer 内の select（id="themeSelector"）にイベントを設定
+      // ※footer.html 内にすでにセレクトボックスが組み込まれている前提
+      var themeSelector = document.getElementById('themeSelector');
+      if (themeSelector) {
+         // 初期値を localStorage から反映
+         themeSelector.value = localStorage.getItem('theme') || 'blue';
+         themeSelector.addEventListener('change', function(){
+           var theme = this.value; // "blue", "green", "neon", "black"
+           localStorage.setItem('theme', theme);
+           document.documentElement.classList.remove('theme-blue','theme-green','theme-neon','theme-black');
+           document.documentElement.classList.add('theme-' + theme);
+         });
       } else {
-        console.error("Footer 内の <footer> 要素が見つかりません。");
+         console.error("Theme selector not found in footer.");
       }
     });
   </script>
