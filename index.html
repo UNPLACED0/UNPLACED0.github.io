@@ -18,14 +18,14 @@
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
 </head>
 <body>
-  <!-- ふわふわ動く背景 -->
+  <!-- ふわふわ動く背景（バブル要素はCSSで位置・サイズ・アニメーション設定） -->
   <div class="floating-bg">
-    <div class="bubble" style="width: 80px; height: 80px; left: 10%; top: 20%; animation-delay: 0s;"></div>
-    <div class="bubble" style="width: 50px; height: 50px; left: 70%; top: 30%; animation-delay: 1s;"></div>
-    <div class="bubble" style="width: 100px; height: 100px; left: 40%; top: 10%; animation-delay: 2s;"></div>
-    <div class="bubble" style="width: 60px; height: 60px; left: 80%; top: 60%; animation-delay: 3s;"></div>
-    <div class="bubble" style="width: 90px; height: 90px; left: 20%; top: 70%; animation-delay: 4s;"></div>
-    <div class="bubble" style="width: 70px; height: 70px; left: 50%; top: 80%; animation-delay: 5s;"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
   </div>
 
   <!-- ヘッダーを外部ファイルから読み込む領域 -->
@@ -97,6 +97,9 @@
 
       if (typeof releasesData !== "undefined") {
         const container = document.querySelector(".releases");
+        // 念のため releases セクションに position: relative; を付与
+        container.style.position = "relative";
+        container.style.zIndex = "1";
         releasesData.sort((a, b) => new Date(b.date) - new Date(a.date));
         const latestSix = releasesData.slice(0, 6);
         latestSix.forEach(release => {
