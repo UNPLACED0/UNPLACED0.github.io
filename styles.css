@@ -71,23 +71,24 @@
 
 /* Neon Theme */
 .theme-neon {
-  --primary-bg: #121212;
-  --secondary-bg: #1f1f1f;
-  --accent-color: #00eaff;
-  --highlight-color: #00ffff;
-  --text-color: #f5f5f5;
-  --sub-text: #cccccc;
-  --card-bg: #1e1e1e;
-  --border-color: #333333;
-  --hover-shadow: 0 0 15px rgba(0,234,255,0.6);
-  --hero-bg-overlay: rgba(0,234,255,0.3);
-  --bubble-color1: rgba(255,20,147,0.7);
-  --bubble-color2: rgba(255,20,147,0.6);
-  --bubble-color3: rgba(255,20,147,0.8);
-  --bubble-color4: rgba(255,20,147,0.5);
-  --bubble-color5: rgba(255,20,147,0.9);
-  --bubble-color-side: rgba(255,20,147,0.6);
-  --bubble-color-large: rgba(255,20,147,0.5);
+  --primary-bg: #121212;            /* ベースの背景色はそのまま */
+  --secondary-bg: #1c1c1c;           /* やや暗めのセカンダリ背景 */
+  --accent-color: #00ffe0;           /* より明るいシアン系アクセント */
+  --highlight-color: #00dede;        /* アクセントに合わせたハイライト */
+  --text-color: #f5f5f5;             /* テキストは明るい色 */
+  --sub-text: #cccccc;               /* サブテキストも十分な明度 */
+  --card-bg: #1a1a1a;                /* カード背景は暗めに統一 */
+  --border-color: #444444;           /* 境界線はやや明るくして柔らかく */
+  --hover-shadow: 0 0 15px rgba(0,229,255,0.6);
+  --hero-bg-overlay: rgba(0,229,255,0.3);
+  /* バブルカラーもアクセントに合わせて調整 */
+  --bubble-color1: rgba(0,255,238,0.7);
+  --bubble-color2: rgba(0,255,238,0.6);
+  --bubble-color3: rgba(0,255,238,0.8);
+  --bubble-color4: rgba(0,255,238,0.5);
+  --bubble-color5: rgba(0,255,238,0.9);
+  --bubble-color-side: rgba(0,255,238,0.6);
+  --bubble-color-large: rgba(0,255,238,0.5);
 }
 
 /* Black Theme */
