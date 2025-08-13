@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>UNPLACED</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      /* リセット＆基本設定 */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        scroll-snap-type: y mandatory;
+        overflow-y: scroll;
+        background: #000;
+        color: #fff;
+        font-family: sans-serif;
+      }
+      body {
+        line-height: 1.4;
+      }
+
+      /* セクション共通設定 */
+      section {
+        height: 100vh;
+        scroll-snap-align: start;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: relative;
+        border-bottom: 2px solid #fff;
+        padding: 20px;
+      }
+
+      /* アニメーション用 */
+      .content {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 3s ease-out; /* 遷移時間を3秒に変更 */
+      }
+      section.visible .content {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* セクション1：ロゴ画像 */
+      .logo {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+      .logo img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        max-width: none;
+        height: auto;
+      }
+
+      /* セクション2：キャッチコピー */
+      .tagline {
+        font-size: 3.5em;
+        font-weight: bold;
+        line-height: 1.2;
+        margin-bottom: 20px;
+      }
+
+      /* セクション3：会社説明 */
+      .description {
+        font-size: 2.8em;
+        font-weight: bold;
+        line-height: 1.3;
+      }
+
+      /* セクション4：お問い合わせフォーム */
+      .form-container {
+        width: 90%;
+        max-width: 700px;
+        background: #111;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+        margin: 0 auto;
+        text-align: left;
+      }
+      .form-container h2 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .form-row {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .form-group {
+        flex: 1;
+        min-width: 280px;
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        font-size: 1em;
+        margin-bottom: 6px;
+        font-weight: bold;
+      }
+      .form-group input {
+        width: 100%;
+        padding: 10px;
+        font-size: 1em;
+        border: none;
+        border-radius: 4px;
+        background: #222;
+        color: #fff;
+      }
+      button {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        font-size: 1em;
+        border: 1px solid #666;
+        border-radius: 4px;
+        background: linear-gradient(135deg, #333, #555);
+        color: #fff;
+        cursor: pointer;
+        transition: background 0.3s, border-color 0.3s;
+      }
+      button:hover {
+        background: linear-gradient(135deg, #444, #666);
+        border-color: #888;
+      }
+
+      /* スマホ向けレスポンシブ調整 */
+      @media (max-width: 600px) {
+        .tagline {
+          font-size: 2.5em;
+        }
+        .description {
+          font-size: 2em;
+        }
+        .form-container {
+          padding: 20px;
+          max-width: 90%;
+        }
+        .form-container h2 {
+          font-size: 1.5em;
+        }
+        .form-group label {
+          font-size: 1em;
+        }
+        .form-group input {
+          padding: 8px;
+          font-size: 1em;
+        }
+        button {
+          padding: 10px;
+          font-size: 1em;
+        }
+        .logo img {
+          width: 80%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- セクション1：ロゴ画像（画面いっぱいに大きく表示） -->
+      <section id="section1">
+        <div class="content logo">
+          <img
+            src="https://storage.googleapis.com/studio-design-asset-files/projects/d7WlQ62zOV/s-300x80_2afcdbec-ba6f-4a07-9c97-6bcd76fbaaf5.svg"
+            alt="UNPLACEDロゴ"
+          />
+        </div>
+      </section>
+
+      <!-- セクション2：キャッチコピー -->
+      <section id="section2">
+        <div class="content">
+          <div class="tagline">Bridging Talents, Shaping Tomorrow.</div>
+          <div class="tagline">「才能を繋ぎ、未来を創る」</div>
+        </div>
+      </section>
+
+      <!-- セクション3：会社説明 -->
+      <section id="section3">
+        <div class="content">
+          <div class="description">UNPLACED Inc.</div>
+          <div class="description" style="font-size: 2.6em">
+            グローバルな人材交流を通じて、日本の社会基盤を支え、<br />
+            共に成長できる未来を創造する
+          </div>
+        </div>
+      </section>
+
+      <!-- セクション4：お問い合わせフォーム -->
+      <section id="section4">
+        <div class="content">
+          <div class="form-container">
+            <h2>お問い合わせ</h2>
+            <form>
+              <div class="form-group">
+                <label>会社名 <span style="color: #ec1999">必須</span></label>
+                <input type="text" name="company" required />
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>部署</label>
+                  <input type="text" name="department" />
+                </div>
+                <div class="form-group">
+                  <label>役職</label>
+                  <input type="text" name="position" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>お名前 <span style="color: #ec1999">必須</span></label>
+                <input type="text" name="name" required />
+              </div>
+              <div class="form-group">
+                <label
+                  >メールアドレス
+                  <span style="color: #ec1999">必須</span></label
+                >
+                <input type="email" name="email" required />
+              </div>
+              <div class="form-group">
+                <label>電話番号 <span style="color: #ec1999">必須</span></label>
+                <input type="tel" name="phone" required />
+              </div>
+              <button type="submit">送信する</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // IntersectionObserverで各セクションが50%以上表示されたらアニメーションを適用
+      document.addEventListener("DOMContentLoaded", function () {
+        const sections = document.querySelectorAll("section");
+        const observer = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.5 }
+        );
+        sections.forEach((sec) => observer.observe(sec));
+      });
+    </script>
+  </body>
+</html>
